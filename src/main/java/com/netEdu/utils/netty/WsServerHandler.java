@@ -25,31 +25,48 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
     }
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
-        Channel incoming = ctx.channel();
-        for (Channel channel : channels) {
-            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
-        }
+//        Channel incoming = ctx.channel();
+//        for (Channel channel : channels) {
+//            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
+//        }
         channels.add(ctx.channel());
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
-        Channel incoming = ctx.channel();
-        for (Channel channel : channels) {
-            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
-        }
+//        Channel incoming = ctx.channel();
+//        for (Channel channel : channels) {
+//            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
+//        }
         channels.remove(ctx.channel());
     }
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
         Channel incoming = ctx.channel();
-        System.out.println("Client:"+incoming.remoteAddress()+"在线");
+        String ip=Connection.getIpAddress(incoming);
+        System.out.println(ip+"正在请求链接。。。");
+        if(!Connection.AllConnections.containsKey(ip)){
+            Connection.AllConnections.put(ip,incoming);
+            System.out.println("Client:"+incoming.remoteAddress()+"在线");
+        }else {
+            System.out.println("检测到多开链接！正在关闭...");
+            incoming.close();
+        }
+
+
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
         Channel incoming = ctx.channel();
-        System.out.println("Client:"+incoming.remoteAddress()+"掉线");
+        String ip=Connection.getIpAddress(incoming);
+        if(incoming == Connection.AllConnections.get(ip)){
+            Connection.AllConnections.remove(ip);
+            System.out.println("Client:"+ip+"离线");
+        }else{
+            System.out.println("多开链接已被关闭");
+        }
+
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
