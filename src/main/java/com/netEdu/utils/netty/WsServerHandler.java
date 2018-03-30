@@ -1,6 +1,7 @@
 package com.netEdu.utils.netty;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -10,18 +11,25 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.util.Date;
 
+@ChannelHandler.Sharable
 public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketFrame> {
     public static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame msg) throws Exception {
         Channel incoming = channelHandlerContext.channel();
-        System.out.println(incoming.remoteAddress()+msg.text());
+        //String ip=Connection.getIpAddress(incoming);
+        switch (Connection.getMessageType(msg)) {
+            //当第一位为0时，接收学生ID，将ID和Channel一组存入Map,IP，ID一起存入MAP
+            case 0:
+                Connection.loginBind(incoming, msg);
+            case 1:
+                Connection.transMessage(incoming,msg);
+            case 2:
 
-        for (Channel channel : channels) {
-            if (channel != incoming){
-                channel.writeAndFlush(new TextWebSocketFrame(msg.text()+","+new Date().getTime()));
-            }
         }
+
+
+
     }
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
@@ -29,7 +37,7 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
 //        for (Channel channel : channels) {
 //            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
 //        }
-        channels.add(ctx.channel());
+//        channels.add(ctx.channel());
     }
 
     @Override
@@ -38,34 +46,27 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
 //        for (Channel channel : channels) {
 //            channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
 //        }
-        channels.remove(ctx.channel());
+//        channels.remove(ctx.channel());
     }
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
-        Channel incoming = ctx.channel();
-        String ip=Connection.getIpAddress(incoming);
-        System.out.println(ip+"正在请求链接。。。");
-        if(!Connection.AllConnections.containsKey(ip)){
-            Connection.AllConnections.put(ip,incoming);
-            System.out.println("Client:"+incoming.remoteAddress()+"在线");
-        }else {
-            System.out.println("检测到多开链接！正在关闭...");
-            incoming.close();
-        }
+//        Channel incoming = ctx.channel();
+//        String ip=Connection.getIpAddress(incoming);
+//        channels.add(incoming);
+//        if(!Connection.AllConnections.containsKey(ip)){
+//            Connection.AllConnections.put(ip,incoming);
+//            System.out.println("Client:"+incoming.remoteAddress()+"在线");
+//        }else {
+//            System.out.println("检测到多开链接！正在关闭...");
+//            incoming.close();
+//        }
 
 
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
-        Channel incoming = ctx.channel();
-        String ip=Connection.getIpAddress(incoming);
-        if(incoming == Connection.AllConnections.get(ip)){
-            Connection.AllConnections.remove(ip);
-            System.out.println("Client:"+ip+"离线");
-        }else{
-            System.out.println("多开链接已被关闭");
-        }
+       Connection.shutDown(ctx.channel());
 
     }
     @Override
