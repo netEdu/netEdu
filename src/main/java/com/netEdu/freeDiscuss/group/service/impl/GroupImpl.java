@@ -1,8 +1,8 @@
-package com.netEdu.discuss.user.group.service.impl;
+package com.netEdu.freeDiscuss.group.service.impl;
 
-import com.netEdu.discuss.user.group.dao.GroupMapper;
-import com.netEdu.discuss.user.group.entity.Group;
-import com.netEdu.discuss.user.group.service.GroupService;
+import com.netEdu.freeDiscuss.group.dao.GroupMapper;
+import com.netEdu.entity.Group;
+import com.netEdu.freeDiscuss.group.service.GroupService;
 import com.netEdu.utils.netty.Connection;
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;

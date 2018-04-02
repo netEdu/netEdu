@@ -1,7 +1,7 @@
-package com.netEdu.discuss.user.group.service;
+package com.netEdu.freeDiscuss.group.service;
 
 
-import com.netEdu.discuss.user.group.entity.Group;
+import com.netEdu.entity.Group;
 
 
 public interface GroupService {

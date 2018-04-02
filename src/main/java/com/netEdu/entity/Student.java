@@ -1,4 +1,4 @@
-package com.netEdu.login.entity;
+package com.netEdu.entity;
 
 import lombok.Data;
 

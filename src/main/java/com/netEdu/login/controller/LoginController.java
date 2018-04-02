@@ -1,6 +1,6 @@
 package com.netEdu.login.controller;
 
-import com.netEdu.login.entity.Student;
+import com.netEdu.entity.Student;
 import com.netEdu.login.service.impl.StudentImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

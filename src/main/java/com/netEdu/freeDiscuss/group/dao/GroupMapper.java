@@ -1,6 +1,6 @@
-package com.netEdu.discuss.user.group.dao;
+package com.netEdu.freeDiscuss.group.dao;
 
-import com.netEdu.discuss.user.group.entity.Group;
+import com.netEdu.entity.Group;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

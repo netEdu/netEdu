@@ -1,8 +1,8 @@
-package com.netEdu.discuss.user.group.controller;
+package com.netEdu.freeDiscuss.group.controller;
 
 
-import com.netEdu.discuss.user.group.entity.Group;
-import com.netEdu.discuss.user.group.service.impl.GroupImpl;
+import com.netEdu.entity.Group;
+import com.netEdu.freeDiscuss.group.service.impl.GroupImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

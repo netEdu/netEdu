@@ -1,7 +1,7 @@
 package com.netEdu.login.service.impl;
 
 import com.netEdu.login.dao.StudentMapper;
-import com.netEdu.login.entity.Student;
+import com.netEdu.entity.Student;
 import com.netEdu.login.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
