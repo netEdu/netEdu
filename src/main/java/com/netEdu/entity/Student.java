@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Student {
+
     private int student_id;
     private String name;
     private String password;
@@ -17,6 +18,5 @@ public class Student {
     private String create_time;
     private String class_num;
     private String del_flag;
-
 
 }

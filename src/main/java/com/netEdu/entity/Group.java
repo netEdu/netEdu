@@ -11,4 +11,5 @@ public class Group {
     private String group_name;
     private String person_id;
     private String del_flag;
+
 }
