@@ -13,9 +13,8 @@ public class QuestionController {
     private QuestionImpl questionImpl;
 
     @PostMapping("/addQuestion")
-    public String add(@RequestBody Question question){
+    public void add(@RequestBody(required = false) Question question){
         questionImpl.add(question);
-        return "1";
     }
 
 }

@@ -16,7 +16,7 @@ public class QuestionImpl implements QuestionService{
 
     @Override
     public void add(Question question){
-
+        questionMapper.insertSelective(question);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class QuestionImpl implements QuestionService{
 
     @Override
     public void update(Question question){
-
+        questionMapper.updateByPrimaryKeySelective(question);
     }
 
     @Override

@@ -2,8 +2,12 @@ package com.netEdu.entity;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import java.io.Serializable;
+
+@Entity
 @Data
-public class Question {
+public class Question implements Serializable{
 
     private String question_id;
     private String teacher_id;
