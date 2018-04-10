@@ -12,8 +12,8 @@ import lombok.Data;
 @Data
 public class TeacherEvaluate {
     private int evaluate_id;
-    private String questionnaire_id;
-    private String student_id;
+    private int questionnaire_id;
+    private int student_id;
     private String answers;
     private String del_flag;
 }

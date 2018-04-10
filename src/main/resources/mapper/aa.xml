@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里的namespace必须和是对应的mapper.java的地址-->
+<mapper namespace="com.netEdu.lesson.rate.dao.TeacherEvaluateDao" >
+
+    <insert id="addTeacherEvaluate" parameterType="com.netEdu.entity.TeacherEvaluate" >
+        insert into t_evaluate(questionnaire_id, student_id, answers, del_flag)
+		values(#{questionnaire_id}, #{student_id}, #{answers}, #{del_flag})
+    </insert>
+
+</mapper>
