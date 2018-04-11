@@ -16,4 +16,6 @@ public interface TeacherEvaluateService {
     void addTeacherEvaluate(TeacherEvaluate teacherEvaluate);
 
     List<TeacherEvaluate> queryByPage(TeacherEvaluatePage page);
+
+    void upTeacherEvaluate(TeacherEvaluate teacherEvaluate);
 }
