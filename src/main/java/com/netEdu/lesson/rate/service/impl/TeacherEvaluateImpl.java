@@ -28,7 +28,14 @@ public class TeacherEvaluateImpl implements TeacherEvaluateService{
 
     @Override
     public List<TeacherEvaluate> queryByPage(TeacherEvaluatePage page) {
+        Integer rowCount = teacherEvaluateDao.queryByCount(page);
+        page.getPager().setRowCount(rowCount);
         return teacherEvaluateDao.queryByPage(page);
+    }
+
+    @Override
+    public void upTeacherEvaluate(TeacherEvaluate teacherEvaluate) {
+        teacherEvaluateDao.upTeacherEvaluate(teacherEvaluate);
     }
 
 }
