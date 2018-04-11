@@ -1,17 +1,18 @@
 package com.netEdu.lesson.rate.controller;
 
+import com.adc.da.util.http.PageInfo;
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.netEdu.entity.TeacherEvaluate;
+import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
 import com.netEdu.lesson.rate.service.TeacherEvaluateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -36,4 +37,14 @@ public class TeacherEvaluateController {
         teacherEvaluateService.addTeacherEvaluate(teacherEvaluate);
         return Result.success(teacherEvaluate);
     }
+
+
+    @ApiOperation(value = "|UserlogEO|分页查询")
+    @GetMapping("/page")
+    public ResponseMessage<List<TeacherEvaluate>> page(TeacherEvaluatePage page) throws Exception {
+
+        List<TeacherEvaluate> rows = teacherEvaluateService.queryByPage(page);
+        return Result.success(rows);
+    }
+
 }

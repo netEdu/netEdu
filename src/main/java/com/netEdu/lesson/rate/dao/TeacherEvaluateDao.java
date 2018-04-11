@@ -1,7 +1,10 @@
 package com.netEdu.lesson.rate.dao;
 
 import com.netEdu.entity.TeacherEvaluate;
+import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TeacherEvaluateDao {
     void addTeacherEvaluate(TeacherEvaluate teacherEvaluate);
+
+    List<TeacherEvaluate> queryByPage(TeacherEvaluatePage page);
 }

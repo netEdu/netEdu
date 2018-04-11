@@ -1,6 +1,11 @@
 package com.netEdu.lesson.rate.service;
 
-import com.netEdu.entity.TeacherEvaluate; /**
+import com.netEdu.entity.TeacherEvaluate;
+import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
+
+import java.util.List;
+
+/**
  * Created with IntelliJ IDEA.
  * Description:
  * User: Lei
@@ -10,4 +15,5 @@ import com.netEdu.entity.TeacherEvaluate; /**
 public interface TeacherEvaluateService {
     void addTeacherEvaluate(TeacherEvaluate teacherEvaluate);
 
+    List<TeacherEvaluate> queryByPage(TeacherEvaluatePage page);
 }
