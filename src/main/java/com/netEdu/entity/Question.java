@@ -2,20 +2,29 @@ package com.netEdu.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
 @Data
-public class Question implements Serializable{
+@Entity
+public class Question {
 
-    private String question_id;
-    private String teacher_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int question_id;
+
+    private int teacher_id;
+
     private String question_type;
+
     private String question_content;
-    private String frequency;
-    private String error_times;
+
+    private int frequency;
+
+    private int error_times;
+
     private String difficulty;
+
     private String del_flag;
 
 }

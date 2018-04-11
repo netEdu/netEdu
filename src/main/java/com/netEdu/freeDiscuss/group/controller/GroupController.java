@@ -19,23 +19,19 @@ public class GroupController {
     //这里需要person_id和group_name
     @PostMapping("/addGroup")
     public String addGroup(@RequestBody Group group){
-
         return groupImpl.newGroup(group);
-
     }
 
     //这里需要group_id
     @PostMapping("/delGroup")
     public void delGroup(@RequestBody Group group){
         groupImpl.delGroup(group);
-
     }
 
     //这里需要group_id person_id
     @PostMapping("/editGroupMember")
     public void editGroupMember(@RequestBody Group group){
         groupImpl.editGroupMember(group);
-
     }
 
 }
