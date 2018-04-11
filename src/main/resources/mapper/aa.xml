@@ -3,9 +3,25 @@
 <!--这里的namespace必须和是对应的mapper.java的地址-->
 <mapper namespace="com.netEdu.lesson.rate.dao.TeacherEvaluateDao" >
 
+    <resultMap id="BaseResultMap" type="com.netEdu.entity.TeacherEvaluate" >
+        <id column="evaluate_id" property="evaluate_id" />
+        <result column="questionnaire_id" property="questionnaire_id" />
+        <result column="student_id" property="student_id" />
+        <result column="answers" property="answers" />
+        <result column="del_flag" property="del_flag" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        evaluate_id, questionnaire_id, answers, del_flag
+    </sql>
     <insert id="addTeacherEvaluate" parameterType="com.netEdu.entity.TeacherEvaluate" >
         insert into t_evaluate(questionnaire_id, student_id, answers, del_flag)
 		values(#{questionnaire_id}, #{student_id}, #{answers}, #{del_flag})
     </insert>
+
+    <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        SELECT <include refid="Base_Column_List" />
+        FROM t_evaluate
+        LIMIT ${pager.startIndex-1},#{pageSize}
+    </select>
 
 </mapper>
