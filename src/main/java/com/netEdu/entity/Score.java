@@ -1,5 +1,6 @@
 package com.netEdu.entity;
 
+import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
-public class Score {
+public class Score extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,5 @@ public class Score {
     private float test_score;
 
     private String score_time;
-
-    private String del_flag;
 
 }

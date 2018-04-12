@@ -6,12 +6,10 @@ import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
+import com.netEdu.questionPool.question.service.QuestionService;
 import com.netEdu.questionPool.question.service.impl.QuestionImpl;
 import com.netEdu.questionPool.question.vo.QuestionPage;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -24,73 +22,54 @@ import java.util.List;
 public class QuestionController extends BaseController<Question> {
 
     @Autowired
-    private QuestionImpl questionImpl;
+    private QuestionService questionService;
 
     @ApiOperation(value = "|Question|添加考题")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "teacher_id", value = "出题教师id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "question_type", value = "考题类型 0：判断 1：选择 2：主观", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "question_content", value = "考题内容", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "question_answer", value = "考题答案", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "difficulty", value = "考题难度", required = true, dataType = "varchar")
-    })
     @PostMapping(value = "/addQuestion")
-    public void addQuestion(@RequestBody Question question){
-        questionImpl.add(question);
-    }
-
-    @ApiOperation(value = "|Question|添加选项")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "question_id", value = "考题id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "option_content", value = "选项内容", required = true, dataType = "varchar")
-    })
-    @PostMapping(value = "/addOption")
-    public void addOption(@RequestBody Option option){
-
-        questionImpl.addOption(option);
+    public void addQuestion(@ApiParam(value = "出题教师id：teacher_id" +
+            "考题类型 0：判断 1：选择 2：主观：question_content" +
+            "考题内容：question_content" +
+            "考题答案：question_answer" +
+            "选项组：options" +
+            "考题难度：difficulty") @RequestBody Question question){
+        questionService.add(question);
     }
 
     @ApiOperation(value = "|Question|修改考题")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "teacher_id", value = "出题教师id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "question_type", value = "考题类型 0：判断 1：选择 2：主观", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "question_content", value = "考题内容", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "question_answer", value = "考题答案", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "difficulty", value = "考题难度", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "frequency", value = "出题次数", required = false, dataType = "int"),
-            @ApiImplicitParam(name = "error_times", value = "错误次数", required = false, dataType = "int")
-    })
     @PutMapping(value = "/updateQuestion")
-    public void update(@RequestBody Question question){
-        questionImpl.update(question);
+    public void update(@ApiParam("出题教师id:teacher_id" +
+            "考题类型 0：判断 1：选择 2：主观:question_type" +
+            "考题内容:question_content" +
+            "考题答案:question_answer" +
+            "考题难度:difficulty" +
+            "出题次数:frequency" +
+            "错误次数:error_times") @RequestBody Question question){
+        questionService.update(question);
     }
 
     @ApiOperation(value = "|Question|批量删除考题")
     @DeleteMapping(value = "/deleteQuestion")
     public void delete(@RequestParam String ids){
-        questionImpl.del(ids);
+        questionService.del(ids);
     }
 
     @ApiOperation(value = "|Question|查看单个考题")
     @GetMapping(value = "/queryQuestion")
     public Question queryOne(@RequestParam int id){
-        return questionImpl.findOne(id);
+        return questionService.findOne(id);
     }
 
     @ApiOperation(value = "|Question|分页按条件查询考题")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "teacher_id", value = "出题教师id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "question_type", value = "考题类型 0：判断 1：选择 2：主观", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "question_content", value = "考题内容 模糊", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "difficulty", value = "考题难度", required = true, dataType = "varchar"),
-            @ApiImplicitParam(name = "frequency", value = "出题次数", required = false, dataType = "int"),
-            @ApiImplicitParam(name = "error_times", value = "错误次数", required = false, dataType = "int"),
-            @ApiImplicitParam(name = "page", value = "页码", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "页容量", required = true, dataType = "int")
-    })
     @PostMapping(value = "/queryAllQuestion")
-    public ResponseMessage<PageInfo<Question>> queryAll(@RequestBody @ApiIgnore QuestionPage questionPage){
-        return Result.success(getPageInfo(questionPage.getPager(), questionImpl.findAllByCriteria(questionPage)));
+    public ResponseMessage<PageInfo<Question>> queryAll(@ApiParam("出题教师id:teacher_id" +
+            "考题类型 0：判断 1：选择 2：主观:question_type" +
+            "考题内容 模糊:question_content" +
+            "考题难度:difficulty" +
+            "出题次数:frequency" +
+            "错误次数:error_times" +
+            "页码:page" +
+            "页容量:pageSize") @RequestBody QuestionPage questionPage){
+        return Result.success(getPageInfo(questionPage.getPager(), questionService.findAllByCriteria(questionPage)));
     }
 
 }

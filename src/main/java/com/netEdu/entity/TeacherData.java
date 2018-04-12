@@ -1,5 +1,6 @@
 package com.netEdu.entity;
 
+import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
-public class TeacherData {
+public class TeacherData extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,5 @@ public class TeacherData {
     private String data_type;
 
     private String upload_time;
-
-    private String del_flag;
 
 }

@@ -19,12 +19,6 @@ public class QuestionImpl implements QuestionService{
     @Override
     public void add(Question question){
         questionMapper.insertSelective(question);
-        System.out.println(question.getQuestion_id());
-    }
-
-    @Override
-    public void addOption(Option option){
-        questionMapper.insertOption(option);
     }
 
     @Override

@@ -10,8 +10,6 @@ public interface QuestionService {
 
     void add(Question question);
 
-    void addOption(Option option);
-
     void del(String ids);
 
     void update(Question question);
