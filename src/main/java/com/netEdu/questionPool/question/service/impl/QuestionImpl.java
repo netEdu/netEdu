@@ -1,6 +1,5 @@
 package com.netEdu.questionPool.question.service.impl;
 
-import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
 import com.netEdu.questionPool.question.dao.QuestionMapper;
 import com.netEdu.questionPool.question.service.QuestionService;
@@ -19,6 +18,12 @@ public class QuestionImpl implements QuestionService{
     @Override
     public void add(Question question){
         questionMapper.insertSelective(question);
+        String[] options = question.getOptions().split(",");
+        for(int i = 0;i < options.length;i ++){
+            questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
+        }
+        int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
+        questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
     }
 
     @Override

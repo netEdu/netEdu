@@ -1,6 +1,5 @@
 package com.netEdu.questionPool.question.service;
 
-import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
 import com.netEdu.questionPool.question.vo.QuestionPage;
 

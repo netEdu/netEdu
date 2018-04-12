@@ -1,9 +1,7 @@
 package com.netEdu.questionPool.question.dao;
 
 import com.netEdu.core.BaseMapper;
-import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
-import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
 import com.netEdu.questionPool.question.vo.QuestionPage;
 import org.apache.ibatis.annotations.*;
 
@@ -38,7 +36,12 @@ public interface QuestionMapper extends BaseMapper<Question> {
     )
     List<Question> queryAll(QuestionPage questionPage);
 
-    @Insert("")
-    void insertOption(Option option);
+    @Insert("insert into question_option (question_id,option_content,del_flag) values(#{0},#{1},0)")
+    void insertIntoOptions(int question_id,String options);
 
+    @Select("select option_id from question_option where question_id = #{0} limit #{1},1")
+    int selectAnswerForQuestion(int question_id,int question_answer);
+
+    @Update("update question set question_answer = #{1} where question_id = #{0}")
+    void selectIdToAnswer(int question_id,int option_id);
 }

@@ -26,6 +26,4 @@ public class QuestionPage extends BasePage {
 
     private String del_flag;
 
-    private String options;
-
 }
