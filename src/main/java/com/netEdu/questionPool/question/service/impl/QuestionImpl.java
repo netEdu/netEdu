@@ -4,6 +4,7 @@ import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
 import com.netEdu.questionPool.question.dao.QuestionMapper;
 import com.netEdu.questionPool.question.service.QuestionService;
+import com.netEdu.questionPool.question.vo.QuestionPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,10 @@ public class QuestionImpl implements QuestionService{
     }
 
     @Override
-    public List<Question> findAllByCriteria(Question question) {
-        return questionMapper.queryAll(question);
+    public List<Question> findAllByCriteria(QuestionPage questionPage) {
+        Integer rowCount = questionMapper.queryByCount(questionPage);
+        questionPage.getPager().setRowCount(rowCount);
+        return questionMapper.queryAll(questionPage);
     }
 
 }

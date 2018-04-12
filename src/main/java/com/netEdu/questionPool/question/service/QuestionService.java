@@ -2,6 +2,7 @@ package com.netEdu.questionPool.question.service;
 
 import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
+import com.netEdu.questionPool.question.vo.QuestionPage;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface QuestionService {
 
     Question findOne(int id);
 
-    List<Question> findAllByCriteria(Question question);
+    List<Question> findAllByCriteria(QuestionPage questionPage);
 
 }

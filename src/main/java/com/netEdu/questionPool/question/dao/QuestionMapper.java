@@ -3,6 +3,8 @@ package com.netEdu.questionPool.question.dao;
 import com.netEdu.core.BaseMapper;
 import com.netEdu.entity.Option;
 import com.netEdu.entity.Question;
+import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
+import com.netEdu.questionPool.question.vo.QuestionPage;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -16,6 +18,14 @@ public interface QuestionMapper extends BaseMapper<Question> {
     @Select("select * from question where question_id = #{0} and del_flag = 0")
     Question queryOne(int id);
 
+    /**
+     * 表中多少条数据
+     * @param questionPage
+     * @return
+     */
+    @Select("select count(1) from question")
+    Integer queryByCount(QuestionPage questionPage);
+
     @Select("<script>select * from question where 1=1"
             +"<if test=\"question_type !=null and question_type != '' \">and question_type = #{question_type} </if> "
             +"<if test=\"question_content !=null and question_content != '' \">and question_content like CONCAT(CONCAT('%',#{question_content},'%')) </if> "
@@ -23,10 +33,10 @@ public interface QuestionMapper extends BaseMapper<Question> {
             +"<if test=\"frequency !=null and frequency != '' \">and frequency = #{frequency} </if> "
             +"<if test=\"error_times !=null and error_times != '' \">and error_times = #{error_times} </if> "
             +"<if test=\"teacher_id !=null and teacher_id != '' \">and teacher_id = #{teacher_id} </if> "
-            +"and del_flag = 0 limit #{index},#{pageSize}"
+            +"and del_flag = 0 limit #{page},#{pageSize}"
             +"</script>"
     )
-    List<Question> queryAll(Question question);
+    List<Question> queryAll(QuestionPage questionPage);
 
     @Insert("")
     void insertOption(Option option);

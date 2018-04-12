@@ -9,21 +9,23 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Survey_question {
+public class StudentData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String questionnaire_id;
+    private int data_id;
 
-    private String creator;
+    private String data_title;
 
-    private String survey_questions;
+    private int student_id;
 
-    private String create_time;
+    private int course_id;
 
-    private String remarks;
+    private String savepath;
 
-    private String teacher_ids;
+    private String data_type;
+
+    private String upload_time;
 
     private String del_flag;
 

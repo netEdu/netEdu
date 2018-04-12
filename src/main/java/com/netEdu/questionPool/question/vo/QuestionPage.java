@@ -1,16 +1,13 @@
-package com.netEdu.entity;
+package com.netEdu.questionPool.question.vo;
 
+import com.adc.da.base.page.BasePage;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 @Data
-@Entity
-public class Question {
+public class QuestionPage extends BasePage {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer pageSize = 2;
+
     private int question_id;
 
     private int teacher_id;
@@ -30,5 +27,3 @@ public class Question {
     private String del_flag;
 
 }
-
-
