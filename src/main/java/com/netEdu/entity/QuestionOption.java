@@ -17,7 +17,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
-public class Option extends BaseEntity {
+public class QuestionOption extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

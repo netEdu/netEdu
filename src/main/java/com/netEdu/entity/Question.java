@@ -4,7 +4,6 @@ import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
@@ -20,13 +19,16 @@ public class Question extends BaseEntity {
 
     private String question_content;
 
-    private String question_answer;
+    private int question_answer;
 
     private int frequency;
 
     private int error_times;
 
     private String difficulty;
+
+    @Transient
+    private String options;
 
 }
 
