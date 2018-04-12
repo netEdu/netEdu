@@ -18,4 +18,6 @@ public interface TeacherEvaluateService {
     List<TeacherEvaluate> queryByPage(TeacherEvaluatePage page);
 
     void upTeacherEvaluate(TeacherEvaluate teacherEvaluate);
+
+    void deleteTeacherEvaluate(String ids);
 }
