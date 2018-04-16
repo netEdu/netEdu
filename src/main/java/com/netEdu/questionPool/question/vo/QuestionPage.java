@@ -1,7 +1,11 @@
 package com.netEdu.questionPool.question.vo;
 
 import com.adc.da.base.page.BasePage;
+import com.netEdu.entity.Question;
+import com.netEdu.entity.QuestionOption;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class QuestionPage extends BasePage {
@@ -25,5 +29,9 @@ public class QuestionPage extends BasePage {
     private String difficulty;
 
     private String del_flag;
+
+    private String name;
+
+    private List<QuestionOption> questionOptionList;
 
 }

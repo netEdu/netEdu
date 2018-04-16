@@ -4,6 +4,7 @@ import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,6 +30,18 @@ public class Question extends BaseEntity {
 
     @Transient
     private String options;
+
+    @Transient
+    private int option_id;
+
+    @Transient
+    private String option_content;
+
+    @Transient
+    private String name;
+
+    @Transient
+    private List<QuestionOption> questionOptionList;
 
 }
 

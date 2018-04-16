@@ -3,10 +3,7 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,5 +31,8 @@ public class Paper extends BaseEntity {
     private String correct_answers;
 
     private String remarks;
+
+    @Transient
+    private String teacher_name;
 
 }

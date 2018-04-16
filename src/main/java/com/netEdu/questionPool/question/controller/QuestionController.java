@@ -5,11 +5,14 @@ import com.adc.da.util.http.PageInfo;
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.netEdu.entity.Question;
+import com.netEdu.entity.QuestionOption;
 import com.netEdu.questionPool.question.service.QuestionService;
 import com.netEdu.questionPool.question.vo.QuestionPage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Question")
@@ -30,10 +33,12 @@ public class QuestionController extends BaseController<Question> {
         questionService.add(question);
     }
 
-    @ApiOperation(value = "|Question|修改考题",notes = "teacher_id:出题教师id</br>" +
+    @ApiOperation(value = "|Question|编辑考题",notes = "teacher_id:出题教师id</br>" +
             "question_type:考题类型 0=判断 1=选择 2=主观</br>" +
             "question_content:考题内容</br>" +
-            "question_answer(option_id):考题答案 A=0 B=1 C=2 D=3</br>" +
+            "question_answer(option_id):考题答案</br>" +
+            "option_id:选项id</br>" +
+            "option_content:选项内容</br>" +
             "difficulty:考题难度</br>" +
             "frequency:出题次数</br>" +
             "error_times:错误次数")
@@ -54,8 +59,15 @@ public class QuestionController extends BaseController<Question> {
         return questionService.findOne(id);
     }
 
+    @ApiOperation(value = "|Question|查看考题选项")
+    @GetMapping(value = "/queryOptions")
+    public List<QuestionOption> queryOpt(@RequestParam int id){
+        return questionService.queryOptions(id);
+    }
+
     @ApiOperation(value = "|Question|分页按条件查询考题",notes = "teacher_id:出题教师id</br>" +
             "question_type:考题类型 0=判断 1=选择 2=主观</br>" +
+            "name:出题老师姓名 模糊</br>" +
             "question_content:考题内容 模糊</br>" +
             "difficulty:考题难度</br>" +
             "frequency:出题次数</br>" +
