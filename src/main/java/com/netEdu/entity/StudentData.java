@@ -10,16 +10,22 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Group extends BaseEntity {
+public class StudentData extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int group_id;
+    private int data_id;
 
-    private String group_num;
+    private String data_title;
 
-    private String group_name;
+    private int student_id;
 
-    private String person_id;
+    private int course_id;
+
+    private String savepath;
+
+    private String data_type;
+
+    private String upload_time;
 
 }

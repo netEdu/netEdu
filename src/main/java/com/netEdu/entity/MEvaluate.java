@@ -8,18 +8,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Created with IntelliJ IDEA.
+ * Description: 学生互评表
+ * User: Lei
+ * Date: 2018-04-04
+ * Time: 13:38
+ */
 @Data
 @Entity
-public class Group extends BaseEntity {
+public class MEvaluate extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int group_id;
+    private int evaluate_id;
 
-    private String group_num;
+    private int student_id;
 
-    private String group_name;
+    private int ideology;
 
-    private String person_id;
+    private int study;
+
+    private int morality;
 
 }
