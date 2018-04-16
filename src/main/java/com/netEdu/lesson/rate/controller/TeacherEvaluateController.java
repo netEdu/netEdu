@@ -7,9 +7,7 @@ import com.adc.da.util.http.Result;
 import com.netEdu.entity.TeacherEvaluate;
 import com.netEdu.lesson.rate.page.TeacherEvaluatePage;
 import com.netEdu.lesson.rate.service.TeacherEvaluateService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +32,10 @@ public class TeacherEvaluateController extends BaseController<TeacherEvaluate> {
 
     @ApiOperation(value = "|TeacherEvaluate|添加教师评价")
     @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE,value = "/addTeacherEvaluate")
-    public ResponseMessage<TeacherEvaluate> create(@ApiParam(value = "教师评价对象" ,required=true )@RequestBody TeacherEvaluate teacherEvaluate) throws Exception {
+
+    public ResponseMessage<TeacherEvaluate> create(@ApiParam(value = "调查问卷id：questionnaire_id，" +
+            "学生id：student_id，" +
+            "学生答案：answers" ,required=true ) @RequestBody TeacherEvaluate teacherEvaluate) throws Exception {
         teacherEvaluateService.addTeacherEvaluate(teacherEvaluate);
         return Result.success(teacherEvaluate);
     }
@@ -44,15 +45,16 @@ public class TeacherEvaluateController extends BaseController<TeacherEvaluate> {
         teacherEvaluateService.upTeacherEvaluate(teacherEvaluate);
         return Result.success(teacherEvaluate);
     }
-
-
-
-
-    @ApiOperation(value = "|UserlogEO|分页查询")
+    @ApiOperation(value = "|TeacherEvaluate|分页查询")
     @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE,value = "/page")
     public ResponseMessage<PageInfo<TeacherEvaluate>> page(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody TeacherEvaluatePage page) throws Exception {
 
         List<TeacherEvaluate> rows = teacherEvaluateService.queryByPage(page);
         return Result.success(getPageInfo(page.getPager(), rows));
+    }
+    @ApiOperation(value = "|TeacherEvaluate|删除教师评价")
+    @DeleteMapping(value = "/deleteTeacherEvaluate")
+    public void deleteTeacherEvaluate(@RequestParam String ids){
+        teacherEvaluateService.deleteTeacherEvaluate(ids);
     }
 }

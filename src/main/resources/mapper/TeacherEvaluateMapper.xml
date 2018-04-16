@@ -13,9 +13,6 @@
     <sql id="Base_Column_List" >
         evaluate_id, questionnaire_id,student_id, answers, del_flag
     </sql>
-
-
-
     <!--添加教师评论表-->
     <insert id="addTeacherEvaluate" parameterType="com.netEdu.entity.TeacherEvaluate" >
         insert into t_evaluate(questionnaire_id, student_id, answers, del_flag)
@@ -26,13 +23,16 @@
     <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
         SELECT <include refid="Base_Column_List" />
         FROM t_evaluate
+        WHERE  del_flag = 0
         LIMIT ${pager.startIndex-1},#{pageSize}
+
     </select>
     <!-- t_evaluate 列表总数-->
     <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
-        select count(1) from t_evaluate
+        select count(1) from t_evaluate WHERE del_flag = 0
     </select>
 
+    <!--更新教师评论-->
     <update id="upTeacherEvaluate" parameterType="com.netEdu.entity.TeacherEvaluate" >
         update t_evaluate
         set  questionnaire_id = #{questionnaire_id},
@@ -41,6 +41,4 @@
         del_flag = #{del_flag}
         where  evaluate_id = #{evaluate_id}
     </update>
-
-
 </mapper>

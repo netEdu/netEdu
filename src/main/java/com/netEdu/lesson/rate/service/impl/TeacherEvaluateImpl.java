@@ -38,4 +38,9 @@ public class TeacherEvaluateImpl implements TeacherEvaluateService{
         teacherEvaluateDao.upTeacherEvaluate(teacherEvaluate);
     }
 
+    @Override
+    public void deleteTeacherEvaluate(String ids) {
+        teacherEvaluateDao.deleteTeacherEvaluate(ids);
+    }
+
 }
