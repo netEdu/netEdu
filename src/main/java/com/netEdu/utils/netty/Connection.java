@@ -2,7 +2,9 @@ package com.netEdu.utils.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,17 @@ public class Connection {
 
 
 
+
+
+     public static void testBegin(String class_num,String paper_num){
+
+         ChannelGroup cg=classGroup.get(class_num);
+         for (Channel c:cg){
+             c.writeAndFlush(new TextWebSocketFrame("2,"+paper_num));
+         }
+
+
+     }
 
 
      public static void transMessage(Channel ch,TextWebSocketFrame msg){
@@ -44,11 +57,21 @@ public class Connection {
 
      public static void loginBind(Channel ch,TextWebSocketFrame msg){
          String id=msg.text().split(",")[1];
+         String class_num=msg.text().split(",")[2];
          String ip=getIpAddress(ch);
          if (!ip_idMap.containsKey(ip)){
             if(!AllConnections.containsKey(id)){
                 AllConnections.put(id,ch);
                 ip_idMap.put(ip,id);
+                if(classGroup.containsKey(class_num)){
+                    ChannelGroup channelGroup=classGroup.get(class_num);
+                    channelGroup.add(ch);
+                    classGroup.put(class_num,channelGroup);
+                }else {
+                    ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+                    channelGroup.add(ch);
+                    classGroup.put(class_num, channelGroup);
+                }
             }else {
                 AllConnections.remove(id);
                 AllConnections.put(id,ch);

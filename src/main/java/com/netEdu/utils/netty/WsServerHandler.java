@@ -22,9 +22,12 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
             //当第一位为0时，接收学生ID，将ID和Channel一组存入Map,IP，ID一起存入MAP
             case 0:
                 Connection.loginBind(incoming, msg);
+            //当第一位为1，转发消息
             case 1:
                 Connection.transMessage(incoming,msg);
+            //当第一位为2,开始考试
             case 2:
+
 
         }
 
