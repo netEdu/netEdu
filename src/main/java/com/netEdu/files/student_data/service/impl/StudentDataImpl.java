@@ -1,6 +1,7 @@
 package com.netEdu.files.student_data.service.impl;
 
 import com.netEdu.entity.StudentData;
+import com.netEdu.entity.TeacherData;
 import com.netEdu.files.student_data.dao.StudentDataMapper;
 import com.netEdu.files.student_data.service.StudentDataService;
 import com.netEdu.utils.File.FileUtil;
@@ -55,8 +56,22 @@ public class StudentDataImpl implements StudentDataService{
     }
 
     @Override
-    public List<StudentData> queryData(StudentData studentData) {
-        return null;
+    public List<StudentData> queryStudentData(StudentData studentData) {
+        return studentDataMapper.showStudentDataList(studentData);
+    }
+
+    @Override
+    public List<TeacherData> queryTeacherData(TeacherData teacherData) {
+        return studentDataMapper.showTeacherDataList(teacherData);
+    }
+
+    @Override
+    public void delFiles(String data_ids) {
+        String[] data_id = data_ids.split(",");
+        for (int i = 0;i < data_id.length;i ++){
+            FileUtil.deleteFiles(studentDataMapper.selectSavepath(data_id[i]));
+        }
+        studentDataMapper.removeFiles(data_ids);
     }
 
 }

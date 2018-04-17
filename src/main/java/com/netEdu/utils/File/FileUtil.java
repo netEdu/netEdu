@@ -99,4 +99,9 @@ public class FileUtil {
         return savepathsAndTypes;
     }
 
+    public static void deleteFiles(String savepath){
+        File file = new File(savepath);
+        file.delete();
+    }
+
 }

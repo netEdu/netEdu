@@ -1,6 +1,7 @@
 package com.netEdu.files.student_data.controller;
 
 import com.netEdu.entity.StudentData;
+import com.netEdu.entity.TeacherData;
 import com.netEdu.files.student_data.service.StudentDataService;
 import com.netEdu.utils.File.FileUtil;
 import io.swagger.annotations.Api;
@@ -55,14 +56,30 @@ public class StudentDataController {
         studentDataService.uploadMany(data_titles,student_id,course_id,FileUtil.uploadMany(request));
     }
 
+    @ApiOperation(value = "|StudentData|查看个人资料",notes = "student_id:学生id</br>" +
+            "data_title:资料标题 模糊</br>" +
+            "course_name:课程名 模糊</br>" +
+            "course_id:课程id</br>" +
+            "data_type:资料类型")
     @PostMapping(value = "/queryStudentData")
-    public List<StudentData> query(@RequestBody StudentData studentData){
-        return studentDataService.queryData(studentData);
+    public List<StudentData> queryStudent(@RequestBody StudentData studentData){
+        return studentDataService.queryStudentData(studentData);
     }
 
-    @DeleteMapping(value = "/deleteFiles")
-    public void del(){
+    @ApiOperation(value = "|StudentData|查看教师资料",notes = "name:教师姓名 模糊</br>" +
+            "data_title:资料标题 模糊</br>" +
+            "course_name:课程名 模糊</br>" +
+            "course_id:课程id</br>" +
+            "data_type:资料类型")
+    @PostMapping(value = "/queryTeacherData")
+    public List<TeacherData> queryTeacher(@RequestBody TeacherData teacherData){
+        return studentDataService.queryTeacherData(teacherData);
+    }
 
+    @ApiOperation(value = "|StudentData|删除个人资料",notes = "data_ids:资料id组 split by ','")
+    @DeleteMapping(value = "/deleteFiles")
+    public void del(@RequestParam String data_ids){
+        studentDataService.delFiles(data_ids);
     }
 
 }

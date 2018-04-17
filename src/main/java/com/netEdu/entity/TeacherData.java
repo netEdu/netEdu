@@ -35,4 +35,13 @@ public class TeacherData extends BaseEntity {
 
     private String upload_time;
 
+    @Transient
+    private String course_name;
+
+    /**
+     * 联表查询教师姓名
+     */
+    @Transient
+    private String name;
+
 }

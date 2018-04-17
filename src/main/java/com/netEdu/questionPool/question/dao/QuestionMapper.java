@@ -12,7 +12,7 @@ import java.util.List;
 public interface QuestionMapper extends BaseMapper<Question> {
 
     @Update("update question set del_flag = 1 where FIND_IN_SET(question_id,#{0})")
-    void logidel(String ids);
+    void deleteQuestions(String ids);
 
     @Update("update question_option set option_content = #{1} where option_id = #{0}")
     void updateOptions(int option_id,String option_content);

@@ -1,14 +1,15 @@
 package com.netEdu.files.teacher_data.service.impl;
 
-import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.teacher_data.dao.TeacherDataMapper;
 import com.netEdu.files.teacher_data.service.TeacherDataService;
+import com.netEdu.utils.File.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TeacherDataImpl implements TeacherDataService {
@@ -54,6 +55,20 @@ public class TeacherDataImpl implements TeacherDataService {
             teacherData.setShare(share[i].toString());
             teacherDataMapper.insertSelective(teacherData);
         }
+    }
+
+    @Override
+    public List<TeacherData> queryTeacherData(TeacherData teacherData) {
+        return teacherDataMapper.showTeacherDataList(teacherData);
+    }
+
+    @Override
+    public void delFiles(String data_ids) {
+        String[] data_id = data_ids.split(",");
+        for (int i = 0;i < data_id.length;i ++){
+            FileUtil.deleteFiles(teacherDataMapper.selectSavepath(data_id[i]));
+        }
+        teacherDataMapper.removeFiles(data_ids);
     }
 
 }
