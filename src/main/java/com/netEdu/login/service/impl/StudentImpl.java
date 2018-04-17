@@ -11,9 +11,8 @@ import java.util.List;
 @Service
 public class StudentImpl implements StudentService{
 
-@Autowired
-private StudentMapper studentMapper;
-
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public String studentLogin(Student student) {
@@ -23,7 +22,5 @@ private StudentMapper studentMapper;
            }
         return result.get(0).getClass_num();
     }
-
-
 
 }

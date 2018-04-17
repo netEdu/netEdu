@@ -2,11 +2,13 @@ package com.netEdu.entity;
 
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.File;
 
 @Data
 @Entity
