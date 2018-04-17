@@ -34,10 +34,11 @@ public class StudentDataImpl implements StudentDataService{
     }
 
     @Override
-    public void uploadMany(String data_titles, int student_id, int course_id, String data_types, String savepaths) {
+    public void uploadMany(String data_titles, int student_id, int course_id, String savepathsAndTypes) {
         String[] title = data_titles.split(",");
-        String[] type = data_types.split(",");
-        String[] path = savepaths.split(",");
+        String[] str = savepathsAndTypes.split("[?]");
+        String[] types = str[1].split(",");
+        String[] paths = str[0].split(",");
         for (int i = 0;i < title.length;i ++){
             StudentData studentData = new StudentData();
             studentData.setStudent_id(student_id);
@@ -47,8 +48,8 @@ public class StudentDataImpl implements StudentDataService{
             //当前时间 df.format(date)
             studentData.setUpload_time(df.format(date));
             studentData.setData_title(title[i].toString());
-            studentData.setData_type(type[i].toString());
-            studentData.setSavepath(path[i].toString());
+            studentData.setData_type(types[i].toString());
+            studentData.setSavepath(paths[i].toString());
             studentDataMapper.insertSelective(studentData);
         }
     }

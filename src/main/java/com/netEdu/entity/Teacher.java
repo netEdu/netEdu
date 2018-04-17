@@ -23,6 +23,8 @@ public class Teacher extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teacher_id;
 
+    private String username;
+
     private String name;
 
     private String password;

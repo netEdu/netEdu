@@ -51,9 +51,8 @@ public class StudentDataController {
     public void addFiles(@ApiParam(value = "key = files") HttpServletRequest request,
                                   @RequestParam String data_titles,
                                   @RequestParam int student_id,
-                                  @RequestParam int course_id,
-                                  @RequestParam String data_types) {
-        studentDataService.uploadMany(data_titles,student_id,course_id,data_types,FileUtil.uploadMany(request));
+                                  @RequestParam int course_id) {
+        studentDataService.uploadMany(data_titles,student_id,course_id,FileUtil.uploadMany(request));
     }
 
     @PostMapping(value = "/queryStudentData")

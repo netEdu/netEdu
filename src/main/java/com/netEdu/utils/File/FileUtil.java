@@ -57,6 +57,7 @@ public class FileUtil {
             return "false";
         }
         String str = "";
+        String str1 = "";
         for(MultipartFile file:files){
             String fileName = file.getOriginalFilename();
             int size = (int) file.getSize();
@@ -65,7 +66,21 @@ public class FileUtil {
                 return "false";
             }else{
                 File dest = new File(path + "/" + fileName);
+                String[] suffix = dest.toString().split("\\.");
+                //所有的文件路径
                 str += dest.toString() + ",";
+                String fileType = "";
+                if (suffix[1].equals("txt") || suffix[1].equals("doc") || suffix[1].equals("docx") || suffix[1].equals("xls")){
+                    fileType = "0";
+                }
+                else if (suffix[1].equals("ppt")){
+                    fileType = "1";
+                }
+                else if (suffix[1].equals("swf")){
+                    fileType = "2";
+                }
+                //所有的文件类型
+                str1 += fileType + ",";
                 if(!dest.getParentFile().exists()){
                     dest.getParentFile().mkdir();
                 }
@@ -79,7 +94,9 @@ public class FileUtil {
             }
         }
         String savepaths = str.substring(0,str.length() - 1);
-        return savepaths;
+        String fileTypes = str1.substring(0,str1.length() - 1);
+        String savepathsAndTypes = savepaths + "?" + fileTypes;
+        return savepathsAndTypes;
     }
 
 }
