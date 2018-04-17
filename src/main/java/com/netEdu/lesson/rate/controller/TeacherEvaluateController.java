@@ -57,4 +57,6 @@ public class TeacherEvaluateController extends BaseController<TeacherEvaluate> {
     public void deleteTeacherEvaluate(@RequestParam String ids){
         teacherEvaluateService.deleteTeacherEvaluate(ids);
     }
+
+
 }
