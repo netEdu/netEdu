@@ -21,9 +21,11 @@ public class GroupImpl implements GroupService{
 
     @Override
     public String newGroup(Group group) {
-        //向数据库中插入新组
-        groupMapper.insertGroup(group);
+
         String ids=group.getPerson_id();//组员id
+        //向数据库中插入新组
+        group.setPerson_id(","+group.getPerson_id()+",");
+        groupMapper.insertGroup(group);
         String[] id=ids.split(",");//split
         Channel ch=null;
         //创建一个新的ChannelGroup讨论组实体
@@ -59,6 +61,7 @@ public class GroupImpl implements GroupService{
         boolean flag=true;//判断是添加还是删除true添加 false删除
         List<Group> result=groupMapper.getMember(group);//查询老组员情况
         String oldIds=result.get(0).getPerson_id();//老组员ID
+        oldIds=oldIds.replaceFirst(",","");//去掉第一个逗号
         String[] oldId=oldIds.split(",");//split之后的
 
         //判断是添加还是删除
@@ -87,14 +90,12 @@ public class GroupImpl implements GroupService{
         }else{
             //移除组员
 
-            //加个逗号
-            oldIds+=",";
             //更新组员
             for (String del:newId){
                 finalIds=oldIds.replaceFirst(del+",","");
             }
-            //把那逗号再去了
-            finalIds=finalIds.substring(0,finalIds.length()-1);
+            //把最前面的逗号加上
+            finalIds=","+finalIds;
             //向对象更新
             group.setPerson_id(finalIds);
             //向数据库更新
@@ -107,5 +108,14 @@ public class GroupImpl implements GroupService{
             Connection.chatGroup.put(group.getGroup_id()+"",channelGroup);
         }
 
+    }
+
+    @Override
+    public List<Group> getGroupById(Group group) {
+        if (group.getGroup_id()>0){
+            return groupMapper.selectByGroupId(group);
+        }else{
+            return groupMapper.selectByPersonId(group);
+        }
     }
 }

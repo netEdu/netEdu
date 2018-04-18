@@ -18,16 +18,20 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame msg) throws Exception {
         Channel incoming = channelHandlerContext.channel();
         //String ip=Connection.getIpAddress(incoming);
+        System.out.println(Connection.getMessageType(msg));
         switch (Connection.getMessageType(msg)) {
             //当第一位为0时，接收学生ID，将ID和Channel一组存入Map,IP，ID一起存入MAP
             case 0:
                 Connection.loginBind(incoming, msg);
+                break;
             //当第一位为1，转发消息
             case 1:
                 Connection.transMessage(incoming,msg);
+                break;
             //当第一位为2,开始考试
-            case 2:
-
+            case 12:
+                channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame("fuck"));
+                break;
 
         }
 

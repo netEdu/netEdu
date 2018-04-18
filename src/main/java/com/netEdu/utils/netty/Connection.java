@@ -89,6 +89,9 @@ public class Connection {
 
 
      public static int getMessageType(TextWebSocketFrame msg){
+         if (msg.text().equals("test")){
+             return 12;
+         }
          String flag=msg.text().split("")[0];
          return Integer.parseInt(flag);
      }

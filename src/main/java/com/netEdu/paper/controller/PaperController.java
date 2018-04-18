@@ -8,10 +8,8 @@ import com.netEdu.entity.Paper;
 import com.netEdu.entity.Question;
 import com.netEdu.paper.service.PaperService;
 import com.netEdu.paper.vo.PaperPage;
-import com.netEdu.questionPool.question.vo.QuestionPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
