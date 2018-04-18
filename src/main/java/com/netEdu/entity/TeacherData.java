@@ -3,10 +3,7 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +14,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
+@Table(name = "teacher_data")
 public class TeacherData extends BaseEntity {
 
     @Id
@@ -36,5 +34,14 @@ public class TeacherData extends BaseEntity {
     private String data_type;
 
     private String upload_time;
+
+    @Transient
+    private String course_name;
+
+    /**
+     * 联表查询教师姓名
+     */
+    @Transient
+    private String name;
 
 }

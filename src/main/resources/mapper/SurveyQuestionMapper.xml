@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里的namespace必须和是对应的mapper.java的地址-->
+<mapper namespace="com.netEdu.lesson.rate.dao.SurveyQuestionDao" >
+    <resultMap id="BaseResultMap" type="com.netEdu.entity.SurveyQuestion" >
+        <id column="question_id" property="question_id" />
+        <result column="creator" property="creator" />
+        <result column="survey_content" property="survey_content" />
+        <result column="survey_type" property="survey_type" />
+        <result column="del_flag" property="del_flag" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        question_id, creator,survey_content,survey_type, del_flag
+    </sql>
+    <!--分页查询列表-->
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        SELECT <include refid="Base_Column_List" />
+        FROM survey_question
+        WHERE  del_flag = 0
+        LIMIT ${pager.startIndex-1},#{pageSize}
+
+    </select>
+
+    <!--根据question_id 查询单个问卷问题-->
+    <select id="selectByQuestionid" resultMap="BaseResultMap" parameterType="integer">
+        SELECT <include refid="Base_Column_List"/> FROM survey_question
+        WHERE question_id=#{question_id}
+    </select>
+</mapper>

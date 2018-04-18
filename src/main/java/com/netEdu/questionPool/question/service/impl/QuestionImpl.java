@@ -29,7 +29,7 @@ public class QuestionImpl implements QuestionService{
 
     @Override
     public void del(String ids){
-        questionMapper.logidel(ids);
+        questionMapper.deleteQuestions(ids);
     }
 
     @Override

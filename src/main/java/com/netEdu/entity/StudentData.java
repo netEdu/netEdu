@@ -2,11 +2,10 @@ package com.netEdu.entity;
 
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.File;
 
 @Data
 @Entity
@@ -27,5 +26,8 @@ public class StudentData extends BaseEntity {
     private String data_type;
 
     private String upload_time;
+
+    @Transient
+    private String course_name;
 
 }

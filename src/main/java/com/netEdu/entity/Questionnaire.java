@@ -25,12 +25,12 @@ public class Questionnaire extends BaseEntity {
 
     private String creator;
 
-    private String survey_questions;
+    private String survey_questions;//问题id组
 
     private String create_time;
 
-    private String remarks;
+    private String remarks;//问卷说明
 
-    private String teacher_ids;
+    private int teacher_id;
 
 }
