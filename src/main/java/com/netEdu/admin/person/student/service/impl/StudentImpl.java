@@ -33,4 +33,12 @@ public class StudentImpl implements StudentService{
         return studentMapper.selectStudent(studentPage);
     }
 
+    @Override
+    public String check(String username) {
+        if(studentMapper.checkStudent(username).size() > 0){
+            return "ALREADY EXIST";
+        }
+        return "COULD BE OK";
+    }
+
 }

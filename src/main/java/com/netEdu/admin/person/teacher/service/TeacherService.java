@@ -11,4 +11,6 @@ public interface TeacherService {
 
     List<Teacher> queryTeacher(TeacherPage teacherPage);
 
+    String check(String username);
+
 }

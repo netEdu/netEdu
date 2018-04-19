@@ -11,4 +11,6 @@ public interface StudentService {
 
     List<Student> queryStudent(StudentPage studentPage);
 
+    String check(String username);
+
 }

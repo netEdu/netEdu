@@ -33,4 +33,12 @@ public class TeacherImpl implements TeacherService {
         return teacherMapper.selectTeacher(teacherPage);
     }
 
+    @Override
+    public String check(String username) {
+        if(teacherMapper.checkTeacher(username).size() > 0){
+            return "ALREADY EXIST";
+        }
+        return "COULD BE OK";
+    }
+
 }

@@ -27,4 +27,7 @@ public interface TeacherMapper extends BaseMapper<Teacher>{
             "</script>")
     List<Teacher> selectTeacher(TeacherPage teacherPage);
 
+    @Select("select * from teacher where username = #{0}")
+    List<Teacher> checkTeacher(String username);
+
 }

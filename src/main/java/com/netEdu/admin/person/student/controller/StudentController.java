@@ -10,10 +10,7 @@ import com.netEdu.entity.Student;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Person")
@@ -43,6 +40,12 @@ public class StudentController extends BaseController<Student>{
     @PostMapping(value = "/queryStudent")
     public ResponseMessage<PageInfo<Student>> queryS(@RequestBody StudentPage studentPage){
         return Result.success(getPageInfo(studentPage.getPager(), studentService.queryStudent(studentPage)));
+    }
+
+    @ApiOperation(value = "|Student|失去焦点时登录名查重",notes = "username:登录名")
+    @GetMapping(value = "/checkStudent")
+    public String checkUsername(@RequestParam String username){
+        return studentService.check(username);
     }
 
 }

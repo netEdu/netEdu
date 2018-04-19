@@ -42,4 +42,10 @@ public class TeacherController extends BaseController<Teacher>{
         return Result.success(getPageInfo(teacherPage.getPager(), teacherService.queryTeacher(teacherPage)));
     }
 
+    @ApiOperation(value = "|Teacher|失去焦点时登录名查重",notes = "username:登录名")
+    @GetMapping(value = "/checkTeacher")
+    public String checkUsername(@RequestParam String username){
+        return teacherService.check(username);
+    }
+
 }

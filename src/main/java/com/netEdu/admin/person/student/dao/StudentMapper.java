@@ -3,6 +3,7 @@ package com.netEdu.admin.person.student.dao;
 import com.netEdu.admin.person.student.vo.StudentPage;
 import com.netEdu.core.BaseMapper;
 import com.netEdu.entity.Student;
+import com.netEdu.entity.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,5 +27,8 @@ public interface StudentMapper extends BaseMapper<Student>{
             "and del_flag = 0 limit ${page-1},#{pageSize}" +
             "</script>")
     List<Student> selectStudent(StudentPage studentPagee);
+
+    @Select("select * from student where username = #{0}")
+    List<Student> checkStudent(String username);
 
 }
