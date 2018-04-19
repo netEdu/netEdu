@@ -16,6 +16,7 @@ public class Student extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int student_id;
 
+    private String username;
 
     private String name;
 
