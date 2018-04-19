@@ -13,7 +13,7 @@ import java.util.Date;
 
 @ChannelHandler.Sharable
 public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-    public static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    //public static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame msg) throws Exception {
         Channel incoming = channelHandlerContext.channel();
@@ -29,10 +29,25 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
                 Connection.transMessage(incoming,msg);
                 break;
             //当第一位为2,开始考试
-            case 12:
-                channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame("fuck"));
+            case 2:
+                Connection.testBegin(msg);
                 break;
-
+            //当第一位为3,教师评价
+            case 3:
+                Connection.teacherRate(msg);
+                break;
+            //当第一位为4,学生互评
+            case 4:
+                Connection.studentRate(msg);
+                break;
+            //当第一位为5,警♂告
+            case 5:
+                Connection.warn(msg);
+                break;
+            //当第一位为6,班级讨论组
+            case 6:
+                Connection.classMessage(incoming,msg);
+                break;
         }
 
 

@@ -18,18 +18,21 @@ private LoginMapper loginMapper;
 
     @Override
     public String Login(Student student) {
+        if ("admin".equals(student.getUsername()) && "admin".equals(student.getPassword())){
+            return "ADMIN";
+        }
         Teacher teacher =new Teacher();
         teacher.setUsername(student.getUsername());
         teacher.setPassword(student.getPassword());
            List<Teacher> result0= loginMapper.loginTeacher(teacher);
            List<Student> result= loginMapper.login(student);
            if(result.size()==0 && result0.size()==0){
-               return null;
+               return "BAD REQUEST";
            }
             if(result.size()==0){
                return "Teacher:"+result0.get(0).getTeacher_id()+"";
             }
-        return "Student:"+result.get(0).getClass_num();
+        return "Student:"+result.get(0).getClass_num()+","+result.get(0).getStudent_id();
     }
 
 

@@ -17,16 +17,62 @@ public class Connection {
      static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
 
+    public static void classMessage(Channel ch,TextWebSocketFrame msg){
+        String message=msg.text();
+        String classId = message.split(",")[1];
+        if(classGroup.containsKey(classId)){
+            //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
+                    System.currentTimeMillis()+"]");
+
+            for (Channel c:classGroup.get(classId)){
+                if(ch!=c){
+                    c.writeAndFlush(new TextWebSocketFrame(newMsg));
+                }
+
+            }
+
+        }
 
 
+    }
+
+    public static void warn(TextWebSocketFrame msg){
+        String message=msg.text();
+        String student_id=message.split(",")[1];
+        Channel ch=AllConnections.get(student_id);
+        ch.writeAndFlush(new TextWebSocketFrame("5"));
+    }
+
+    public static void studentRate(TextWebSocketFrame msg){
+        String message=msg.text();
+        String class_num=message.split(",")[1];
+        ChannelGroup cg=classGroup.get(class_num);
+        for (Channel c:cg){
+            c.writeAndFlush(new TextWebSocketFrame("4"));
+        }
+    }
 
 
+    public static  void teacherRate(TextWebSocketFrame msg){
+        String message=msg.text();
+        String teacher_id=message.split(",")[1];
+        String class_num=message.split(",")[2];
+        ChannelGroup cg=classGroup.get(class_num);
+        for (Channel c:cg){
+            c.writeAndFlush(new TextWebSocketFrame("3,"+teacher_id));
+        }
 
-     public static void testBegin(String class_num,String paper_num){
+    }
 
+
+     public static void testBegin(TextWebSocketFrame msg){
+        String message=msg.text();
+        String class_num=message.split(",")[1];
+        String paper_id=message.split(",")[2];
          ChannelGroup cg=classGroup.get(class_num);
          for (Channel c:cg){
-             c.writeAndFlush(new TextWebSocketFrame("2,"+paper_num));
+             c.writeAndFlush(new TextWebSocketFrame("2,"+paper_id+","+System.currentTimeMillis()));
          }
 
 
@@ -37,9 +83,9 @@ public class Connection {
          String message=msg.text();
         String groupId = message.split(",")[1];
         if(chatGroup.containsKey(groupId)){
-            SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
-                    time.format(System.currentTimeMillis())+"]");
+                    System.currentTimeMillis()+"]");
 
             for (Channel c:chatGroup.get(groupId)){
                 if(ch!=c){
@@ -56,31 +102,54 @@ public class Connection {
 
 
      public static void loginBind(Channel ch,TextWebSocketFrame msg){
-         String id=msg.text().split(",")[1];
-         String class_num=msg.text().split(",")[2];
-         String ip=getIpAddress(ch);
-         if (!ip_idMap.containsKey(ip)){
-            if(!AllConnections.containsKey(id)){
-                AllConnections.put(id,ch);
-                ip_idMap.put(ip,id);
-                if(classGroup.containsKey(class_num)){
-                    ChannelGroup channelGroup=classGroup.get(class_num);
-                    channelGroup.add(ch);
-                    classGroup.put(class_num,channelGroup);
-                }else {
-                    ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-                    channelGroup.add(ch);
-                    classGroup.put(class_num, channelGroup);
-                }
-            }else {
-                AllConnections.remove(id);
-                AllConnections.put(id,ch);
-            }
-         }else{
-             System.out.println("检测到多开链接，正在关闭。。。");
-             ch.close();
+         //String id=msg.text().split(",")[1];
+         //String class_num=msg.text().split(",")[2];
+         String loginType=msg.text().split(":")[0].split(",")[1];
+         //学生登录
+         if ("Student".equals(loginType)){
+             String id=msg.text().split(":")[1].split(",")[1];
+             String class_num=msg.text().split(":")[1].split(",")[0];
+             String ip=getIpAddress(ch);
+             if (!ip_idMap.containsKey(ip)){
+                 if(!AllConnections.containsKey(id)){
+                     AllConnections.put(id,ch);
+                     ip_idMap.put(ip,id);
+                     if(classGroup.containsKey(class_num)){
+                         ChannelGroup channelGroup=classGroup.get(class_num);
+                         channelGroup.add(ch);
+                         classGroup.put(class_num,channelGroup);
+                     }else {
+                         ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+                         channelGroup.add(ch);
+                         classGroup.put(class_num, channelGroup);
+                     }
+                 }else {
+                     AllConnections.remove(id);
+                     AllConnections.put(id,ch);
+                 }
+             }else{
+                 System.out.println("检测到多开链接，正在关闭。。。");
+                 ch.close();
 
+             }
          }
+         //教师登录
+         if("Teacher".equals(loginType)){
+             String id=msg.text().split(":")[1];
+             String ip=getIpAddress(ch);
+             if(!ip_idMap.containsKey(ip)){
+                 if (!AllConnections.containsKey(id)){
+                     AllConnections.put(id,ch);
+                 }else{AllConnections.remove(id);
+                        AllConnections.put(id,ch);
+                 }
+
+             }else {
+                System.out.println("检测到多开链接，正在关闭。。。");
+                ch.close();
+             }
+         }
+
 
 
 
