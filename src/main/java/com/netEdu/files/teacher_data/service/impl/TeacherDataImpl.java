@@ -1,5 +1,7 @@
 package com.netEdu.files.teacher_data.service.impl;
 
+import com.netEdu.entity.Course;
+import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.teacher_data.dao.TeacherDataMapper;
 import com.netEdu.files.teacher_data.service.TeacherDataService;
@@ -16,6 +18,11 @@ public class TeacherDataImpl implements TeacherDataService {
 
     @Autowired
     private TeacherDataMapper teacherDataMapper;
+
+    @Override
+    public List<Course> queryCourse(String teacher_id) {
+        return teacherDataMapper.queryEnableCourse(teacher_id);
+    }
 
     @Override
     public void uploadOne(String data_title, int teacher_id, int course_id, String share, String savepathAndType) {
@@ -60,6 +67,11 @@ public class TeacherDataImpl implements TeacherDataService {
     @Override
     public List<TeacherData> queryTeacherData(TeacherData teacherData) {
         return teacherDataMapper.showTeacherDataList(teacherData);
+    }
+
+    @Override
+    public List<StudentData> queryStudentData(StudentData studentData) {
+        return teacherDataMapper.showStudentDataList(studentData);
     }
 
     @Override

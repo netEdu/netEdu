@@ -29,7 +29,7 @@ public class Course extends BaseEntity {
 
     private String hours;
 
-    private String class_teacher;
+    private String teacher_id;
 
     private String class_time;
 

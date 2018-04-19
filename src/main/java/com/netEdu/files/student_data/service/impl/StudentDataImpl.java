@@ -1,5 +1,6 @@
 package com.netEdu.files.student_data.service.impl;
 
+import com.netEdu.entity.Course;
 import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.student_data.dao.StudentDataMapper;
@@ -17,6 +18,11 @@ public class StudentDataImpl implements StudentDataService{
 
     @Autowired
     private StudentDataMapper studentDataMapper;
+
+    @Override
+    public List<Course> queryCourse(String student_id) {
+        return studentDataMapper.queryEnableCourse(student_id);
+    }
 
     @Override
     public void uploadOne(String data_title, int student_id, int course_id,String savepathAndType) {

@@ -1,5 +1,6 @@
 package com.netEdu.files.student_data.controller;
 
+import com.netEdu.entity.Course;
 import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.student_data.service.StudentDataService;
@@ -30,6 +31,12 @@ public class StudentDataController {
 
     @Autowired
     private StudentDataService studentDataService;
+
+    @ApiOperation(value = "|StudentData|查看可用课程",notes = "student_id:学生id")
+    @PostMapping(value = "/queryCourse")
+    public List<Course> query(String student_id){
+        return studentDataService.queryCourse(student_id);
+    }
 
     @ApiOperation(value = "|StudentData|添加资料",notes = "data_title:资料标题</br>" +
             "student_id:上传学生id</br>" +
