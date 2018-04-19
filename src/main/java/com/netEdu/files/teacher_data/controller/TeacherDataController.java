@@ -1,6 +1,7 @@
 package com.netEdu.files.teacher_data.controller;
 
 import com.netEdu.entity.Course;
+import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.teacher_data.service.TeacherDataService;
 import com.netEdu.utils.File.FileUtil;
@@ -63,19 +64,20 @@ public class TeacherDataController {
             "course_id:课程id</br>" +
             "data_type:资料类型")
     @PostMapping(value = "/queryTeacherData")
-    public List<TeacherData> queryStudent(@RequestBody TeacherData teacherData){
+    public List<TeacherData> Teacher(@RequestBody TeacherData teacherData){
         return teacherDataService.queryTeacherData(teacherData);
     }
 
-//    @ApiOperation(value = "|TeacherData|查看学生资料",notes = "name:学生姓名 模糊</br>" +
-//            "data_title:资料标题 模糊</br>" +
-//            "course_name:课程名 模糊</br>" +
-//            "course_id:课程id</br>" +
-//            "data_type:资料类型")
-//    @PostMapping(value = "/queryTeacherData")
-//    public List<TeacherData> queryTeacher(@RequestBody TeacherData teacherData){
-//        return teacherDataService.queryTeacherData(teacherData);
-//    }
+    @ApiOperation(value = "|TeacherData|查看学生资料",notes = "name:学生姓名 模糊</br>" +
+            "data_title:资料标题 模糊</br>" +
+            "course_name:课程名 模糊</br>" +
+            "course_id:课程id</br>" +
+            "data_type:资料类型</br>" +
+            "class_num:班号")
+    @PostMapping(value = "/queryStudentData")
+    public List<StudentData> queryStudent(@RequestBody StudentData studentData){
+        return teacherDataService.queryStudentData(studentData);
+    }
 
     @ApiOperation(value = "|TeacherData|删除个人资料",notes = "data_ids:资料id组 split by ','")
     @DeleteMapping(value = "/deleteFiles")

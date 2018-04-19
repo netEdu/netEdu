@@ -30,4 +30,11 @@ public class StudentData extends BaseEntity {
     @Transient
     private String course_name;
 
+    /** 联表查询学生姓名 */
+    @Transient
+    private String name;
+
+    @Transient
+    private String class_num;
+
 }

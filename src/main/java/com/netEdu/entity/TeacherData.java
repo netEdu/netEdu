@@ -44,4 +44,7 @@ public class TeacherData extends BaseEntity {
     @Transient
     private String name;
 
+    @Transient
+    private String class_num;
+
 }
