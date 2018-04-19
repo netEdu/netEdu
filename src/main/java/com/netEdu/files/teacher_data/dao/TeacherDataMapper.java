@@ -1,6 +1,7 @@
 package com.netEdu.files.teacher_data.dao;
 
 import com.netEdu.core.BaseMapper;
+import com.netEdu.entity.Course;
 import com.netEdu.entity.TeacherData;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +11,9 @@ import java.util.List;
 
 @Mapper
 public interface TeacherDataMapper extends BaseMapper<TeacherData> {
+
+    @Select("select * from course where teacher_id = teacher_id and del_flag = 0 and audit_status = 1")
+    List<Course> queryEnableCourse(String teacher_id);
 
     @Select("<script>select * " +
             "from teacher_data " +

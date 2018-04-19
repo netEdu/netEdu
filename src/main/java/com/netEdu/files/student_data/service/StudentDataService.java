@@ -1,11 +1,14 @@
 package com.netEdu.files.student_data.service;
 
+import com.netEdu.entity.Course;
 import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
 
 import java.util.List;
 
 public interface StudentDataService {
+
+    List<Course> queryCourse(String student_id);
 
     void uploadOne(String data_title,int teacher_id,int course_id,String savepathAndType);
 

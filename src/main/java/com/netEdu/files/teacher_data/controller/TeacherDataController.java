@@ -1,5 +1,6 @@
 package com.netEdu.files.teacher_data.controller;
 
+import com.netEdu.entity.Course;
 import com.netEdu.entity.TeacherData;
 import com.netEdu.files.teacher_data.service.TeacherDataService;
 import com.netEdu.utils.File.FileUtil;
@@ -20,6 +21,12 @@ public class TeacherDataController {
 
     @Autowired
     private TeacherDataService teacherDataService;
+
+    @ApiOperation(value = "|TeacherData|查看可用课程",notes = "teacher_id:教师id")
+    @PostMapping(value = "/queryCourse")
+    public List<Course> query(String teacher_id){
+        return teacherDataService.queryCourse(teacher_id);
+    }
 
     @ApiOperation(value = "|TeacherData|添加资料",notes = "data_title:资料标题</br>" +
             "student_id:上传教师id</br>" +
