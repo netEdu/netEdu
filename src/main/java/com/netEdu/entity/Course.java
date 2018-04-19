@@ -3,10 +3,7 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,5 +43,9 @@ public class Course extends BaseEntity {
     private String audit_opinion;
 
     private String auditor;
+
+    /** 联表查询教师姓名 */
+    @Transient
+    private String name;
 
 }
