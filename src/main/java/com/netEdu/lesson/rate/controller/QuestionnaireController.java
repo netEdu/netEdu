@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/Questionnaire")
-@Api(description = "|教师端|教师评价问卷")
+@Api(description = "|管理员端|教师评价问卷")
 public class QuestionnaireController extends BaseController<Questionnaire> {
 
     @Autowired

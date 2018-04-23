@@ -24,7 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
  */
 @RestController
 @RequestMapping("/TeacherEvaluate")
-@Api(description = "|教师端|教师评价")
+@Api(description = "|学生端|教师评价")
 public class TeacherEvaluateController extends BaseController<TeacherEvaluate> {
 
     @Autowired

@@ -5,8 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 public class FileUtil {
@@ -102,6 +102,41 @@ public class FileUtil {
     public static void deleteFiles(String savepath){
         File file = new File(savepath);
         file.delete();
+    }
+
+    public static void download(HttpServletResponse response,String savepath) {
+        String filename = "下载文件";
+        File file = new File(savepath);
+        if (file.exists()) {
+            response.setContentType("application/force-download");
+            response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            OutputStream os = null;
+            try {
+                os = response.getOutputStream();
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer);
+                    i = bis.read(buffer);
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.out.println("----------file download" + filename);
+            try {
+                bis.close();
+                fis.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
 }
