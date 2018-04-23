@@ -23,6 +23,8 @@ public class Questionnaire extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int questionnaire_id;
 
+    private int questionnaire_name;
+
     private String creator;
 
     private String survey_questions;//问题id组
