@@ -13,11 +13,20 @@ public class QuestionnairePage extends BasePage {
 
     private Integer pageSize = 2;
     private int questionnaire_id;
+    private String questionnaire_name;
     private String creator;
     private String survey_questions;//问题id组
     private String create_time;
     private String remarks;//问卷说明
     private int teacher_id;
+
+    public String getQuestionnaire_name() {
+        return questionnaire_name;
+    }
+
+    public void setQuestionnaire_name(String questionnaire_name) {
+        this.questionnaire_name = questionnaire_name;
+    }
 
     @Override
     public Integer getPageSize() {

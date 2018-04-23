@@ -46,9 +46,16 @@ public class QuestionnaireImpl implements QuestionnaireService{
 
     }
 
-    //查询单个调查问卷
+    @Override
+    public Questionnaire selectByQuestionnaireId(int questionnaire_id) {
+        //return questionnaireDao.selectByQuestionnaireId(questionnaire_id);
+        return null;
+    }
+
+    /*//查询单个调查问卷
     @Override
     public Questionnaire selectByQuestionnaireId(int questionnaire_id) {
         return questionnaireDao.selectByQuestionnaireId(questionnaire_id);
-    }
+    }*/
+
 }

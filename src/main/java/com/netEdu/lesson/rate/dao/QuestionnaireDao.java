@@ -31,5 +31,6 @@ public interface QuestionnaireDao extends BaseMapper<Questionnaire> {
     //查找分页数据
     List<Questionnaire> queryByPage(QuestionnairePage page);
 
-    Questionnaire selectByQuestionnaireId(@Param(value = "questionnaire_id") int questionnaire_id);
+    //Questionnaire selectByQuestionnaireId(@Param(value = "questionnaire_id") int questionnaire_id);
+
 }

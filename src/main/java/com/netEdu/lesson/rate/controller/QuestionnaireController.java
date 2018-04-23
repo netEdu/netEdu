@@ -7,7 +7,6 @@ import com.adc.da.util.http.Result;
 import com.netEdu.entity.Questionnaire;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 import com.netEdu.lesson.rate.service.QuestionnaireService;
-import com.netEdu.lesson.rate.service.impl.QuestionnaireImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,14 +63,11 @@ public class QuestionnaireController extends BaseController<Questionnaire> {
         List<Questionnaire> rows = questionnaireService.queryByPage(page);
         return Result.success(getPageInfo(page.getPager(), rows));
     }
-    @ApiOperation(value = "|Questionnaire|查询单个教师问卷详情",notes = "questionnaire_id:问卷id")
+    /*@ApiOperation(value = "|Questionnaire|查询单个教师问卷详情",notes = "questionnaire_id:问卷id")
     @PostMapping(value = "/selectByQuestionnaireId")
     public ResponseMessage<Questionnaire> selectByQuestionnaireId(@RequestParam int questionnaire_id){
         return Result.success(questionnaireService.selectByQuestionnaireId(questionnaire_id));
-    }
-
-
-
+    }*/
 
 
 }
