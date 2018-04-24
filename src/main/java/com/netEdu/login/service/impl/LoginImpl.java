@@ -35,6 +35,4 @@ private LoginMapper loginMapper;
         return "Student:"+result.get(0).getClass_num()+","+result.get(0).getStudent_id();
     }
 
-
-
 }
