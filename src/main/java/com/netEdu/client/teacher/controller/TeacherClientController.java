@@ -1,11 +1,14 @@
 package com.netEdu.client.teacher.controller;
 
 import com.netEdu.client.teacher.service.TeacherClientService;
+import com.netEdu.entity.Course;
 import com.netEdu.entity.Teacher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Client")
@@ -15,7 +18,7 @@ public class TeacherClientController {
     @Autowired
     private TeacherClientService teacherClientService;
 
-    @ApiOperation(value = "|Client|教师查看个人信息",notes = "teacher_id:教师id</br>")
+    @ApiOperation(value = "|Client|教师查看个人信息",notes = "teacher_id:教师id")
     @GetMapping(value = "/teacherInfo")
     public Teacher query(@RequestParam int teacher_id){
         return teacherClientService.personalInfo(teacher_id);
@@ -28,6 +31,12 @@ public class TeacherClientController {
     @PutMapping(value = "/updateTeacherInfo")
     public void update(@RequestBody Teacher teacher){
         teacherClientService.updateInfo(teacher);
+    }
+
+    @ApiOperation(value = "|Client|教师查看个人课程",notes = "teacher_id:教师id")
+    @GetMapping(value = "/queryTeacherCourse")
+    public List<Course> queryC(@RequestParam int teacher_id){
+        return teacherClientService.queryCourse(teacher_id);
     }
 
 }
