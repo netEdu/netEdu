@@ -3,10 +3,8 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,12 +25,24 @@ public class Questionnaire extends BaseEntity {
 
     private String creator;
 
-    private String survey_questions;//问题id组
+    /**
+     * 问题id组
+     */
+    private String survey_questions;
 
     private String create_time;
 
-    private String remarks;//问卷说明
+    /**
+     * 问卷说明
+     */
+    private String remarks;
 
     private int teacher_id;
+
+    /**
+     * 问卷问题List
+     */
+    @Transient
+    private List<SurveyQuestion> surveyQuestionList;
 
 }
