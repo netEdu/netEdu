@@ -1,6 +1,7 @@
 package com.netEdu.lesson.rate.service.impl;
 
 import com.netEdu.entity.Questionnaire;
+import com.netEdu.entity.SurveyQuestion;
 import com.netEdu.lesson.rate.dao.QuestionnaireDao;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 import com.netEdu.lesson.rate.service.QuestionnaireService;
@@ -18,14 +19,13 @@ import java.util.List;
  */
 @Service
 public class QuestionnaireImpl implements QuestionnaireService{
+
     @Autowired
     private QuestionnaireDao questionnaireDao;
-
 
     @Override
     public void add(Questionnaire questionnaire) {
         questionnaireDao.insertSelective(questionnaire);
-
     }
 
     @Override
@@ -43,12 +43,12 @@ public class QuestionnaireImpl implements QuestionnaireService{
         Integer rowCount = questionnaireDao.queryByCount(page);
         page.getPager().setRowCount(rowCount);
         return questionnaireDao.queryByPage(page);
-
     }
 
-    //查询单个调查问卷
     @Override
-    public Questionnaire selectByQuestionnaireId(int questionnaire_id) {
-        return questionnaireDao.selectByQuestionnaireId(questionnaire_id);
+    public List<SurveyQuestion> selectByQuestionnaireId(int questionnaire_id) {
+        String surveyQuestions = questionnaireDao.selectSurveyQuestion(questionnaire_id);
+        return questionnaireDao.selectByQuestionnaireId(surveyQuestions);
     }
+
 }

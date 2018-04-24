@@ -80,4 +80,9 @@ public class StudentDataImpl implements StudentDataService{
         studentDataMapper.removeFiles(data_ids);
     }
 
+    @Override
+    public String downloadFile(String data_id) {
+        return studentDataMapper.selectSavepath(data_id);
+    }
+
 }

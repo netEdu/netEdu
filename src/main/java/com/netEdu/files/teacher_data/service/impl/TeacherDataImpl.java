@@ -83,4 +83,8 @@ public class TeacherDataImpl implements TeacherDataService {
         teacherDataMapper.removeFiles(data_ids);
     }
 
+    @Override
+    public String downloadFile(String data_id) {
+        return teacherDataMapper.selectSavepath(data_id);
+    }
 }

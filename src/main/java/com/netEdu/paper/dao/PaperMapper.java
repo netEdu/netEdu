@@ -6,10 +6,7 @@ import com.netEdu.entity.Paper;
 import com.netEdu.entity.Question;
 import com.netEdu.paper.vo.PaperPage;
 import com.netEdu.questionPool.question.vo.QuestionPage;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -49,5 +46,8 @@ public interface PaperMapper extends BaseMapper<Paper> {
 
     @Update("update Paper set del_flag = 1 where FIND_IN_SET(paper_id,#{0})")
     void deletePaper(String ids);
+
+    @Select("select correct_answers from paper where paper_id = #{0}")
+    String selectAnswerForPaper(int id);
 
 }

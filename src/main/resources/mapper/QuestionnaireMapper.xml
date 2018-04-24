@@ -4,6 +4,7 @@
 <mapper namespace="com.netEdu.lesson.rate.dao.QuestionnaireDao" >
     <resultMap id="BaseResultMap" type="com.netEdu.entity.Questionnaire" >
         <id column="questionnaire_id" property="questionnaire_id" />
+        <result column="questionnaire_name" property="questionnaire_name" />
         <result column="creator" property="creator" />
         <result column="survey_questions" property="survey_questions" />
         <result column="create_time" property="create_time" />
@@ -12,7 +13,7 @@
         <result column="del_flag" property="del_flag" />
     </resultMap>
     <sql id="Base_Column_List" >
-        questionnaire_id, creator,survey_questions, create_time,remarks,teacher_id, del_flag
+        questionnaire_id,questionnaire_name, creator,survey_questions, create_time,remarks,teacher_id, del_flag
     </sql>
 
     <!--分页查询列表-->
@@ -22,12 +23,6 @@
         WHERE  del_flag = 0
         LIMIT ${pager.startIndex-1},#{pageSize}
 
-    </select>
-
-    <!--根据questionnaire_id 查询单个问卷-->
-    <select id="selectByQuestionnaireId" resultMap="BaseResultMap" parameterType="integer">
-        SELECT <include refid="Base_Column_List"/> FROM questionnaire
-        WHERE questionnaire_id=#{questionnaire_id}
     </select>
 
 </mapper>

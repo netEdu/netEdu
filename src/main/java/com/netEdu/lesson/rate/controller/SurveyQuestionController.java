@@ -27,7 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
  */
 @RestController
 @RequestMapping("/SurveyQuestion")
-@Api(description = "|教师端|问卷问题")
+@Api(description = "|管理员端|问卷问题")
 public class SurveyQuestionController extends BaseController<SurveyQuestion> {
     @Autowired
     private SurveyQuestionService surveyQuestionService;

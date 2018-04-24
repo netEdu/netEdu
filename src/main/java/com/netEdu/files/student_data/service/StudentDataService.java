@@ -20,4 +20,6 @@ public interface StudentDataService {
 
     void delFiles(String data_ids);
 
+    String downloadFile(String data_id);
+
 }

@@ -89,4 +89,10 @@ public class StudentDataController {
         studentDataService.delFiles(data_ids);
     }
 
+    @ApiOperation(value = "|StudentData|下载资料",notes = "data_id:资料id")
+    @GetMapping(value = "/downloadFile")
+    public void dl(HttpServletResponse response,@RequestParam String data_id){
+        FileUtil.download(response,studentDataService.downloadFile(data_id));
+    }
+
 }
