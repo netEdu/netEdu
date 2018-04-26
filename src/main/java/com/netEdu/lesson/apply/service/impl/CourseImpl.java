@@ -33,7 +33,8 @@ public class CourseImpl implements CourseService {
 
     @Override
     public void updateCourse(Course course) {
-        courseMapper.updateByPrimaryKeySelective(course);
+        //courseMapper.updateByPrimaryKeySelective(course);
+        courseMapper.updateCourse(course);
     }
 
     @Override

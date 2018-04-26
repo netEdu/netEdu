@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里的namespace必须和是对应的mapper.java的地址-->
+<mapper namespace="com.netEdu.lesson.apply.dao.CourseMapper" >
+
+    <update id="updateCourse" parameterType="com.netEdu.entity.Course" >
+        UPDATE course
+        SET course_name=#{course_name},credit=#{credit},hours=#{hours},teacher_id=#{teacher_id},
+                class_time=#{class_time},course_introduce=#{course_introduce},class_num=#{class_num},assessment_method=#{assessment_method},
+                create_time=#{create_time},audit_opinion=#{audit_opinion},audit_status=#{audit_status},auditor=#{auditor}
+        WHERE course_id=#{course_id}
+    </update>
+
+</mapper>

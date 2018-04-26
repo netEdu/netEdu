@@ -26,4 +26,5 @@ public interface CourseMapper extends BaseMapper<Course> {
             "</script>")
     List<Course> queryCourseList(Course course);
 
+    void updateCourse(Course course);
 }
