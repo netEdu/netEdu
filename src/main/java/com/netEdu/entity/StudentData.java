@@ -9,6 +9,7 @@ import java.io.File;
 
 @Data
 @Entity
+@Table(name = "student_data")
 public class StudentData extends BaseEntity {
 
     @Id

@@ -14,6 +14,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@Table(name = "course")
 public class Course extends BaseEntity {
 
     @Id
