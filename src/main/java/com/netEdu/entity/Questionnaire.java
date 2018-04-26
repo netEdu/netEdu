@@ -15,6 +15,7 @@ import java.util.List;
  */
 @Data
 @Entity
+@Table(name = "questionnaire")
 public class Questionnaire extends BaseEntity {
 
     @Id

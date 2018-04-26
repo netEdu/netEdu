@@ -3,10 +3,7 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +14,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
+@Table(name = "m_evaluate")
 public class MEvaluate extends BaseEntity {
 
     @Id

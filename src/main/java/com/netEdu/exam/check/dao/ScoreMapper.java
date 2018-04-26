@@ -34,6 +34,7 @@ public interface ScoreMapper extends BaseMapper<Score>{
     //单个学生成绩数据
     List<ScoreVO> selectScoreByStudentId(ScorePage page);
 
-    @Select("SELECT AVG(paper_score),AVG(sign_score),AVG(test_score)FROM score WHERE student_id=#{student_id} GROUP BY student_id")
+    //单个学生的平均成绩
+    @Select("SELECT AVG(paper_score) AS paper_score ,AVG(sign_score) AS sign_score, AVG(test_score) AS test_score FROM score WHERE student_id=#{student_id} GROUP BY student_id")
     ScoreVO AVGStudentId(int student_id);
 }
