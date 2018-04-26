@@ -24,12 +24,12 @@ public class CheckController {
 
 
     @ApiOperation(value = "|Answer|学生判卷",notes = "卷子id：paper_id</br>" +
-            "student_answers:学生答案组 split by ','</br>" +
-            "学生id:student_id</br>")
-    @PostMapping(value = "/checkPaper")
-    public ResponseMessage addQuestionnaire(@RequestBody Answer answer){
-        List error= checkService.check(answer);
-        return Result.success(error);
+        "student_answers:学生答案组 split by ','</br>" +
+                "学生id:student_id</br>")
+        @PostMapping(value = "/checkPaper")
+        public ResponseMessage addQuestionnaire(@RequestBody Answer answer){
+            List error= checkService.check(answer);
+            return Result.success(error);
     }
 
 
