@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里的namespace必须和是对应的mapper.java的地址-->
+<mapper namespace="com.netEdu.exam.check.dao.ScoreMapper" >
+
+    <resultMap id="BaseVOResultMap" type="com.netEdu.entity.VO.ScoreVO" >
+        <id column="score_id" jdbcType="INTEGER" property="score_id" />
+        <result column="paper_id" jdbcType="INTEGER" property="paper_id" />
+        <result column="student_id" jdbcType="INTEGER" property="student_id" />
+        <result column="paper_score" jdbcType="FLOAT" property="paper_score" />
+        <result column="sign_score" jdbcType="FLOAT" property="sign_score" />
+        <result column="test_score" jdbcType="FLOAT" property="test_score" />
+        <result column="score_time" jdbcType="VARCHAR" property="score_time" />
+        <result column="name" jdbcType="VARCHAR" property="student_name" />
+        <result column="paper_name" jdbcType="VARCHAR" property="paper_name" />
+    </resultMap>
+    <resultMap id="AVGByStudenttid" type="com.netEdu.entity.VO.ScoreVO" >
+        <id column="score_id" jdbcType="INTEGER" property="score_id" />
+        <result column="paper_id" jdbcType="INTEGER" property="paper_id" />
+        <result column="student_id" jdbcType="INTEGER" property="student_id" />
+        <result column="AVG(paper_score)" jdbcType="FLOAT" property="paper_score" />
+        <result column="AVG(sign_score)" jdbcType="FLOAT" property="sign_score" />
+        <result column="AVG(test_score)" jdbcType="FLOAT" property="test_score" />
+        <result column="score_time" jdbcType="VARCHAR" property="score_time" />
+        <result column="name" jdbcType="VARCHAR" property="student_name" />
+        <result column="paper_name" jdbcType="VARCHAR" property="paper_name" />
+    </resultMap>
+    <sql id="Base_VoColumn_List">
+        score_id,paper_id,student_id,paper_score,sign_score,test_score,score_time,student_name,paper_name
+    </sql>
+
+    <!--所有学生成绩数据-->
+    <select id="queryByPage" resultMap="BaseVOResultMap" parameterType="com.adc.da.base.page.BasePage">
+        SELECT  score_id,sc.paper_id,sc.student_id,
+                  paper_score,sign_score,test_score,
+                  score_time,st.`name`,paper_name
+        FROM score sc,student st,paper p
+        WHERE sc.del_flag=0 AND sc.paper_id=p.paper_id AND sc.student_id=st.student_id
+        LIMIT ${pager.startIndex-1},#{pageSize}
+    </select>
+
+    <!--单个学生所有成绩-->
+    <select id="selectScoreByStudentId" resultMap="BaseVOResultMap" parameterType="com.netEdu.exam.check.page.ScorePage">
+        /*SELECT  AVG(paper_score) AS avgps,AVG(sign_score) AS avgss,AVG(test_score) as avgts, sc.student_id*/
+        select score_id,sc.paper_id,sc.student_id,
+                  paper_score,sign_score,test_score,
+                  score_time,st.`name`,paper_name
+        FROM score sc,student st,paper p
+        WHERE sc.del_flag=0 AND sc.paper_id=p.paper_id AND sc.student_id=st.student_id AND sc.student_id=1
+        LIMIT ${pager.startIndex-1},#{pageSize}
+    </select>
+
+</mapper>
