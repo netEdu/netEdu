@@ -25,10 +25,4 @@
 
     </select>
 
-    <!--根据questionnaire_id 查询单个问卷-->
-    <select id="selectByQuestionnaireId" resultMap="BaseResultMap" parameterType="integer">
-        SELECT <include refid="Base_Column_List"/> FROM questionnaire
-        WHERE questionnaire_id=#{questionnaire_id}
-    </select>
-
 </mapper>

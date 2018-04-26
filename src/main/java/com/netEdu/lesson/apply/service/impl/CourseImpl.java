@@ -19,7 +19,7 @@ public class CourseImpl implements CourseService {
     @Override
     public String add(Course course) {
         if(courseMapper.queryCourse(course.getCourse_name()).size() > 0){
-            return "REPEAD";
+            return "REPEAT";
         }
         else{
             Date date=new Date();

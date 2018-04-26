@@ -11,9 +11,10 @@ import java.util.List;
 @Mapper
 public interface LoginMapper {
 
-    @Select("select class_num from student where username=#{username} and password=#{password}")
+    @Select("select class_num,student_id from student where username=#{username} and password=#{password}")
     @Results({
             @Result(property = "class_num",  column = "class_num"),
+            @Result(property = "student_id",  column = "student_id")
 
     })
     List<Student> login(Student student);

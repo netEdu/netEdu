@@ -1,6 +1,7 @@
 package com.netEdu.lesson.rate.service;
 
 import com.netEdu.entity.Questionnaire;
+import com.netEdu.entity.SurveyQuestion;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 
 import java.util.List;
@@ -22,6 +23,6 @@ public interface QuestionnaireService {
 
     List<Questionnaire> queryByPage(QuestionnairePage page);
 
-    Questionnaire selectByQuestionnaireId(int questionnaire_id);
+    List<SurveyQuestion> selectByQuestionnaireId(int questionnaire_id);
 
 }
