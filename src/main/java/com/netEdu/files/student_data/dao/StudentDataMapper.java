@@ -26,7 +26,7 @@ public interface StudentDataMapper extends BaseMapper<StudentData> {
             "<if test=\"data_title !=null and data_title != '' \">and data_title like CONCAT(CONCAT('%',#{data_title},'%')) </if> " +
             "<if test=\"data_type !=null and data_type != '' \">and data_type = #{data_type} </if> " +
             "<if test=\"course_id !=null and course_id != '' \">and course_id = #{course_id} </if> " +
-            "and student_id = #{student_id}" +
+            "and student_data.student_id = #{student_id}" +
             "</script>")
     List<StudentData> showStudentDataList(StudentData studentData);
 
