@@ -5,6 +5,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +17,11 @@ public class Connection {
    public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
      static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
+
+    @Autowired GroupInjectService groupInjectService;
+
+
+
 
     public static void classMessage(Channel ch,TextWebSocketFrame msg){
         String message=msg.text();
@@ -101,7 +107,7 @@ public class Connection {
      }
 
 
-     public static void loginBind(Channel ch,TextWebSocketFrame msg){
+     public  void loginBind(Channel ch,TextWebSocketFrame msg){
          //String id=msg.text().split(",")[1];
          //String class_num=msg.text().split(",")[2];
          String loginType=msg.text().split(":")[0].split(",")[1];
@@ -127,6 +133,7 @@ public class Connection {
                      AllConnections.remove(id);
                      AllConnections.put(id,ch);
                  }
+                 groupInjectService.injectGroups(id);
              }else{
                  System.out.println("检测到多开链接，正在关闭。。。");
                  ch.close();
@@ -143,7 +150,7 @@ public class Connection {
                  }else{AllConnections.remove(id);
                         AllConnections.put(id,ch);
                  }
-
+                    groupInjectService.injectGroups(id);
              }else {
                 System.out.println("检测到多开链接，正在关闭。。。");
                 ch.close();

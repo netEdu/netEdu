@@ -13,6 +13,7 @@ import java.util.Date;
 
 @ChannelHandler.Sharable
 public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+    Connection connection=new Connection();
     //public static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame msg) throws Exception {
@@ -22,7 +23,7 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
         switch (Connection.getMessageType(msg)) {
             //当第一位为0时，接收学生ID，将ID和Channel一组存入Map,IP，ID一起存入MAP
             case 0:
-                Connection.loginBind(incoming, msg);
+                connection.loginBind(incoming, msg);
                 break;
             //当第一位为1，转发消息
             case 1:

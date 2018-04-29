@@ -9,16 +9,16 @@ import java.util.List;
 @Mapper
 public interface GroupMapper {
 
-    @Insert({"INSERT INTO group(group_name,person_id) VALUES(#{group_name},#{person_id})"})
+    @Insert("insert into `group` (group_name,person_id) values(#{group.group_name},#{group.person_id})")
     @Options(useGeneratedKeys = true, keyProperty = "group.group_id")
-    void insertGroup(Group group);
+    void insertGroup(@Param("group") Group group);
 
 
-    @Delete("delete from group where group_id = #{group_id}")
+    @Delete("delete from `group` where group_id = #{group.group_id}")
     @Options(useGeneratedKeys = true, keyProperty = "group.group_id")
-     void deleteGroup(Group group);
+     void deleteGroup(@Param("group") Group group);
 
-    @Select("select person_id from group where group_id = #{group_id}")
+    @Select("select person_id from `group` where group_id = #{group_id}")
     @Results({
             @Result(property = "person_id",  column = "person_id"),
 
@@ -26,10 +26,10 @@ public interface GroupMapper {
     List<Group> getMember(Group group);
 
 
-    @Update("UPDATE group SET person_id=#{person_id},WHERE group_id =#{group_id}")
+    @Update("UPDATE `group` SET person_id=#{person_id},WHERE group_id =#{group_id}")
     void updateMember(Group group);
 
-    @Select("select group_id,group_name,person_id from group where group_id=#{group_id}")
+    @Select("select group_id,group_name,person_id from `group` where group_id=#{group_id}")
     @Results({
             @Result(property = "group_id", column = "group_id"),
             @Result(property = "group_name", column = "group_name"),
@@ -38,7 +38,7 @@ public interface GroupMapper {
     List<Group> selectByGroupId(Group group);
 
 
-    @Select("select group_id,group_name,person_id from group where person_id like concat('%' , ',' , #{person_id} , ',' , '%')")
+    @Select("select group_id,group_name,person_id from `group` where person_id like concat('%' , ',' , #{person_id} , ',' , '%')")
     @Results({
             @Result(property = "group_id", column = "group_id"),
             @Result(property = "group_name", column = "group_name"),
