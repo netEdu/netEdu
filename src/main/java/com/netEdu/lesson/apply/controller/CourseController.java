@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+
 @RestController
 @RequestMapping("/Course")
 @Api(description = "|教师端|课程申请")
@@ -38,7 +40,7 @@ public class CourseController {
             "course_introduce:课程简介</br>" +
             "class_num:班号</br>" +
             "assessment_method:考核方法")
-    @PutMapping(value = "/updateApplication")
+    @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE,value = "/updateApplication")
     public void update(@RequestBody Course course){
         courseService.updateCourse(course);
     }
@@ -47,6 +49,7 @@ public class CourseController {
     @DeleteMapping(value = "/cancelCourse")
     public void del(@RequestParam String ids){
         courseService.remove(ids);
+        System.out.println("删除------------------"+ids);
     }
 
     @ApiOperation(value = "|Course|查看申请列表",notes = "teacher_id:教师id</br>" +

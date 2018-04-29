@@ -3,13 +3,11 @@ package com.netEdu.entity;
 import com.netEdu.core.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "student")
 public class Student extends BaseEntity {
 
     @Id

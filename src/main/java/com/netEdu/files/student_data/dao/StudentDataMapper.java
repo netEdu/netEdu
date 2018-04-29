@@ -25,12 +25,12 @@ public interface StudentDataMapper extends BaseMapper<StudentData> {
             "<if test=\"course_name !=null and course_name != '' \">and course_name like CONCAT(CONCAT('%',#{course_name},'%')) </if> " +
             "<if test=\"data_title !=null and data_title != '' \">and data_title like CONCAT(CONCAT('%',#{data_title},'%')) </if> " +
             "<if test=\"data_type !=null and data_type != '' \">and data_type = #{data_type} </if> " +
-            "<if test=\"course_id !=null and course_id != '' \">and course_id = #{course_id} </if> " +
-            "and student_id = #{student_id}" +
+            "<if test=\"course_id !=null and course_id != '' \">and student_data.course_id = #{course_id} </if> " +
+            "and student_data.student_id = #{student_id}" +
             "</script>")
     List<StudentData> showStudentDataList(StudentData studentData);
 
-    @Select("<script>select *" +
+    @Select("<script>select * " +
             "from teacher_data " +
             "left join course on teacher_data.course_id = course.course_id " +
             "left join teacher on course.teacher_id = teacher.teacher_id " +
@@ -39,7 +39,7 @@ public interface StudentDataMapper extends BaseMapper<StudentData> {
             "<if test=\"data_title !=null and data_title != '' \">and data_title like CONCAT(CONCAT('%',#{data_title},'%')) </if> " +
             "<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> " +
             "<if test=\"data_type !=null and data_type != '' \">and data_type = #{data_type} </if> " +
-            "<if test=\"course_id !=null and course_id != '' \">and course_id = #{course_id} </if> " +
+            "<if test=\"course_id !=null and course_id != '' \">and teacher_data.course_id = #{course_id} </if> " +
             "and teacher_data.share = 0" +
             "</script>"
     )
