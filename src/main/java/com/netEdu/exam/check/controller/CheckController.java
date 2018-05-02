@@ -27,7 +27,7 @@ public class CheckController {
         "student_answers:学生答案组 split by ','</br>" +
                 "学生id:student_id</br>")
         @PostMapping(value = "/checkPaper")
-        public ResponseMessage addQuestionnaire(@RequestBody Answer answer){
+        public ResponseMessage checkPaper(@RequestBody Answer answer){
             List error= checkService.check(answer);
             return Result.success(error);
     }
