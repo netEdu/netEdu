@@ -20,4 +20,6 @@ public interface QuestionService {
 
     List<Question> findAllByCriteria(QuestionPage questionPage);
 
+
+    List<Question> selectNotExistQuestion(List existQuestionIdList);
 }
