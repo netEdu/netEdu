@@ -133,6 +133,7 @@ public class Connection {
                      AllConnections.remove(id);
                      AllConnections.put(id,ch);
                  }
+                 System.out.println("本次操作的id是："+id);
                  groupInjectService.injectGroups(id);
              }else{
                  System.out.println("检测到多开链接，正在关闭。。。");
@@ -150,6 +151,7 @@ public class Connection {
                  }else{AllConnections.remove(id);
                         AllConnections.put(id,ch);
                  }
+                 System.out.println("本次操作的id是："+id);
                     groupInjectService.injectGroups(id);
              }else {
                 System.out.println("检测到多开链接，正在关闭。。。");
