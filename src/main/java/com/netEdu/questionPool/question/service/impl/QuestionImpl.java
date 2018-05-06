@@ -57,4 +57,9 @@ public class QuestionImpl implements QuestionService{
         return questionMapper.queryAll(questionPage);
     }
 
+    @Override
+    public List<Question> selectNotExistQuestion(List existQuestionIdList) {
+        return questionMapper.selectNotExistQuestion(existQuestionIdList);
+    }
+
 }

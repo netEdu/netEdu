@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里的namespace必须和是对应的mapper.java的地址-->
+<mapper namespace="com.netEdu.evaluate.dao.StudentEvaluateMapper" >
+
+    <resultMap id="BaseResultMap" type="com.netEdu.entity.VO.StudentEvaluateVO" >
+        <id column="evaluate_id" jdbcType="INTEGER" property="evaluate_id" />
+        <result column="student_id" jdbcType="INTEGER" property="student_id" />
+        <result column="ideology" jdbcType="INTEGER" property="ideology" />
+        <result column="study" jdbcType="INTEGER" property="study" />
+        <result column="morality" jdbcType="INTEGER" property="morality" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        evaluate_id,s_evaluate.student_id,ideology,study,morality,`name`
+    </sql>
+
+
+    <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        SELECT evaluate_id,s_evaluate.student_id,ideology,study,morality,`name`
+        FROM s_evaluate,student
+        WHERE  student.del_flag=0
+        AND s_evaluate.del_flag=0
+        AND s_evaluate.student_id=student.student_id
+        AND s_evaluate.student_id=#{student_id}
+        LIMIT ${pager.startIndex-1},#{pageSize}
+
+    </select>
+
+</mapper>
