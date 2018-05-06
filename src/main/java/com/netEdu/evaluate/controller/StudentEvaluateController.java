@@ -46,13 +46,13 @@ public class StudentEvaluateController extends BaseController<StudentEvaluateVO>
         return Result.success(getPageInfo(page.getPager(), rows));
     }
 
-    @ApiOperation(value = "|Paper|批量删除个人评价",notes = "ids：评论表ids")
+    @ApiOperation(value = "|StudentEvaluate|批量删除个人评价",notes = "ids：评论表ids")
     @PostMapping(value = "/deleteStudentEvaluate")
     public ResponseMessage delete(@RequestParam String ids){
         service.del(ids);
         return  Result.success();
     }
-    @ApiOperation(value = "|Paper|修改个人评价",notes = "evaluate_id：评论表id</br>" +
+    @ApiOperation(value = "|StudentEvaluate|修改个人评价",notes = "evaluate_id：评论表id</br>" +
             "student_id：学生id</br>" +
             "ideology：思想成绩</br>" +
             "study：学习热情</br>" +
