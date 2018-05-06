@@ -23,7 +23,7 @@ public class Paper extends BaseEntity {
 
     private String paper_name;
 
-    private int teacher_id;
+    private Integer teacher_id;
 
     private String questions;
 
