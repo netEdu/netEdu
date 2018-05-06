@@ -16,7 +16,7 @@ public class GroupInjectService {
     @Autowired GroupInjectMapper groupInjectMapper;
 
     void injectGroups(String id){
-
+        System.out.println("开始重新载入分组。。。。。。");
         List<Group> groupList=groupInjectMapper.getAllGroup(id);
         if (groupList.size()>0){
             String gid="";
