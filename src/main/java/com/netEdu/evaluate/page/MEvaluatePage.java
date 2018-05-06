@@ -14,7 +14,7 @@ public class MEvaluatePage extends BasePage {
     private Integer pageSize = 2;
     private int evaluate_id;
 
-    private int student_id;
+    private Integer student_id;
 
     private int ideology;
 
@@ -23,6 +23,14 @@ public class MEvaluatePage extends BasePage {
     private int morality;
 
     private String name;
+
+    public Integer getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(Integer student_id) {
+        this.student_id = student_id;
+    }
 
     @Override
     public Integer getPageSize() {
@@ -42,13 +50,7 @@ public class MEvaluatePage extends BasePage {
         this.evaluate_id = evaluate_id;
     }
 
-    public int getStudent_id() {
-        return student_id;
-    }
 
-    public void setStudent_id(int student_id) {
-        this.student_id = student_id;
-    }
 
     public int getIdeology() {
         return ideology;

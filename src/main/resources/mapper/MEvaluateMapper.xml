@@ -17,13 +17,22 @@
     </sql>
 
 
+    <select id="queryByCount" resultType="integer" parameterType="com.netEdu.evaluate.page.MEvaluatePage">
+        SELECT COUNT(1) FROM m_evaluate
+        WHERE  del_flag=0
+        <if test="student_id != null">
+            AND student_id=#{student_id}
+        </if>
+    </select>
     <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
         SELECT evaluate_id,m_evaluate.student_id,ideology,study,morality,`name`
         FROM m_evaluate,student
         WHERE  student.del_flag=0
         AND m_evaluate.del_flag=0
         AND m_evaluate.student_id=student.student_id
-        AND m_evaluate.student_id=#{student_id}
+        <if test="student_id != null">
+            AND m_evaluate.student_id=#{student_id}
+        </if>
         LIMIT ${pager.startIndex-1},#{pageSize}
 
     </select>

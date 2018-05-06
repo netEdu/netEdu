@@ -46,6 +46,7 @@ public class MEvaluateController extends BaseController<MEvaluateVO> {
     @PostMapping(value = "/SelectByStudentId")
     public ResponseMessage<PageInfo<MEvaluateVO>> SelectByStudentId(@RequestBody MEvaluatePage page){
         List<MEvaluateVO> rows = service.SelectByStudentId(page);
+        System.out.println(rows);
         return Result.success(getPageInfo(page.getPager(), rows));
     }
 

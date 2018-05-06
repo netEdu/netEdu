@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Mapper
 public interface MEvaluateMapper extends BaseMapper<MEvaluate>{
-    @Select("SELECT COUNT(1) FROM m_evaluate WHERE student_id=#{student_id} and del_flag=0")
+
     Integer queryByCount(MEvaluatePage page);
 
     List<MEvaluateVO> queryByPage(MEvaluatePage page);
