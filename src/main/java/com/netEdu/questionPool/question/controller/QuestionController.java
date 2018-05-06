@@ -82,9 +82,9 @@ public class QuestionController extends BaseController<Question> {
         return Result.success(getPageInfo(questionPage.getPager(), questionService.findAllByCriteria(questionPage)));
     }
 
-    @ApiOperation(value = "|TeacherEvaluate|查询未编排的问题")
-    @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE,value = "/selectNotExistQuestion")
-    public ResponseMessage<List<Question>> selectNotExistQuestion(@RequestBody String existIds) throws Exception {
+    @ApiOperation(value = "|Question|查询未编排的问题")
+    @PostMapping(value = "/selectNotExistQuestion")
+    public ResponseMessage<List<Question>> selectNotExistQuestion(@RequestParam String existIds) throws Exception {
         String[] existQuestionIds=existIds.split(",");
         List existQuestionIdList= Arrays.asList(existQuestionIds);
         return Result.success(questionService.selectNotExistQuestion(existQuestionIdList));
