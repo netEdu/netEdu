@@ -59,16 +59,20 @@ public class PaperImpl implements PaperService {
 
     @Override
     public void updatePaper(Paper paper) {
-        String[] questions = paper.getQuestions().split(",");
-        int[] questionArray= new int[questions.length];
-        String answers = "";
-        for (int i = 0;i < questionArray.length;i ++){
-            questionArray[i] = Integer.parseInt(questions[i]);
-            answers += questionMapper.selectPaperAnswer(questionArray[i]) + ",";
+        if (paper.getQuestions()!=null) {
+            String[] questions = paper.getQuestions().split(",");
+            int[] questionArray = new int[questions.length];
+            String answers = "";
+            for (int i = 0; i < questionArray.length; i++) {
+                questionArray[i] = Integer.parseInt(questions[i]);
+                answers += questionMapper.selectPaperAnswer(questionArray[i]) + ",";
+            }
+            String paperAnswers = answers.substring(0, answers.length() - 1);
+            paper.setCorrect_answers(paperAnswers);
+            paperMapper.updateByPrimaryKeySelective(paper);
+        }else {
+            paperMapper.upQuestionsnull(paper);
         }
-        String paperAnswers = answers.substring(0,answers.length() - 1);
-        paper.setCorrect_answers(paperAnswers);
-        paperMapper.updateByPrimaryKeySelective(paper);
     }
 
 }
