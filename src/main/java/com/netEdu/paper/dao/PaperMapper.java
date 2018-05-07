@@ -24,6 +24,8 @@ public interface PaperMapper extends BaseMapper<Paper> {
     @Select("<script>select paper_id," +
             "paper_name," +
             "paper.teacher_id," +
+            "paper.questions," +
+            "paper.correct_answers," +
             "name as teacher_name," +
             "remarks," +
             "create_date " +
@@ -49,5 +51,6 @@ public interface PaperMapper extends BaseMapper<Paper> {
 
     @Select("select correct_answers from paper where paper_id = #{0}")
     String selectAnswerForPaper(int id);
-
+    @Update("UPDATE paper SET questions=NULL,correct_answers=NULL WHERE paper_id=#{paper_id}")
+    void upQuestionsnull(Paper paper);
 }
