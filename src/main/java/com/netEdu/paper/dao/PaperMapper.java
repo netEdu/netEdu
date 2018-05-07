@@ -27,7 +27,7 @@ public interface PaperMapper extends BaseMapper<Paper> {
             "name as teacher_name," +
             "remarks," +
             "create_date " +
-            "from paper left join teacher on paper.teacher_id = paper.teacher_id where 1=1" +
+            "from paper left join teacher on paper.teacher_id = teacher.teacher_id where 1=1" +
             "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher_name like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
             "<if test=\"paper_name !=null and paper_name != '' \">and paper_name like CONCAT(CONCAT('%',#{paper_name},'%')) </if> " +
             "<if test=\"remarks !=null and remarks != '' \">and remarks like CONCAT(CONCAT('%',#{remarks},'%')) </if> " +
