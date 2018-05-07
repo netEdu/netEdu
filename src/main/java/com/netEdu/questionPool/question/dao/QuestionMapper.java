@@ -63,6 +63,12 @@ public interface QuestionMapper extends BaseMapper<Question> {
     @Update("update question set error_times=error_times+1 where FIND_IN_SET(question_id,#{0})")
     void upError_times(String flashAnswer);
 
-
+    @Select("<script>" +
+            "select * from question where question.question_id NOT IN " +
+            "<foreach collection=\"existQuestionIdList\" item=\"item\" separator=\",\">" +
+            "(#{item})" +
+            "</foreach>" +
+            "</script>")
+    @ResultMap("BaseResultMap")
     List<Question> selectNotExistQuestion(@Param("existQuestionIdList")List existQuestionIdList);
 }

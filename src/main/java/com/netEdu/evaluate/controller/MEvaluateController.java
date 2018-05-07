@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/MEvaluate")
-@Api(description = "学生互评")
+@Api(description = "|学生端|学生互评")
 public class MEvaluateController extends BaseController<MEvaluateVO> {
     @Autowired
     private MEvaluateService service;
