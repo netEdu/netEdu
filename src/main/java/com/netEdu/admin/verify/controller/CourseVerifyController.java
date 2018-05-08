@@ -20,14 +20,14 @@ public class CourseVerifyController {
     @ApiOperation(value = "|Admin|查看申请列表",notes = "course_name:课程名称 模糊</br>" +
             "name:教师姓名 模糊</br>" +
             "class_num:班号</br>" +
-            "audit_status:审核状态")
+            "audit_status:审核状态 0:未审核 1:已审核")
     @PostMapping(value = "/courseList")
     public List<Course> query(@RequestBody Course course){
         return courseVerifyService.queryCourseList(course);
     }
 
     @ApiOperation(value = "|Admin|审核",notes = "course_id:课程id</br>" +
-            "audit_status:审核状态</br>" +
+            "audit_status:审核状态 1:通过 2:驳回</br>" +
             "audit_opinion:审核意见")
     @PutMapping(value = "/verify")
     public void update(@RequestBody Course course){
