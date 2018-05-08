@@ -1,5 +1,8 @@
 package com.netEdu.freeDiscuss.group.service.impl;
 
+import com.netEdu.entity.Student;
+import com.netEdu.entity.Teacher;
+import com.netEdu.entity.VO.GroupVO;
 import com.netEdu.freeDiscuss.group.dao.GroupMapper;
 import com.netEdu.entity.Group;
 import com.netEdu.freeDiscuss.group.service.GroupService;
@@ -11,6 +14,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -113,9 +117,35 @@ public class GroupImpl implements GroupService{
     @Override
     public List<Group> getGroupById(Group group) {
         if (group.getGroup_id()>0){
+            System.out.println("按组查询");
             return groupMapper.selectByGroupId(group);
         }else{
+            System.out.println("按人查询");
             return groupMapper.selectByPersonId(group);
         }
+    }
+
+    @Override
+    public GroupVO getPersonInfo(String personIds) {
+        String[] persons=personIds.replaceFirst(",","").split(",");
+        int pid=0;
+        List<Student> students=new ArrayList<>();
+        List<Teacher> teachers=new ArrayList<>();
+        for (String per:persons){
+            pid=Integer.parseInt(per);
+            if (pid>1000){
+                //teacher 查询
+                teachers.add(groupMapper.selectTeacherWithId(pid));
+            }
+            else if (pid<1000 && pid>0){
+                //student 查询
+                students.add(groupMapper.selectStudentWithId(pid));
+            }
+
+        }
+        GroupVO groupVO=new GroupVO();
+        groupVO.setStudentList(students);
+        groupVO.setTeacherList(teachers);
+        return groupVO;
     }
 }
