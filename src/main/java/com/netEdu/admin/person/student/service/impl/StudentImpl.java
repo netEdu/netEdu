@@ -30,6 +30,7 @@ public class StudentImpl implements StudentService{
     public List<Student> queryStudent(StudentPage studentPage) {
         Integer rowCount = studentMapper.queryByCount(studentPage);
         studentPage.getPager().setRowCount(rowCount);
+        studentPage.setPage(studentPage.getPager().getStartIndex() - 1);
         return studentMapper.selectStudent(studentPage);
     }
 

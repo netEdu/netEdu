@@ -29,4 +29,5 @@ public class TeacherClientImpl implements TeacherClientService {
     public List<Course> queryCourse(int teacher_id) {
         return teacherClientMapper.selectCourseById(teacher_id);
     }
+
 }

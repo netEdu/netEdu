@@ -24,16 +24,16 @@
         select option_id,option_content,question_id from question_option where question_id = #{question_id}
     </select>
 
-    <select id="selectNotExistQuestion" parameterType="java.util.List" resultType="com.netEdu.entity.Question">
-        SELECT * from question
-        <where>
-            <if test="existQuestionIdList != null">
-                question_id NOT IN
-                <foreach close=")" separator="," open="(" item="item" index="index" collection="existQuestionIdList">
-                    #{item}
-                </foreach>
-            </if>
-        </where>
-    </select>
+    <!--<select id="selectNotExistQuestion" parameterType="java.util.List" resultType="com.netEdu.entity.Question">-->
+        <!--SELECT * from question-->
+        <!--<where>-->
+            <!--<if test="existQuestionIdList != null">-->
+                <!--question_id NOT IN-->
+                <!--<foreach close=")" separator="," open="(" item="item" index="index" collection="existQuestionIdList">-->
+                    <!--#{item}-->
+                <!--</foreach>-->
+            <!--</if>-->
+        <!--</where>-->
+    <!--</select>-->
 
 </mapper>

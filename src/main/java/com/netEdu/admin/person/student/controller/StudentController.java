@@ -36,7 +36,9 @@ public class StudentController extends BaseController<Student>{
 
     @ApiOperation(value = "|Student|分页按条件查询学生",notes = "name:教师姓名 模糊</br>" +
             "sex:性别</br>" +
-            "class_num:班号")
+            "class_num:班号</br>" +
+            "page:页码</br>" +
+            "pageSize:页容量")
     @PostMapping(value = "/queryStudent")
     public ResponseMessage<PageInfo<Student>> queryS(@RequestBody StudentPage studentPage){
         return Result.success(getPageInfo(studentPage.getPager(), studentService.queryStudent(studentPage)));

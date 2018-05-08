@@ -28,12 +28,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/MEvaluate")
-@Api(description = "学生互评")
+@Api(description = "|学生端|学生互评")
 public class MEvaluateController extends BaseController<MEvaluateVO> {
     @Autowired
     private MEvaluateService service;
 
-    @ApiOperation(value = "|MEvaluate|添加学生互评",notes = "student_id：被评价学生id</br>" +
+    @ApiOperation(value = "|c|添加学生互评",notes = "student_id：被评价学生id</br>" +
             "ideology：思想成绩</br>" +
             "study：学习热情</br>" +
             "morality:品德成绩"  )

@@ -18,7 +18,11 @@ public interface PaperMapper extends BaseMapper<Paper> {
      * @param paperPage
      * @return
      */
-    @Select("select count(1) from paper")
+    @Select("<script>select count(1) from paper " +
+            "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher_name like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
+            "<if test=\"paper_name !=null and paper_name != '' \">and paper_name like CONCAT(CONCAT('%',#{paper_name},'%')) </if> " +
+            "<if test=\"remarks !=null and remarks != '' \">and remarks like CONCAT(CONCAT('%',#{remarks},'%')) </if> " +
+            "<if test=\"startDate !=null and startDate != '' and endDate !=null and endDate !='' \">and create_date between #{startDate} and #{endDate} </if> </script>" )
     Integer queryByCount(PaperPage paperPage);
 
     @Select("<script>select paper_id," +
@@ -34,7 +38,7 @@ public interface PaperMapper extends BaseMapper<Paper> {
             "<if test=\"paper_name !=null and paper_name != '' \">and paper_name like CONCAT(CONCAT('%',#{paper_name},'%')) </if> " +
             "<if test=\"remarks !=null and remarks != '' \">and remarks like CONCAT(CONCAT('%',#{remarks},'%')) </if> " +
             "<if test=\"startDate !=null and startDate != '' and endDate !=null and endDate !='' \">and create_date between #{startDate} and #{endDate} </if> " +
-            "and paper.del_flag = 0 limit ${page-1},#{pageSize} " +
+            "and paper.del_flag = 0 limit #{page},#{pageSize} " +
             "</script>"
     )
     List<Paper> showPaperList(PaperPage paperPage);
@@ -51,5 +55,6 @@ public interface PaperMapper extends BaseMapper<Paper> {
 
     @Select("select correct_answers from paper where paper_id = #{0}")
     String selectAnswerForPaper(int id);
-
+    @Update("UPDATE paper SET questions=NULL,correct_answers=NULL WHERE paper_id=#{paper_id}")
+    void upQuestionsnull(Paper paper);
 }

@@ -36,7 +36,9 @@ public class TeacherController extends BaseController<Teacher>{
 
     @ApiOperation(value = "|Teacher|分页按条件查询教师",notes = "name:教师姓名 模糊</br>" +
             "sex:性别</br>" +
-            "position:职位")
+            "position:职位</br>" +
+            "page:页码</br>" +
+            "pageSize:页容量")
     @PostMapping(value = "/queryTeacher")
     public ResponseMessage<PageInfo<Teacher>> queryT(@RequestBody TeacherPage teacherPage){
         return Result.success(getPageInfo(teacherPage.getPager(), teacherService.queryTeacher(teacherPage)));

@@ -28,7 +28,14 @@ public interface QuestionMapper extends BaseMapper<Question> {
      * @param questionPage
      * @return
      */
-    @Select("select count(1) from question")
+    @Select("<script>select count(1) from question "
+            +"<if test=\"question_type !=null and question_type != '' \">and question_type = #{question_type} </if> "
+            +"<if test=\"question_content !=null and question_content != '' \">and question_content like CONCAT(CONCAT('%',#{question_content},'%')) </if> "
+            +"<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> "
+            +"<if test=\"difficulty !=null and difficulty != '' \">and difficulty = #{difficulty} </if> "
+            +"<if test=\"frequency !=null and frequency != '' \">and frequency = #{frequency} </if> "
+            +"<if test=\"error_times !=null and error_times != '' \">and error_times = #{error_times} </if> "
+            +"<if test=\"teacher_id !=null and teacher_id != '' \">and teacher_id = #{teacher_id} </if> </script>")
     Integer queryByCount(QuestionPage questionPage);
 
     @Select("<script>select * from question left join teacher on question.teacher_id = teacher.teacher_id where 1=1 "
@@ -39,7 +46,7 @@ public interface QuestionMapper extends BaseMapper<Question> {
             +"<if test=\"frequency !=null and frequency != '' \">and frequency = #{frequency} </if> "
             +"<if test=\"error_times !=null and error_times != '' \">and error_times = #{error_times} </if> "
             +"<if test=\"teacher_id !=null and teacher_id != '' \">and teacher_id = #{teacher_id} </if> "
-            +"and question.del_flag = 0 limit ${page-1},#{pageSize} "
+            +"and question.del_flag = 0 limit #{page},#{pageSize} "
             +"</script>"
     )
     @ResultMap("BaseResultMap")
@@ -63,6 +70,12 @@ public interface QuestionMapper extends BaseMapper<Question> {
     @Update("update question set error_times=error_times+1 where FIND_IN_SET(question_id,#{0})")
     void upError_times(String flashAnswer);
 
-
+    @Select("<script>" +
+            "select * from question where question.question_id NOT IN " +
+            "<foreach collection=\"existQuestionIdList\" item=\"item\" separator=\",\">" +
+            "(#{item})" +
+            "</foreach>" +
+            "</script>")
+    @ResultMap("BaseResultMap")
     List<Question> selectNotExistQuestion(@Param("existQuestionIdList")List existQuestionIdList);
 }
