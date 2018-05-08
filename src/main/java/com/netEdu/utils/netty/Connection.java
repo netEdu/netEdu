@@ -1,26 +1,31 @@
 package com.netEdu.utils.netty;
 
+import com.netEdu.entity.Group;
+import com.netEdu.utils.netty.service.GroupInjectService;
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class Connection {
      public static final Map<String,Channel> AllConnections = new ConcurrentHashMap<String, Channel>();
    public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
      static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
 
-    @Autowired GroupInjectService groupInjectService;
+    @Autowired
+     GroupInjectService groupInjectService;
 
-
+    public static Connection connection;
 
 
     public static void classMessage(Channel ch,TextWebSocketFrame msg){
@@ -91,12 +96,12 @@ public class Connection {
         if(chatGroup.containsKey(groupId)){
             //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
-                    System.currentTimeMillis()+"]");
-
+                    System.currentTimeMillis());
+            System.out.println(newMsg+" "+chatGroup);
             for (Channel c:chatGroup.get(groupId)){
-                if(ch!=c){
+
                     c.writeAndFlush(new TextWebSocketFrame(newMsg));
-                }
+
 
             }
 
@@ -133,8 +138,10 @@ public class Connection {
                      AllConnections.remove(id);
                      AllConnections.put(id,ch);
                  }
+
                  System.out.println("本次操作的id是："+id);
-                 groupInjectService.injectGroups(id);
+                 System.out.println("ip地址为："+ip_idMap.get(ip));
+                 connection.groupInjectService.injectGroups(id);
              }else{
                  System.out.println("检测到多开链接，正在关闭。。。");
                  ch.close();
@@ -151,8 +158,10 @@ public class Connection {
                  }else{AllConnections.remove(id);
                         AllConnections.put(id,ch);
                  }
+                 ip_idMap.put(ip,id);
                  System.out.println("本次操作的id是："+id);
-                    groupInjectService.injectGroups(id);
+                 System.out.println("ip地址为："+ip_idMap.get(ip));
+                 connection.groupInjectService.injectGroups(id);
              }else {
                 System.out.println("检测到多开链接，正在关闭。。。");
                 ch.close();
@@ -185,6 +194,27 @@ public class Connection {
     public static void shutDown(Channel ch){
          String ip = getIpAddress(ch);
          String id = ip_idMap.get(ip);
+        List<Group> groups=connection.groupInjectService.checkAllGroup(id);
+        if (groups.size()>0){//查看是否有加入的讨论组
+            String gid;
+            for (Group group:groups){//遍历加入的讨论组
+                gid=group.getGroup_id()+"";
+                if (chatGroup.containsKey(gid)){//若这个组已被激活则从中移除
+                    Channel channel=AllConnections.get(id);
+                    chatGroup.get(gid).remove(channel);
+                }
+
+
+            }
+        }
+
+        for(ConcurrentHashMap.Entry<String,ChannelGroup> entry:classGroup.entrySet()){
+            //遍历map查看是否有加入班级中
+            if (entry.getValue().contains(ch)){
+                entry.getValue().remove(ch);
+            }
+        }
+
          if(AllConnections.containsKey(id)){
              AllConnections.remove(id);
          }
@@ -193,7 +223,11 @@ public class Connection {
          }
 
     }
-
+    @PostConstruct
+    public void init() {
+        connection = this;
+        connection.groupInjectService = this.groupInjectService;
+    }
 }
 
 

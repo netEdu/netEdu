@@ -1,6 +1,9 @@
 package com.netEdu.freeDiscuss.group.dao;
 
 import com.netEdu.entity.Group;
+import com.netEdu.entity.Student;
+import com.netEdu.entity.Teacher;
+import com.netEdu.entity.VO.GroupVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Service;
 
@@ -47,4 +50,17 @@ public interface GroupMapper {
     List<Group> selectByPersonId(Group group);
 
 
+    @Select("select teacher_id,name from teacher where teacher_id = #{pid}")
+    @Results({
+            @Result(property = "teacher_id", column = "teacher_id"),
+            @Result(property = "name", column = "name")
+    })
+    Teacher selectTeacherWithId(int pid);
+
+    @Select("select student_id,name from student where student_id = #{pid}")
+    @Results({
+            @Result(property = "student_id", column = "student_id"),
+            @Result(property = "name", column = "name")
+    })
+    Student selectStudentWithId(int pid);
 }

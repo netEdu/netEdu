@@ -2,6 +2,7 @@ package com.netEdu.freeDiscuss.group.controller;
 
 
 import com.netEdu.entity.Group;
+import com.netEdu.entity.VO.GroupVO;
 import com.netEdu.freeDiscuss.group.service.impl.GroupImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,6 +50,11 @@ public class GroupController {
     @ApiOperation(value = "|freeDiscuss|按id查询分组",notes ="下面两个变量任选其一"+
             "group_id:要查询讨论组id</br>" +
                     "person_id:查询者id，返回一个List，加入的讨论组</br>" )
-    @PostMapping("getGroupById")
+    @PostMapping("/getGroupById")
     public List<Group> getGroupById(@RequestBody Group group){return groupImpl.getGroupById(group);}
+
+    @ApiOperation(value = "|freeDiscuss|按id查询人员信息",notes ="直接传原封不动的ids"+
+            "ids:想查询的id组</br>" )
+    @PostMapping("/selectPersonWithId")
+    public GroupVO selectPersonWithId(String ids){ return groupImpl.getPersonInfo(ids); }
 }
