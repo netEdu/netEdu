@@ -36,7 +36,9 @@ public class PaperController extends BaseController<Paper> {
             "paper_name:试卷标题 模糊</br>" +
             "remarks:试卷备注 模糊</br>" +
             "startDate:起始时间 YYYY-MM-DD</br>" +
-            "endDate:终止时间 YYYY-MM-DD")
+            "endDate:终止时间 YYYY-MM-DD</br>" +
+            "page:页码</br>" +
+            "pageSize:页容量")
     @PostMapping(value = "/showPaperList")
     public ResponseMessage<PageInfo<Paper>> queryAll(@RequestBody PaperPage paperPage){
         return Result.success(getPageInfo(paperPage.getPager(), paperService.queryPaperListByCriteria(paperPage)));

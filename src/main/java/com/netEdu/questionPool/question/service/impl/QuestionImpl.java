@@ -54,6 +54,7 @@ public class QuestionImpl implements QuestionService{
     public List<Question> findAllByCriteria(QuestionPage questionPage) {
         Integer rowCount = questionMapper.queryByCount(questionPage);
         questionPage.getPager().setRowCount(rowCount);
+        questionPage.setPage(questionPage.getPager().getStartIndex() - 1);
         return questionMapper.queryAll(questionPage);
     }
 

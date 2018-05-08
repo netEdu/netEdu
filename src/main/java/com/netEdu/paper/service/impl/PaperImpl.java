@@ -44,6 +44,7 @@ public class PaperImpl implements PaperService {
     public List<Paper> queryPaperListByCriteria(PaperPage paperPage) {
         Integer rowCount = paperMapper.queryByCount(paperPage);
         paperPage.getPager().setRowCount(rowCount);
+        paperPage.setPage(paperPage.getPager().getStartIndex() - 1);
         return paperMapper.showPaperList(paperPage);
     }
 

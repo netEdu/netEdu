@@ -30,6 +30,7 @@ public class TeacherImpl implements TeacherService {
     public List<Teacher> queryTeacher(TeacherPage teacherPage) {
         Integer rowCount = teacherMapper.queryByCount(teacherPage);
         teacherPage.getPager().setRowCount(rowCount);
+        teacherPage.setPage(teacherPage.getPager().getStartIndex() - 1);
         return teacherMapper.selectTeacher(teacherPage);
     }
 
