@@ -20,7 +20,7 @@ public interface CourseVerifyMapper extends BaseMapper<Course>{
             "<if test=\"course_name !=null and course_name != '' \">and course_name like CONCAT(CONCAT('%',#{course_name},'%')) </if> " +
             "<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> " +
             "<if test=\"class_num !=null and class_num != '' \">and class_num = #{class_num} </if> " +
-            "<if test=\"audit_status !=null and audit_status != '' \">and audit_status = #{audit_status} </if> " +
+            "<if test=\"audit_status !=null and audit_status != '' \">and FIND_IN_SET(audit_status,#{audit_status})</if> " +
             "and course.del_flag = 0" +
             "</script>")
     List<Course> selectCourseList(Course course);

@@ -16,6 +16,9 @@ public class CourseVerifyImpl implements CourseVerifyService {
 
     @Override
     public List<Course> queryCourseList(Course course) {
+        if (course.getAudit_status().equals("1")){
+            course.setAudit_status("1,2");
+        }
         return courseVerifyMapper.selectCourseList(course);
     }
 
