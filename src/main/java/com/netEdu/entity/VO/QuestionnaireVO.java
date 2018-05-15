@@ -14,6 +14,15 @@ public class QuestionnaireVO extends Questionnaire {
     private int question_id;
     private String survey_content;
     private String survey_type;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getQuestion_id() {
         return question_id;

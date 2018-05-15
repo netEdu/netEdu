@@ -2,6 +2,7 @@ package com.netEdu.lesson.rate.service.impl;
 
 import com.netEdu.entity.Questionnaire;
 import com.netEdu.entity.SurveyQuestion;
+import com.netEdu.entity.VO.QuestionnaireVO;
 import com.netEdu.lesson.rate.dao.QuestionnaireDao;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 import com.netEdu.lesson.rate.service.QuestionnaireService;
@@ -39,7 +40,7 @@ public class QuestionnaireImpl implements QuestionnaireService{
     }
 
     @Override
-    public List<Questionnaire> queryByPage(QuestionnairePage page) {
+    public List<QuestionnaireVO> queryByPage(QuestionnairePage page) {
         Integer rowCount = questionnaireDao.queryByCount(page);
         page.getPager().setRowCount(rowCount);
         return questionnaireDao.queryByPage(page);
@@ -49,6 +50,11 @@ public class QuestionnaireImpl implements QuestionnaireService{
     public List<SurveyQuestion> selectByQuestionnaireId(int questionnaire_id) {
         String surveyQuestions = questionnaireDao.selectSurveyQuestion(questionnaire_id);
         return questionnaireDao.selectByQuestionnaireId(surveyQuestions);
+    }
+
+    @Override
+    public List<QuestionnaireVO> selectAll() {
+        return questionnaireDao.selectAllQuestionnarire();
     }
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--这里的namespace必须和是对应的mapper.java的地址-->
 <mapper namespace="com.netEdu.lesson.rate.dao.QuestionnaireDao" >
-    <resultMap id="BaseResultMap" type="com.netEdu.entity.Questionnaire" >
+    <resultMap id="BaseResultMap" type="com.netEdu.entity.VO.QuestionnaireVO" >
         <id column="questionnaire_id" property="questionnaire_id" />
         <result column="questionnaire_name" property="questionnaire_name" />
         <result column="creator" property="creator" />
@@ -11,18 +11,30 @@
         <result column="remarks" property="remarks" />
         <result column="teacher_id" property="teacher_id" />
         <result column="del_flag" property="del_flag" />
+        <result column="name" property="name"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        questionnaire_id,questionnaire_name, creator,survey_questions, create_time,remarks,teacher_id, del_flag
+        questionnaire_id,questionnaire_name,creator,survey_questions, questionnaire.create_time,remarks,questionnaire.teacher_id, questionnaire.del_flag,teacher.`name`
+
     </sql>
 
     <!--分页查询列表-->
     <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
         SELECT <include refid="Base_Column_List" />
-        FROM questionnaire
-        WHERE  del_flag = 0
+        FROM questionnaire,teacher
+        WHERE  questionnaire.del_flag = 0
+        AND teacher.del_flag=0
+        AND teacher.teacher_id=questionnaire.teacher_id
         LIMIT ${pager.startIndex-1},#{pageSize}
 
+    </select>
+
+    <select id="selectAllQuestionnarire" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM questionnaire,teacher
+        WHERE  questionnaire.del_flag = 0
+        AND teacher.del_flag=0
+        AND teacher.teacher_id=questionnaire.teacher_id
     </select>
 
 </mapper>

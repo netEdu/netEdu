@@ -6,6 +6,7 @@ import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.netEdu.entity.Questionnaire;
 import com.netEdu.entity.SurveyQuestion;
+import com.netEdu.entity.VO.QuestionnaireVO;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 import com.netEdu.lesson.rate.service.QuestionnaireService;
 import io.swagger.annotations.Api;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/Questionnaire")
 @Api(description = "|管理员端|教师评价问卷")
-public class QuestionnaireController extends BaseController<Questionnaire> {
+public class QuestionnaireController extends BaseController<QuestionnaireVO> {
 
     @Autowired
     private QuestionnaireService questionnaireService;
@@ -59,9 +61,15 @@ public class QuestionnaireController extends BaseController<Questionnaire> {
     }
     @ApiOperation(value = "|Questionnaire|分页查询教师问卷",notes = "page:页码</br>"+"pageSize:页容量")
     @PostMapping(value = "/pageQuestionnaire")
-    public ResponseMessage<PageInfo<Questionnaire>> pageQuestionnaire(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody QuestionnairePage page){
+    public ResponseMessage<PageInfo<QuestionnaireVO>> pageQuestionnaire(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody QuestionnairePage page){
+        List<QuestionnaireVO> rows=new ArrayList<>();
+        if (page.getPageSize()==2){
+            rows=questionnaireService.selectAll();
+        }else {
+            rows = questionnaireService.queryByPage(page);
+        }
 
-        List<Questionnaire> rows = questionnaireService.queryByPage(page);
+
         return Result.success(getPageInfo(page.getPager(), rows));
     }
 
