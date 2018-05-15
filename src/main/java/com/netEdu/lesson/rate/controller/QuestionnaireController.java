@@ -75,8 +75,15 @@ public class QuestionnaireController extends BaseController<QuestionnaireVO> {
 
     @ApiOperation(value = "|Questionnaire|查询单个教师问卷详情",notes = "questionnaire_id:问卷id")
     @PostMapping(value = "/selectByQuestionnaireId")
-    public ResponseMessage<List<SurveyQuestion>> selectByQuestionnaireId(@RequestParam int questionnaire_id){
-        return Result.success(questionnaireService.selectByQuestionnaireId(questionnaire_id));
+    public ResponseMessage<Questionnaire> selectByQuestionnaireId(@RequestParam int questionnaire_id){
+        List<SurveyQuestion> surveyQuestions=questionnaireService.selectByQuestionnaireId(questionnaire_id);
+        Questionnaire questionnaire=new Questionnaire();
+
+
+        questionnaire=questionnaireService.selectInfo(questionnaire_id);
+        questionnaire.setSurveyQuestionList(surveyQuestions);
+        System.out.println(questionnaire.toString());
+        return Result.success(questionnaire);
     }
 
 }

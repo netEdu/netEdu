@@ -62,4 +62,7 @@ public interface QuestionnaireDao extends BaseMapper<Questionnaire> {
      * 查询所有教师问卷
      */
     List<QuestionnaireVO> selectAllQuestionnarire();
+
+    @Select("SELECT * FROM questionnaire WHERE questionnaire_id=#{0} and del_flag = 0")
+    Questionnaire selectInfo(int questionnaire_id);
 }

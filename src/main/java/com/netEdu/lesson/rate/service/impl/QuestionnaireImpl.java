@@ -57,4 +57,9 @@ public class QuestionnaireImpl implements QuestionnaireService{
         return questionnaireDao.selectAllQuestionnarire();
     }
 
+    @Override
+    public Questionnaire selectInfo(int questionnaire_id) {
+        return questionnaireDao.selectInfo(questionnaire_id);
+    }
+
 }

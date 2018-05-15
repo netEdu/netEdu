@@ -27,4 +27,6 @@ public interface QuestionnaireService {
     List<SurveyQuestion> selectByQuestionnaireId(int questionnaire_id);
 
     List<QuestionnaireVO> selectAll();
+
+    Questionnaire selectInfo(int questionnaire_id);
 }
