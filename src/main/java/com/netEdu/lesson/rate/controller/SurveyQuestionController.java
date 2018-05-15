@@ -4,6 +4,7 @@ import com.adc.da.base.web.BaseController;
 import com.adc.da.util.http.PageInfo;
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
+import com.netEdu.admin.person.teacher.service.TeacherService;
 import com.netEdu.entity.Questionnaire;
 import com.netEdu.entity.SurveyQuestion;
 import com.netEdu.lesson.rate.page.SurveyQuestionPage;
@@ -14,7 +15,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -31,6 +34,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 public class SurveyQuestionController extends BaseController<SurveyQuestion> {
     @Autowired
     private SurveyQuestionService surveyQuestionService;
+    @Autowired
+    private TeacherService teacherService;
 
     @ApiOperation(value = "|SurveyQuestion||SurveyQuestion|添加教师问卷问题",notes = "创建者：creator</br>" +
             "survey_content:问题内容</br>" +
@@ -50,9 +55,14 @@ public class SurveyQuestionController extends BaseController<SurveyQuestion> {
     @ApiOperation(value = "|SurveyQuestion|分页查询教师问卷问题",notes = "page:页码</br>" +
             "pageSize:页容量")
     @PostMapping(value = "/selectBypage")
-    public ResponseMessage<PageInfo<SurveyQuestion>>selectBypage(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody SurveyQuestionPage page){
+    public ResponseMessage<Map>selectBypage(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody SurveyQuestionPage page){
+
         List<SurveyQuestion> rows = surveyQuestionService.selectBypage(page);
-        return Result.success(getPageInfo(page.getPager(), rows));
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("Page",getPageInfo(page.getPager(), rows));
+        map.put("Teacher",teacherService.selectAllTeacher());
+        return Result.success(map);
     }
 
     @ApiOperation(value = "|SurveyQuestion|修改教师问卷问题",notes = "question_id:要修改的主键" +

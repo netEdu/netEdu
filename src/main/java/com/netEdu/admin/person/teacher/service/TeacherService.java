@@ -13,4 +13,5 @@ public interface TeacherService {
 
     String check(String username);
 
+    List<Teacher> selectAllTeacher();
 }
