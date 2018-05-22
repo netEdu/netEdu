@@ -3,6 +3,7 @@ package com.netEdu.lesson.rate.dao;
 import com.netEdu.core.BaseMapper;
 import com.netEdu.entity.Questionnaire;
 import com.netEdu.entity.SurveyQuestion;
+import com.netEdu.entity.VO.QuestionnaireVO;
 import com.netEdu.lesson.rate.page.QuestionnairePage;
 import org.apache.ibatis.annotations.*;
 
@@ -39,7 +40,7 @@ public interface QuestionnaireDao extends BaseMapper<Questionnaire> {
      * @param page
      * @return
      */
-    List<Questionnaire> queryByPage(QuestionnairePage page);
+    List<QuestionnaireVO> queryByPage(QuestionnairePage page);
 
     /**
      * 查一份问卷的所有题 一个字符串
@@ -57,4 +58,11 @@ public interface QuestionnaireDao extends BaseMapper<Questionnaire> {
     @Select("select * from survey_question where FIND_IN_SET(question_id,#{0}) and del_flag = 0")
     List<SurveyQuestion> selectByQuestionnaireId(String surveyQuestions);
 
+    /**
+     * 查询所有教师问卷
+     */
+    List<QuestionnaireVO> selectAllQuestionnarire();
+
+    @Select("SELECT * FROM questionnaire WHERE questionnaire_id=#{0} and del_flag = 0")
+    Questionnaire selectInfo(int questionnaire_id);
 }

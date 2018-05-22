@@ -42,4 +42,9 @@ public class TeacherImpl implements TeacherService {
         return "COULD BE OK";
     }
 
+    @Override
+    public List<Teacher> selectAllTeacher() {
+        return teacherMapper.selectAll();
+    }
+
 }

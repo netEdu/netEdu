@@ -22,7 +22,7 @@ public class Questionnaire extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int questionnaire_id;
 
-    private int questionnaire_name;
+    private String questionnaire_name;
 
     private String creator;
 
