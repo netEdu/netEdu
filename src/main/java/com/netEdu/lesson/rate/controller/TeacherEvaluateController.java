@@ -35,6 +35,7 @@ public class TeacherEvaluateController extends BaseController<TeacherEvaluate> {
 
     public ResponseMessage<TeacherEvaluate> create(@ApiParam(value = "调查问卷id：questionnaire_id，" +
             "学生id：student_id，" +
+            "教师id:teacher_id"+
             "学生答案：answers" ,required=true ) @RequestBody TeacherEvaluate teacherEvaluate) throws Exception {
         teacherEvaluateService.addTeacherEvaluate(teacherEvaluate);
         return Result.success(teacherEvaluate);

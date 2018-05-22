@@ -9,21 +9,26 @@
         <result column="student_id" property="student_id" />
         <result column="answers" property="answers" />
         <result column="del_flag" property="del_flag" />
+        <result column="teacher_id" property="teacher_id"/>
+        <result column="name" property="name"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        evaluate_id, questionnaire_id,student_id, answers, del_flag
+       evaluate_id, questionnaire_id,student_id, answers, t_evaluate.del_flag, t_evaluate.teacher_id, teacher.`name`
     </sql>
     <!--添加教师评论表-->
     <insert id="addTeacherEvaluate" parameterType="com.netEdu.entity.TeacherEvaluate" >
-        insert into t_evaluate(questionnaire_id, student_id, answers, del_flag)
-		values(#{questionnaire_id}, #{student_id}, #{answers}, #{del_flag})
+        insert into t_evaluate(questionnaire_id, student_id, answers, del_flag, teacher_id)
+		values(#{questionnaire_id}, #{student_id}, #{answers}, #{del_flag}, #{teacher_id})
     </insert>
 
     <!--分页查询列表-->
     <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
         SELECT <include refid="Base_Column_List" />
         FROM t_evaluate
-        WHERE  del_flag = 0
+				LEFT JOIN teacher
+				ON t_evaluate.teacher_id=teacher.teacher_id
+        WHERE  t_evaluate.del_flag = 0
+				AND t_evaluate.teacher_id=teacher.teacher_id
         LIMIT ${pager.startIndex-1},#{pageSize}
 
     </select>
@@ -37,6 +42,7 @@
         update t_evaluate
         set  questionnaire_id = #{questionnaire_id},
         student_id = #{student_id},
+        teacher_id = #{teacher_id},
         answers = #{answers},
         del_flag = #{del_flag}
         where  evaluate_id = #{evaluate_id}
