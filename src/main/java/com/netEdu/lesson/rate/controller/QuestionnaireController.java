@@ -36,8 +36,7 @@ public class QuestionnaireController extends BaseController<QuestionnaireVO> {
     @ApiOperation(value = "|Questionnaire|添加教师问卷",notes = "创建者：creator</br>" +
             "survey_questions:问题id组 split by ','</br>" +
             "create_time:创建时间</br>" +
-            "remarks:说明</br>" +
-            "teacher_id:教师id/br>" )
+            "remarks:说明</br>" )
     @PostMapping(value = "/addQuestionnaire")
     public ResponseMessage<Questionnaire> addQuestionnaire(@RequestBody Questionnaire questionnaire){
         questionnaireService.add(questionnaire);
@@ -46,8 +45,7 @@ public class QuestionnaireController extends BaseController<QuestionnaireVO> {
     @ApiOperation(value = "|Questionnaire|修改",notes ="questionnaire_id:问卷主键</br>" +
             "survey_questions:问题id组 split by ','</br>" +
             "create_time:创建时间</br>" +
-            "remarks:说明</br>" +
-            "teacher_id:教师id</br>" )
+            "remarks:说明</br>" )
     @PostMapping(value = "/upQuestionnaire")
     public void upQuestionnaire(@RequestBody Questionnaire questionnaire){
         questionnaireService.upQuestionnaire(questionnaire);

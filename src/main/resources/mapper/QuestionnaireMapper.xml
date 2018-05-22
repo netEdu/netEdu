@@ -9,32 +9,33 @@
         <result column="survey_questions" property="survey_questions" />
         <result column="create_time" property="create_time" />
         <result column="remarks" property="remarks" />
-        <result column="teacher_id" property="teacher_id" />
+        <!--<result column="teacher_id" property="teacher_id" />-->
         <result column="del_flag" property="del_flag" />
-        <result column="name" property="name"/>
+        <!--<result column="name" property="name"/>-->
     </resultMap>
     <sql id="Base_Column_List" >
-        questionnaire_id,questionnaire_name,creator,survey_questions, questionnaire.create_time,remarks,questionnaire.teacher_id, questionnaire.del_flag,teacher.`name`
+        /*questionnaire_id,questionnaire_name,creator,survey_questions, questionnaire.create_time,remarks,questionnaire.teacher_id, questionnaire.del_flag,teacher.`name`*/
+        questionnaire_id,questionnaire_name,creator,survey_questions, questionnaire.create_time,remarks,questionnaire.del_flag
 
     </sql>
 
     <!--分页查询列表-->
     <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
         SELECT <include refid="Base_Column_List" />
-        FROM questionnaire,teacher
+        FROM questionnaire
         WHERE  questionnaire.del_flag = 0
-        AND teacher.del_flag=0
-        AND teacher.teacher_id=questionnaire.teacher_id
+        /*AND teacher.del_flag=0
+        AND teacher.teacher_id=questionnaire.teacher_id*/
         LIMIT ${pager.startIndex-1},#{pageSize}
 
     </select>
 
     <select id="selectAllQuestionnarire" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
-        FROM questionnaire,teacher
+        FROM questionnaire
         WHERE  questionnaire.del_flag = 0
-        AND teacher.del_flag=0
-        AND teacher.teacher_id=questionnaire.teacher_id
+        /*AND teacher.del_flag=0
+        AND teacher.teacher_id=questionnaire.teacher_id*/
     </select>
 
 </mapper>

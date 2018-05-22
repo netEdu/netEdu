@@ -38,7 +38,7 @@ public class Questionnaire extends BaseEntity {
      */
     private String remarks;
 
-    private int teacher_id;
+    //private int teacher_id;
 
     /**
      * 问卷问题List
