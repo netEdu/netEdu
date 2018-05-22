@@ -21,11 +21,20 @@ public class Connection {
    public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
      static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
-
     @Autowired
      GroupInjectService groupInjectService;
 
     public static Connection connection;
+
+
+    public static void askClass(Channel ch,TextWebSocketFrame msg){
+        String message = msg.text();
+        String teacherId = message.split(",")[1];
+            AllConnections.get(teacherId).writeAndFlush(new TextWebSocketFrame(""));
+
+
+    }
+
 
 
     public static void classMessage(Channel ch,TextWebSocketFrame msg){
@@ -176,9 +185,6 @@ public class Connection {
 
 
      public static int getMessageType(TextWebSocketFrame msg){
-         if (msg.text().equals("test")){
-             return 12;
-         }
          String flag=msg.text().split("")[0];
          return Integer.parseInt(flag);
      }
