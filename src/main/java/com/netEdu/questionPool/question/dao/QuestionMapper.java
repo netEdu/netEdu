@@ -78,4 +78,11 @@ public interface QuestionMapper extends BaseMapper<Question> {
             ")</script>")
     @ResultMap("BaseResultMap")
     List<Question> selectNotExistQuestion(@Param("existQuestionIdList")List existQuestionIdList);
+
+    @Delete("delete from question where question_id = #{0}")
+    void deletePerviousQuestion(int question_id);
+
+    @Delete("delete from question_option where question_id = #{0}")
+    void deletePerviousOption(int question_id);
+
 }
