@@ -34,9 +34,8 @@ public class QuestionImpl implements QuestionService{
 
     @Override
     public void update(Question question){
-        questionMapper.deletePerviousQuestion(question.getQuestion_id());
+        questionMapper.updateByPrimaryKeySelective(question);
         questionMapper.deletePerviousOption(question.getQuestion_id());
-        questionMapper.insertSelective(question);
         String[] options = question.getOptions().split(",");
         for (int i = 0;i < options.length;i ++){
             questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
