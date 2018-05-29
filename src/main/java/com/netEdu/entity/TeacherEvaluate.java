@@ -27,4 +27,9 @@ public class TeacherEvaluate extends BaseEntity {
 
     private String answers;
 
+    private int teacher_id;
+
+    @Transient
+    private String name;
+
 }

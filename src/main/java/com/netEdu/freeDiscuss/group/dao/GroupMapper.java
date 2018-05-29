@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface GroupMapper {
 
-    @Insert("insert into `group` (group_name,person_id) values(#{group.group_name},#{group.person_id})")
+    @Insert("insert into `group` (group_name,person_id,del_flag) values(#{group.group_name},#{group.person_id},0)")
     @Options(useGeneratedKeys = true, keyProperty = "group.group_id")
     void insertGroup(@Param("group") Group group);
 
