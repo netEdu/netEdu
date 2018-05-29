@@ -153,4 +153,9 @@ public class GroupImpl implements GroupService{
         groupVO.setTeacherList(teachers);
         return groupVO;
     }
+
+    @Override
+    public List<Student> findStudents(String id) {
+        return groupMapper.selectStudentsByClass(id);
+    }
 }

@@ -2,6 +2,7 @@ package com.netEdu.freeDiscuss.group.controller;
 
 
 import com.netEdu.entity.Group;
+import com.netEdu.entity.Student;
 import com.netEdu.entity.VO.GroupVO;
 import com.netEdu.freeDiscuss.group.service.impl.GroupImpl;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Struct;
 import java.util.List;
 
 @RestController
@@ -57,4 +59,12 @@ public class GroupController {
             "ids:想查询的id组</br>" )
     @PostMapping("/selectPersonWithId")
     public GroupVO selectPersonWithId(String ids){ return groupImpl.getPersonInfo(ids); }
+
+    @ApiOperation(value = "|freeDiscuss|按Class_num查询人员信息",notes ="按班号class_num查学生")
+    @PostMapping("/selectAllClassStudent")
+    public List<Student> selectAllClassStudent(String id){
+        return groupImpl.findStudents(id);
+    }
+
+
 }
