@@ -51,6 +51,11 @@ public class WsServerHandler  extends SimpleChannelInboundHandler<TextWebSocketF
                 break;
             //当第一位为7,学生举手
             case 7:
+                Connection.askClass(msg);
+                break;
+            //当第一位为8,将老师加入class中
+            case 8:
+                Connection.addTeacherInClass(incoming,msg);
                 break;
         }
 

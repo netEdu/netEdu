@@ -21,20 +21,41 @@ public class Connection {
    public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
      static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
+    public static final Map<String,String>  class_teacher =new ConcurrentHashMap<String,String>();
     @Autowired
      GroupInjectService groupInjectService;
 
     public static Connection connection;
 
 
-    public static void askClass(Channel ch,TextWebSocketFrame msg){
-        String message = msg.text();
-        String teacherId = message.split(",")[1];
-            AllConnections.get(teacherId).writeAndFlush(new TextWebSocketFrame(""));
+    public static void askClass(TextWebSocketFrame msg){
 
+        String message = msg.text();
+        String class_id=message.split(",")[1];
+        Channel channel=null;
+        if(class_teacher.containsKey(class_id)){
+            if(AllConnections.containsKey(class_teacher.get(class_id))){
+                channel=AllConnections.get(class_teacher.get(class_id));
+                channel.writeAndFlush(new TextWebSocketFrame(message.split(",")[2]));
+            }
+        }
 
     }
 
+    public static void addTeacherInClass(Channel ch,TextWebSocketFrame msg){
+        String[] message=msg.text().split(",");
+        String teacherId= message[1];
+        String classId = message[2];
+        if (!class_teacher.containsKey(classId)){
+            class_teacher.put(classId,teacherId);
+        }
+        if (classGroup.containsKey(classId)){
+            ChannelGroup group=classGroup.get(classId);
+            if(!group.contains(ch)){
+                group.add(ch);
+            }
+        }
+    }
 
 
     public static void classMessage(Channel ch,TextWebSocketFrame msg){
@@ -78,9 +99,10 @@ public class Connection {
         String message=msg.text();
         String teacher_id=message.split(",")[1];
         String class_num=message.split(",")[2];
+        String questionId = message.split(",")[3];
         ChannelGroup cg=classGroup.get(class_num);
         for (Channel c:cg){
-            c.writeAndFlush(new TextWebSocketFrame("3,"+teacher_id));
+            c.writeAndFlush(new TextWebSocketFrame("3,"+teacher_id+","+questionId));
         }
 
     }
