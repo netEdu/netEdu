@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--这里的namespace必须和是对应的mapper.java的地址-->
-<mapper namespace="com.netEdu.questionPool.question.dao.QuestionMapper" >
+<mapper namespace="com.netEdu.exam.check.dao.ExamMapper" >
 
-    <resultMap id="BaseResultMap" type="com.netEdu.entity.Question" >
+    <resultMap id="ExamMap" type="com.netEdu.entity.Question" >
         <id column="question_id" jdbcType="INTEGER" property="question_id" />
         <result column="teacher_id" jdbcType="INTEGER" property="teacher_id" />
         <result column="question_type" jdbcType="VARCHAR" property="question_type" />
         <result column="question_content" jdbcType="VARCHAR" property="question_content" />
-        <result column="question_answer" jdbcType="VARCHAR" property="question_answer" />
         <result column="frequency" jdbcType="INTEGER" property="frequency" />
         <result column="error_times" jdbcType="INTEGER" property="error_times" />
         <result column="difficulty" jdbcType="VARCHAR" property="difficulty" />

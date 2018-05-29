@@ -40,7 +40,7 @@ public class QuestionController extends BaseController<Question> {
             "teacher_id:出题教师id</br>" +
             "question_type:考题类型 0=判断 1=选择 2=主观</br>" +
             "question_content:考题内容</br>" +
-            "question_answer(option_id):考题答案 A=0 B=1 C=2 D=3</br>" +
+            "question_answer:考题答案 1 or 2 or 3 or 4</br>" +
             "options:选项组 split by ','</br>" +
             "difficulty:考题难度</br>" +
             "chapter:所属章节")
