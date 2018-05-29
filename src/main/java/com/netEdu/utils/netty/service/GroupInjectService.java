@@ -26,7 +26,7 @@ public class GroupInjectService {
             Channel channel;
             for (Group group:groupList){
                 //获取组id
-                gid+=group.getGroup_id();
+                gid=group.getGroup_id()+"";
                 //通过人员id获取channel
                 channel= Connection.AllConnections.get(id);
                 //检测是否存在讨论组,不存在则创建并添加链接，否则取出channelGroup并添加

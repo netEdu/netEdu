@@ -37,11 +37,11 @@ public class GroupImpl implements GroupService{
         //将channel装进去
         for(String i:id){
             System.out.println(i);
-            if(Connection.AllConnections.containsKey(i)){
-                ch=Connection.AllConnections.get(i);
-                channelGroup.add(ch);
-            }
+        if(Connection.AllConnections.containsKey(i)){
+            ch=Connection.AllConnections.get(i);
+            channelGroup.add(ch);
         }
+    }
         //存入map来维护
         Connection.chatGroup.put(group.getGroup_id() + "", channelGroup);
         //返回新创建组的id
