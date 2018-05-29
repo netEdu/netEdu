@@ -36,6 +36,7 @@ public class GroupImpl implements GroupService{
         ChannelGroup channelGroup=new  DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
         //将channel装进去
         for(String i:id){
+            System.out.println(i);
             ch=Connection.AllConnections.get(i);
             channelGroup.add(ch);
         }
@@ -86,8 +87,10 @@ public class GroupImpl implements GroupService{
             //更新到实体分组中
             ChannelGroup channelGroup=Connection.chatGroup.get(group.getGroup_id()+"");
             for (String id:newId){
-                ch=Connection.AllConnections.get(id);
-                channelGroup.add(ch);
+                if(Connection.AllConnections.containsKey(id)){
+                    ch=Connection.AllConnections.get(id);
+                    channelGroup.add(ch);
+                }
             }
             Connection.chatGroup.put(group.getGroup_id()+"",channelGroup);
 
