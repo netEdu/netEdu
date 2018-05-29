@@ -34,14 +34,25 @@ public class QuestionImpl implements QuestionService{
 
     @Override
     public void update(Question question){
-        questionMapper.updateByPrimaryKeySelective(question);
-        questionMapper.deletePerviousOption(question.getQuestion_id());
-        String[] options = question.getOptions().split(",");
-        for (int i = 0;i < options.length;i ++){
-            questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
+        if (question.getQuestion_id() == 0){
+            questionMapper.insertSelective(question);
+            String[] options = question.getOptions().split(",");
+            for (int i = 0;i < options.length;i ++){
+                questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
+            }
+            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
+            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
         }
-        int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
-        questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
+        else {
+            questionMapper.updateByPrimaryKeySelective(question);
+            questionMapper.deletePerviousOption(question.getQuestion_id());
+            String[] options = question.getOptions().split(",");
+            for (int i = 0;i < options.length;i ++){
+                questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
+            }
+            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
+            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
+        }
     }
 
     @Override
