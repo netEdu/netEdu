@@ -25,16 +25,16 @@ public class QuestionController extends BaseController<Question> {
     @Autowired
     private QuestionService questionService;
 
-    @ApiOperation(value = "|Question|添加考题",notes = "teacher_id:出题教师id</br>" +
-            "question_type:考题类型 0=判断 1=选择 2=主观</br>" +
-            "question_content:考题内容</br>" +
-            "question_answer(option_id):考题答案 A=0 B=1 C=2 D=3</br>" +
-            "options:选项组 split by ','</br>" +
-            "difficulty:考题难度")
-    @PostMapping(value = "/addQuestion")
-    public void addQuestion(@RequestBody Question question){
-        questionService.add(question);
-    }
+//    @ApiOperation(value = "|Question|添加考题",notes = "teacher_id:出题教师id</br>" +
+//            "question_type:考题类型 0=判断 1=选择 2=主观</br>" +
+//            "question_content:考题内容</br>" +
+//            "question_answer(option_id):考题答案 A=0 B=1 C=2 D=3</br>" +
+//            "options:选项组 split by ','</br>" +
+//            "difficulty:考题难度")
+//    @PostMapping(value = "/addQuestion")
+//    public void addQuestion(@RequestBody Question question){
+//        questionService.add(question);
+//    }
 
     @ApiOperation(value = "|Question|编辑考题",notes = "question_id:考题id</br>" +
             "teacher_id:出题教师id</br>" +
@@ -42,7 +42,8 @@ public class QuestionController extends BaseController<Question> {
             "question_content:考题内容</br>" +
             "question_answer(option_id):考题答案 A=0 B=1 C=2 D=3</br>" +
             "options:选项组 split by ','</br>" +
-            "difficulty:考题难度")
+            "difficulty:考题难度</br>" +
+            "chapter:所属章节")
     @PutMapping(value = "/updateQuestion")
     public void update(@RequestBody Question question){
         questionService.update(question);
@@ -73,6 +74,7 @@ public class QuestionController extends BaseController<Question> {
             "difficulty:考题难度</br>" +
             "frequency:出题次数</br>" +
             "error_times:错误次数</br>" +
+            "chapter:考题所属章节</br>" +
             "page:页码</br>" +
             "pageSize:页容量")
     @PostMapping(value = "/queryAllQuestion")
