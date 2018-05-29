@@ -46,6 +46,7 @@ public interface QuestionMapper extends BaseMapper<Question> {
             +"<if test=\"frequency !=null and frequency != '' \">and frequency = #{frequency} </if> "
             +"<if test=\"error_times !=null and error_times != '' \">and error_times = #{error_times} </if> "
             +"<if test=\"teacher_id !=null and teacher_id != '' \">and teacher_id = #{teacher_id} </if> "
+            +"<if test=\"chapter !=null and chapter != '' \">and question.backup = #{chapter} </if> "
             +"and question.del_flag = 0 limit #{page},#{pageSize} "
             +"</script>"
     )

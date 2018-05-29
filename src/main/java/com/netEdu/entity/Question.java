@@ -29,6 +29,12 @@ public class Question extends BaseEntity {
 
     private String difficulty;
 
+    /**
+     * 新增问题所属章节
+     */
+    @Column(name = "backup")
+    private String chapter;
+
     @Transient
     private String options;
 
