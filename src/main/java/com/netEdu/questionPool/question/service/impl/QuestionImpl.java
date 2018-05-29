@@ -40,8 +40,8 @@ public class QuestionImpl implements QuestionService{
             for (int i = 0;i < options.length;i ++){
                 questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
             }
-            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
-            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
+//            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
+//            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
         }
         else {
             questionMapper.updateByPrimaryKeySelective(question);
@@ -50,8 +50,8 @@ public class QuestionImpl implements QuestionService{
             for (int i = 0;i < options.length;i ++){
                 questionMapper.insertIntoOptions(question.getQuestion_id(),options[i].toString());
             }
-            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
-            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
+//            int option_id = questionMapper.selectAnswerForQuestion(question.getQuestion_id(),question.getQuestion_answer());
+//            questionMapper.selectIdToAnswer(question.getQuestion_id(),option_id);
         }
     }
 
