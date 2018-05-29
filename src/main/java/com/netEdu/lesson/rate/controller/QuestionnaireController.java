@@ -36,6 +36,7 @@ public class QuestionnaireController extends BaseController<QuestionnaireVO> {
     @ApiOperation(value = "|Questionnaire|添加教师问卷",notes = "创建者：creator</br>" +
             "survey_questions:问题id组 split by ','</br>" +
             "create_time:创建时间</br>" +
+            "questionnaire_name:问卷名称</br>" +
             "remarks:说明</br>" )
     @PostMapping(value = "/addQuestionnaire")
     public ResponseMessage<Questionnaire> addQuestionnaire(@RequestBody Questionnaire questionnaire){
