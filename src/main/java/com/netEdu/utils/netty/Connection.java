@@ -70,10 +70,10 @@ public class Connection {
             //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
                     System.currentTimeMillis()+"]");
-
+            String newMsg1= newMsg.replaceFirst(","+classId,"");
             for (Channel c:classGroup.get(classId)){
                 if(ch!=c){
-                    c.writeAndFlush(new TextWebSocketFrame(newMsg));
+                    c.writeAndFlush(new TextWebSocketFrame(newMsg1));
                 }
 
             }
