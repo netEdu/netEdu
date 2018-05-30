@@ -38,9 +38,11 @@ public class MEvaluateController extends BaseController<MEvaluateVO> {
             "study：学习热情</br>" +
             "morality:品德成绩"  )
     @PostMapping(value = "/addMEvaluate")
-    public ResponseMessage<MEvaluate> addMEvaluate(@RequestBody MEvaluate mEvaluate){
-        service.add(mEvaluate);
-        return Result.success(mEvaluate);
+    public ResponseMessage addMEvaluate(@RequestBody  List<MEvaluate> mEvaluates){
+        for (MEvaluate mEvaluate:mEvaluates) {
+            service.add(mEvaluate);
+        }
+        return Result.success();
     }
     @ApiOperation(value = "|MEvaluate|查询学生所有评价",notes = "传入page页码，pageSize页容量,student_id：学生id"  )
     @PostMapping(value = "/SelectByStudentId")
