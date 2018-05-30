@@ -48,13 +48,18 @@ public class Connection {
         String classId = message[2];
         if (!class_teacher.containsKey(classId)){
             class_teacher.put(classId,teacherId);
-        }
-        if (classGroup.containsKey(classId)){
-            ChannelGroup group=classGroup.get(classId);
-            if(!group.contains(ch)){
-                group.add(ch);
+            if (classGroup.containsKey(classId)){
+                ChannelGroup group=classGroup.get(classId);
+                if(!group.contains(ch)){
+                    group.add(ch);
+                }
+            }else{
+                ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+                channelGroup.add(ch);
+                classGroup.put(classId,channelGroup);
             }
         }
+
     }
 
 
@@ -65,10 +70,10 @@ public class Connection {
             //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
                     System.currentTimeMillis()+"]");
-
+            String newMsg1= newMsg.replaceFirst(","+classId,"");
             for (Channel c:classGroup.get(classId)){
                 if(ch!=c){
-                    c.writeAndFlush(new TextWebSocketFrame(newMsg));
+                    c.writeAndFlush(new TextWebSocketFrame(newMsg1));
                 }
 
             }

@@ -10,8 +10,9 @@ import com.netEdu.questionPool.question.dao.QuestionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class CheckImpl implements CheckService{
@@ -25,7 +26,7 @@ public class CheckImpl implements CheckService{
     private ScoreMapper scoreMapper;
 
     @Override
-    public List check(Answer answer) {
+    public Map<String,Object> check(Answer answer) {
                         //往数据库记录学生答案
         this.addAnswer(answer);
                         //得到此卷子正确答案
@@ -59,10 +60,35 @@ public class CheckImpl implements CheckService{
         Score score=new Score();
         score.setPaper_id(answer.getPaper_id());
         score.setStudent_id(answer.getStudent_id());
-        score.setPaper_score((50-flashAnswer.size())*2);
+
+
+
+        int a=RightAnswer.length-flashAnswer.size();
+        int b=RightAnswer.length;
+
+        DecimalFormat decimalFormat=new DecimalFormat("0.00");
+
+        String scoreNumber=decimalFormat.format(a/(float)b);
+
+        Double cny = Double.parseDouble(scoreNumber)*100;
+        int aaa = (new Double(cny)).intValue();
+
+
+
+        score.setPaper_score(aaa);
+        //score.setPaper_score((50-flashAnswer.size())*2);
+        Date day=new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        score.setScore_time(df.format(day));
         scoreMapper.insertSelective(score);
 
-        return flashAnswer;
+        //返回map
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("rightAnswer",answerForPaper);
+        resultMap.put("studentAnswer",answer.getStudent_answers());
+        resultMap.put("flashNmuber",flashAnswer);
+
+        return resultMap;
     }
 
     @Override

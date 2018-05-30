@@ -2,6 +2,7 @@ package com.netEdu.freeDiscuss.group.service;
 
 
 import com.netEdu.entity.Group;
+import com.netEdu.entity.Student;
 import com.netEdu.entity.VO.GroupVO;
 
 import java.util.List;
@@ -18,4 +19,6 @@ void editGroupMember(Group group);
 List<Group> getGroupById(Group group);
 
 GroupVO getPersonInfo(String personIds);
+
+List<Student> findStudents(String id);
 }

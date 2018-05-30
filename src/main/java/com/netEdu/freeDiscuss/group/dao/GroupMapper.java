@@ -63,4 +63,8 @@ public interface GroupMapper {
             @Result(property = "name", column = "name")
     })
     Student selectStudentWithId(int pid);
+
+    @Select("select * from student where class_num = #{0} and del_flag = 0")
+    List<Student> selectStudentsByClass(String id);
+
 }
