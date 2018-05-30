@@ -45,7 +45,7 @@ public class ScoreController extends BaseController<ScoreVO>{
     }
 
     //查询单人各项平均成绩
-    @ApiOperation(value = "|Score|查询单个学生平均成绩",notes = "questionnaire_id:问卷id")
+    @ApiOperation(value = "|Score|查询单个学生各项平均成绩（卷子+考勤+小测+成果）",notes = "questionnaire_id:问卷id")
     @PostMapping(value = "/AVGStudentId")
     public ResponseMessage<ScoreVO> AVGStudentId(@RequestParam int student_id){
         return Result.success(scoreService.AVGStudentId(student_id));

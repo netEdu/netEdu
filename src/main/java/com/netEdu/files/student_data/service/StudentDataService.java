@@ -22,4 +22,6 @@ public interface StudentDataService {
 
     String downloadFile(String data_id);
 
+    void markData(StudentData studentData);
+
 }

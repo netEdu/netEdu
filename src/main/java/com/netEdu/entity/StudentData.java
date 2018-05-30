@@ -38,4 +38,10 @@ public class StudentData extends BaseEntity {
     @Transient
     private String class_num;
 
+    /**
+     * 备用字段变成资料成绩score
+     */
+    @Column(name = "backup")
+    private String score;
+
 }

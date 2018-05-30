@@ -3,6 +3,7 @@ package com.netEdu.files.teacher_data.controller;
 import com.netEdu.entity.Course;
 import com.netEdu.entity.StudentData;
 import com.netEdu.entity.TeacherData;
+import com.netEdu.files.student_data.service.StudentDataService;
 import com.netEdu.files.teacher_data.service.TeacherDataService;
 import com.netEdu.utils.File.FileUtil;
 import io.swagger.annotations.Api;
@@ -23,6 +24,9 @@ public class TeacherDataController {
 
     @Autowired
     private TeacherDataService teacherDataService;
+
+    @Autowired
+    private StudentDataService studentDataService;
 
     @ApiOperation(value = "|TeacherData|查看可用课程",notes = "teacher_id:教师id")
     @PostMapping(value = "/queryCourse")
@@ -90,6 +94,13 @@ public class TeacherDataController {
     @GetMapping(value = "/downloadFile")
     public void dl(HttpServletResponse response,@RequestParam String data_id){
         FileUtil.download(response,teacherDataService.downloadFile(data_id));
+    }
+
+    @ApiOperation(value = "|TeacherData|给学生成果打分",notes = "data_id:资料id<br>" +
+            "score:资料成绩")
+    @PostMapping(value = "/markData")
+    public void mark(@RequestBody StudentData studentData){
+        studentDataService.markData(studentData);
     }
 
 }

@@ -35,6 +35,14 @@ public interface ScoreMapper extends BaseMapper<Score>{
     List<ScoreVO> selectScoreByStudentId(ScorePage page);
 
     //单个学生的平均成绩
-    @Select("SELECT AVG(paper_score) AS paper_score ,AVG(sign_score) AS sign_score, AVG(test_score) AS test_score FROM score WHERE student_id=#{student_id} GROUP BY student_id")
+    @Select("SELECT AVG(score.paper_score) AS paper_score ," +
+            "AVG(score.sign_score) AS sign_score, " +
+            "AVG(score.test_score) AS test_score, " +
+            "AVG(student_data.backup) AS data_score " +
+            "FROM score " +
+            "left join student_data " +
+            "on score.student_id = student_data.student_id " +
+            "WHERE score.student_id = #{0} GROUP BY score.student_id")
     ScoreVO AVGStudentId(int student_id);
+
 }

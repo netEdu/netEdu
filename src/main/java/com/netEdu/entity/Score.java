@@ -33,4 +33,7 @@ public class Score extends BaseEntity {
 
     private String score_time;
 
+    @Transient
+    private String data_score;
+
 }

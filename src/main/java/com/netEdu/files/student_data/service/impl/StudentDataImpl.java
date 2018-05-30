@@ -85,4 +85,9 @@ public class StudentDataImpl implements StudentDataService{
         return studentDataMapper.selectSavepath(data_id);
     }
 
+    @Override
+    public void markData(StudentData studentData) {
+        studentDataMapper.updateByPrimaryKeySelective(studentData);
+    }
+
 }
