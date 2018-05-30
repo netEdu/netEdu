@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/Check")
@@ -28,7 +29,7 @@ public class CheckController {
                 "学生id:student_id</br>")
         @PostMapping(value = "/checkPaper")
         public ResponseMessage checkPaper(@RequestBody Answer answer){
-            List error= checkService.check(answer);
+            Map<String,Object> error= checkService.check(answer);
             return Result.success(error);
     }
 
