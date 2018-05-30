@@ -6,6 +6,7 @@ import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.netEdu.entity.Answer;
 import com.netEdu.entity.Score;
+import com.netEdu.entity.Student;
 import com.netEdu.entity.VO.ScoreVO;
 import com.netEdu.exam.check.page.ScorePage;
 import com.netEdu.exam.check.service.CheckService;
@@ -29,13 +30,13 @@ public class ScoreController extends BaseController<ScoreVO>{
     private ScoreService scoreService;
 
     //分页查询所有学生的分数
-
     @ApiOperation(value = "|Score|所有学生分数列表",notes = "page:页码</br>"+"pageSize:页容量")
     @PostMapping(value = "/selectStudentScore")
     public ResponseMessage<PageInfo<ScoreVO>> pageQuestionnaire(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody ScorePage page){
         List<ScoreVO> rows = scoreService.queryByPage(page);
         return Result.success(getPageInfo(page.getPager(), rows));
     }
+
     //查询单个学生所有成绩
     @ApiOperation(value = "|Score|单个学生分数列表",notes = "page:页码</br>"+"pageSize:页容量,student_id学生id")
     @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE,value = "/selectScoreByStudentId")
@@ -50,8 +51,5 @@ public class ScoreController extends BaseController<ScoreVO>{
     public ResponseMessage<ScoreVO> AVGStudentId(@RequestParam int student_id){
         return Result.success(scoreService.AVGStudentId(student_id));
     }
-
-
-
 
 }

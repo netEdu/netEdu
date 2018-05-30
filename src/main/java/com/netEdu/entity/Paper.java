@@ -36,4 +36,7 @@ public class Paper extends BaseEntity {
     @Transient
     private String teacher_name;
 
+    @Transient
+    private String student_answers;
+
 }

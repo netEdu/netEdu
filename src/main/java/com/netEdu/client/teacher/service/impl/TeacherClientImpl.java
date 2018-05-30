@@ -3,6 +3,8 @@ package com.netEdu.client.teacher.service.impl;
 import com.netEdu.client.teacher.dao.TeacherClientMapper;
 import com.netEdu.client.teacher.service.TeacherClientService;
 import com.netEdu.entity.Course;
+import com.netEdu.entity.Paper;
+import com.netEdu.entity.Student;
 import com.netEdu.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,4 +32,13 @@ public class TeacherClientImpl implements TeacherClientService {
         return teacherClientMapper.selectCourseById(teacher_id);
     }
 
+    @Override
+    public List<Student> queryStudent(int teacher_id) {
+        return teacherClientMapper.selectMyStudent(teacher_id);
+    }
+
+    @Override
+    public List<Paper> queryPaper(int student_id) {
+        return teacherClientMapper.selectMyStudentPaper(student_id);
+    }
 }

@@ -2,6 +2,8 @@ package com.netEdu.client.teacher.controller;
 
 import com.netEdu.client.teacher.service.TeacherClientService;
 import com.netEdu.entity.Course;
+import com.netEdu.entity.Paper;
+import com.netEdu.entity.Student;
 import com.netEdu.entity.Teacher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +39,18 @@ public class TeacherClientController {
     @GetMapping(value = "/queryTeacherCourse")
     public List<Course> queryC(@RequestParam int teacher_id){
         return teacherClientService.queryCourse(teacher_id);
+    }
+
+    @ApiOperation(value = "|Client|教师查看自己教的学生",notes = "teacher_id:教师id")
+    @GetMapping(value = "/queryMyStudent")
+    public List<Student> queryStudent(@RequestParam int teacher_id) {
+        return teacherClientService.queryStudent(teacher_id);
+    }
+
+    @ApiOperation(value = "|Client|教师查看自己教的学生写的卷子",notes = "student_id:学生id")
+    @GetMapping(value = "/queryMyStudentPaper")
+    public List<Paper> queryP(@RequestParam int student_id) {
+        return  teacherClientService.queryPaper(student_id);
     }
 
 }
