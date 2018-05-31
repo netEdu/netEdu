@@ -70,15 +70,9 @@ public class Connection {
                     System.currentTimeMillis()+"]");
             String newMsg1= newMsg.replaceFirst(","+classId,"");
             for (Channel c:classGroup.get(classId)){
-                if(ch!=c){
-                    c.writeAndFlush(new TextWebSocketFrame(newMsg1));
-                }
-
+                c.writeAndFlush(new TextWebSocketFrame(newMsg1));
             }
-
         }
-
-
     }
 
     public static void warn(TextWebSocketFrame msg){
