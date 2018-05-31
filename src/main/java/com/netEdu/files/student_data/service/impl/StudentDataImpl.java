@@ -87,7 +87,7 @@ public class StudentDataImpl implements StudentDataService{
 
     @Override
     public void markData(StudentData studentData) {
-        studentDataMapper.updateByPrimaryKeySelective(studentData);
+        studentDataMapper.dataScore(studentData);
     }
 
 }
