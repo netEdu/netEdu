@@ -48,9 +48,11 @@ public class CheckImpl implements CheckService{
         String[] StudentAnswer = answer.getStudent_answers().split(",");
         List flashAnswer =new ArrayList();
                         //判断那个题错了，得到学生的错误答案
+        List flashNumber = new ArrayList();
         for (int i=0;i<StudentAnswer.length;i++){
             if (!StudentAnswer[i].equals(RightAnswer[i])){// i:第几题
                 flashAnswer.add(answerForPaperList[i]);
+                flashNumber.add(i+1);
             }
         }
                         //添加错误次数
@@ -86,7 +88,8 @@ public class CheckImpl implements CheckService{
         Map<String,Object> resultMap=new HashMap<>();
         resultMap.put("rightAnswer",answerForPaper);
         resultMap.put("studentAnswer",answer.getStudent_answers());
-        resultMap.put("flashNmuber",flashAnswer);
+        resultMap.put("flashNmuber",flashNumber);
+        resultMap.put("score",aaa);
 
         return resultMap;
     }
