@@ -17,9 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class Connection {
-     public static final Map<String,Channel> AllConnections = new ConcurrentHashMap<String, Channel>();
-   public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
-     static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
+    public static final Map<String,Channel> AllConnections = new ConcurrentHashMap<String, Channel>();
+    public static final  Map<String,ChannelGroup> chatGroup = new ConcurrentHashMap<String,ChannelGroup>();
+    static final Map<String,ChannelGroup> classGroup = new ConcurrentHashMap<String,ChannelGroup>();
     public static final Map<String,String> ip_idMap = new ConcurrentHashMap<String,String>();
     public static final Map<String,String>  class_teacher =new ConcurrentHashMap<String,String>();
     @Autowired
@@ -39,7 +39,6 @@ public class Connection {
                 channel.writeAndFlush(new TextWebSocketFrame(message.split(",")[2]));
             }
         }
-
     }
 
     public static void addTeacherInClass(Channel ch,TextWebSocketFrame msg){
@@ -64,10 +63,9 @@ public class Connection {
 
 
     public static void classMessage(Channel ch,TextWebSocketFrame msg){
-        String message=msg.text();
+        String message = msg.text();
         String classId = message.split(",")[1];
         if(classGroup.containsKey(classId)){
-            //SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
                     System.currentTimeMillis()+"]");
             String newMsg1= newMsg.replaceFirst(","+classId,"");

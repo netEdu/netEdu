@@ -104,12 +104,13 @@ public class FileUtil {
         file.delete();
     }
 
-    public static void download(HttpServletResponse response,String savepath) {
+    public static void download(HttpServletResponse response,String savepath) throws IOException {
         String filename = "下载文件";
         File file = new File(savepath);
         if (file.exists()) {
             response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
+            response.setHeader("Content-Disposition", "attachment;filename="
+                    + new String(filename.getBytes(), "ISO-8859-1"));
             byte[] buffer = new byte[1024];
             FileInputStream fis = null;
             BufferedInputStream bis = null;
@@ -124,7 +125,7 @@ public class FileUtil {
                     i = bis.read(buffer);
                 }
 
-            } catch (Exception e) {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }

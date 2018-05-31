@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -93,7 +94,11 @@ public class TeacherDataController {
     @ApiOperation(value = "|TeacherData|下载资料",notes = "data_id:资料id")
     @GetMapping(value = "/downloadFile")
     public void dl(HttpServletResponse response,@RequestParam String data_id){
-        FileUtil.download(response,teacherDataService.downloadFile(data_id));
+        try {
+            FileUtil.download(response,teacherDataService.downloadFile(data_id));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @ApiOperation(value = "|TeacherData|给学生成果打分",notes = "data_id:资料id<br>" +
