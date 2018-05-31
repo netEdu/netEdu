@@ -40,12 +40,12 @@ public class TeacherDataController {
             "course_id:课程id</br>" +
             "share:是否共享 0:共享 1:私密")
     @PostMapping(value = "/uploadOne")
-    public void add(@RequestParam MultipartFile file,
+    public String add(@RequestParam MultipartFile file,
                     @RequestParam String data_title,
                     @RequestParam int teacher_id,
                     @RequestParam int course_id,
                     @RequestParam String share) {
-        teacherDataService.uploadOne(data_title,teacher_id,course_id,share,FileUtil.uploadOne(file));
+        return teacherDataService.uploadOne(data_title,teacher_id,course_id,share,FileUtil.uploadOne(file));
     }
 
     /**
@@ -56,12 +56,12 @@ public class TeacherDataController {
             "course_id:课程id</br>" +
             "shares:是否共享 0:共享 1:私密 split by ','")
     @PostMapping(value = "/uploadMany")
-    public void addFiles(@ApiParam(value = "key = files") HttpServletRequest request,
+    public String addFiles(@ApiParam(value = "key = files") HttpServletRequest request,
                          @RequestParam String data_titles,
                          @RequestParam int teacher_id,
                          @RequestParam int course_id,
                          @RequestParam String shares) {
-        teacherDataService.uploadMany(data_titles,teacher_id,course_id,shares,FileUtil.uploadMany(request));
+        return teacherDataService.uploadMany(data_titles,teacher_id,course_id,shares,FileUtil.uploadMany(request));
     }
 
     @ApiOperation(value = "|TeacherData|查看个人资料",notes = "teacher_id:教师id</br>" +
