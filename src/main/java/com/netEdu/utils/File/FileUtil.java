@@ -38,6 +38,9 @@ public class FileUtil {
             else if (suffix.equals("swf")){
                 fileType = "2";
             }
+            else {
+                fileType="false";
+            }
             String result = dest.toString() + "," + fileType;
             return result;
         } catch (IllegalStateException e) {
@@ -78,6 +81,9 @@ public class FileUtil {
                 }
                 else if (suffix[1].equals("swf")){
                     fileType = "2";
+                }
+                else {
+                    return "上传文件类型错误";
                 }
                 //所有的文件类型
                 str1 += fileType + ",";

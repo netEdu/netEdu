@@ -42,11 +42,11 @@ public class StudentDataController {
             "student_id:上传学生id</br>" +
             "course_id:课程id")
     @PostMapping(value = "/uploadOne")
-    public void add(@RequestParam MultipartFile file,
+    public String add(@RequestParam MultipartFile file,
                       @RequestParam String data_title,
                       @RequestParam int student_id,
                       @RequestParam int course_id) {
-        studentDataService.uploadOne(data_title,student_id,course_id,FileUtil.uploadOne(file));
+        return studentDataService.uploadOne(data_title,student_id,course_id,FileUtil.uploadOne(file));
     }
 
     /**
@@ -56,11 +56,11 @@ public class StudentDataController {
             "student_id:上传学生id</br>" +
             "course_id:课程id")
     @PostMapping(value = "/uploadMany")
-    public void addFiles(@ApiParam(value = "key = files") HttpServletRequest request,
+    public String addFiles(@ApiParam(value = "key = files") HttpServletRequest request,
                                   @RequestParam String data_titles,
                                   @RequestParam int student_id,
                                   @RequestParam int course_id) {
-        studentDataService.uploadMany(data_titles,student_id,course_id,FileUtil.uploadMany(request));
+        return studentDataService.uploadMany(data_titles,student_id,course_id,FileUtil.uploadMany(request));
     }
 
     @ApiOperation(value = "|StudentData|查看个人资料",notes = "student_id:学生id</br>" +

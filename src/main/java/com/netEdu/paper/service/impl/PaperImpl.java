@@ -27,16 +27,18 @@ public class PaperImpl implements PaperService {
         Date date=new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         //当前时间 df.format(date)
-        String[] questions = paper.getQuestions().split(",");
-        int[] questionArray= new int[questions.length];
-        String answers = "";
-        for (int i = 0;i < questionArray.length;i ++){
-            questionArray[i] = Integer.parseInt(questions[i]);
-            answers += questionMapper.selectPaperAnswer(questionArray[i]) + ",";
+        if(paper.getQuestions() != "") {
+            String[] questions = paper.getQuestions().split(",");
+            int[] questionArray = new int[questions.length];
+            String answers = "";
+            for (int i = 0; i < questionArray.length; i++) {
+                questionArray[i] = Integer.parseInt(questions[i]);
+                answers += questionMapper.selectPaperAnswer(questionArray[i]) + ",";
+            }
+            String paperAnswers = answers.substring(0, answers.length() - 1);
+            paper.setCorrect_answers(paperAnswers);
         }
-        String paperAnswers = answers.substring(0,answers.length() - 1);
         paper.setCreate_date(df.format(date));
-        paper.setCorrect_answers(paperAnswers);
         paperMapper.insertSelective(paper);
     }
 

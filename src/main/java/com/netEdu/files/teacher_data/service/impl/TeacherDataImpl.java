@@ -25,24 +25,30 @@ public class TeacherDataImpl implements TeacherDataService {
     }
 
     @Override
-    public void uploadOne(String data_title, int teacher_id, int course_id, String share, String savepathAndType) {
+    public String uploadOne(String data_title, int teacher_id, int course_id, String share, String savepathAndType) {
         TeacherData teacherData = new TeacherData();
         teacherData.setData_title(data_title);
         teacherData.setTeacher_id(teacher_id);
         teacherData.setCourse_id(course_id);
         teacherData.setShare(share);
         String[] str = savepathAndType.split(",");
-        teacherData.setData_type(str[1].toString());
-        Date date=new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //当前时间 df.format(date)
-        teacherData.setUpload_time(df.format(date));
-        teacherData.setSavepath(str[0].toString());
-        teacherDataMapper.insertSelective(teacherData);
+        if (str[1].toString().equals("false")){
+            return "上传文件类型错误";
+        }
+        else {
+            teacherData.setData_type(str[1].toString());
+            Date date=new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //当前时间 df.format(date)
+            teacherData.setUpload_time(df.format(date));
+            teacherData.setSavepath(str[0].toString());
+            teacherDataMapper.insertSelective(teacherData);
+            return "SUCCESS";
+        }
     }
 
     @Override
-    public void uploadMany(String data_titles, int teacher_id, int course_id, String shares, String savepathsAndTypes) {
+    public String uploadMany(String data_titles, int teacher_id, int course_id, String shares, String savepathsAndTypes) {
         String[] title = data_titles.split(",");
         String[] str = savepathsAndTypes.split("[?]");
         String[] types = str[1].split(",");
@@ -57,11 +63,17 @@ public class TeacherDataImpl implements TeacherDataService {
             //当前时间 df.format(date)
             teacherData.setUpload_time(df.format(date));
             teacherData.setData_title(title[i].toString());
-            teacherData.setData_type(types[i].toString());
-            teacherData.setSavepath(paths[i].toString());
-            teacherData.setShare(share[i].toString());
-            teacherDataMapper.insertSelective(teacherData);
+            if (types[i].toString().equals("false")) {
+                return "上传文件类型错误";
+            }
+            else {
+                teacherData.setData_type(types[i].toString());
+                teacherData.setSavepath(paths[i].toString());
+                teacherData.setShare(share[i].toString());
+                teacherDataMapper.insertSelective(teacherData);
+            }
         }
+        return "SUCCESS";
     }
 
     @Override
