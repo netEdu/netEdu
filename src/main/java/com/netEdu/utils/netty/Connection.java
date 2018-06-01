@@ -69,16 +69,11 @@ public class Connection {
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
                     System.currentTimeMillis()+"]");
             String newMsg1= newMsg.replaceFirst(","+classId,"");
+            System.out.println(newMsg1);
             for (Channel c:classGroup.get(classId)){
-                if(ch!=c){
                     c.writeAndFlush(new TextWebSocketFrame(newMsg1));
-                }
-
             }
-
         }
-
-
     }
 
     public static void warn(TextWebSocketFrame msg){

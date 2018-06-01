@@ -10,9 +10,9 @@ public interface TeacherDataService {
 
     List<Course> queryCourse(String teacher_id);
 
-    void uploadOne(String data_title,int student_id,int course_id,String share,String savepathAndType);
+    String uploadOne(String data_title,int student_id,int course_id,String share,String savepathAndType);
 
-    void uploadMany(String data_titles,int student_id,int course_id,String shares,String savepathsAndTypes);
+    String uploadMany(String data_titles,int student_id,int course_id,String shares,String savepathsAndTypes);
 
     List<TeacherData> queryTeacherData(TeacherData teacherData);
 

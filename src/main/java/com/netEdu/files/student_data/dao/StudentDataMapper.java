@@ -7,6 +7,7 @@ import com.netEdu.entity.TeacherData;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -50,5 +51,8 @@ public interface StudentDataMapper extends BaseMapper<StudentData> {
 
     @Delete("delete from student_data where FIND_IN_SET(data_id,#{0})")
     void removeFiles(String data_ids);
+
+    @Update("update student_data set backup = #{score} where data_id = #{data_id}")
+    void dataScore(StudentData studentData);
 
 }

@@ -52,4 +52,12 @@ public class ScoreController extends BaseController<ScoreVO>{
         return Result.success(scoreService.AVGStudentId(student_id));
     }
 
+    //查询所有学生各项平均成绩
+    @ApiOperation(value = "|Score|查询所有学生各项平均成绩（卷子+考勤+小测+成果）",notes = "page:页码</br>"+"pageSize:页容量")
+    @PostMapping(value = "/AVGAllStudent")
+    public ResponseMessage<PageInfo<ScoreVO>> AVGAllStudent(@ApiParam(value = "传入page页码，pageSize页容量" ,required=false )@RequestBody ScorePage page){
+        List<ScoreVO>result=scoreService.AvGAllStudent(page);
+        return Result.success(getPageInfo(page.getPager(),result));
+    }
+
 }

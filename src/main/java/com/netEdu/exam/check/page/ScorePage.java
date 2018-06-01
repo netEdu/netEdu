@@ -15,6 +15,7 @@ public class ScorePage extends BasePage {
     private int student_id;
     private String student_name;
     private String paper_name;
+    private int class_num;
 
     public int getStudent_id() {
         return student_id;
@@ -48,5 +49,13 @@ public class ScorePage extends BasePage {
 
     public void setPaper_name(String paper_name) {
         this.paper_name = paper_name;
+    }
+
+    public int getClass_num() {
+        return class_num;
+    }
+
+    public void setClass_num(int class_num) {
+        this.class_num = class_num;
     }
 }
