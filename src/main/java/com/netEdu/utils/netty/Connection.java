@@ -67,7 +67,7 @@ public class Connection {
         String classId = message.split(",")[1];
         if(classGroup.containsKey(classId)){
             String newMsg=message.replaceFirst(message.split("]")[0],message.split("]")[0]+","+
-                    System.currentTimeMillis()+"]");
+                    System.currentTimeMillis());
             String newMsg1= newMsg.replaceFirst(","+classId,"");
             System.out.println(newMsg1);
             for (Channel c:classGroup.get(classId)){
@@ -220,6 +220,7 @@ public class Connection {
     public static void shutDown(Channel ch){
          String ip = getIpAddress(ch);
          String id = ip_idMap.get(ip);
+         String classes="";
         List<Group> groups=connection.groupInjectService.checkAllGroup(id);
         if (groups.size()>0){//查看是否有加入的讨论组
             String gid;
@@ -240,6 +241,21 @@ public class Connection {
                 entry.getValue().remove(ch);
             }
         }
+
+        //检查教师是否加入过班级
+        for(ConcurrentHashMap.Entry<String,String> entry:class_teacher.entrySet()){
+            //遍历map查看是否有加入班级中
+            if (entry.getValue().equals(id)){
+                classes+=entry.getKey()+",";
+            }
+        }
+        String[] classesArray= classes.split(",");
+        for (String cls:classesArray){
+            if (class_teacher.containsKey(cls)){
+                class_teacher.remove(cls);
+            }
+        }
+
 
          if(AllConnections.containsKey(id)){
              AllConnections.remove(id);
