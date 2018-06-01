@@ -30,7 +30,9 @@ public interface TeacherDataMapper extends BaseMapper<TeacherData> {
     List<TeacherData> showTeacherDataList(TeacherData teacherData);
 
     @Select("<script>SELECT " +
-            "student_data.*, student.`name`," +
+            "student_data.*," +
+            "student_data.`backup` AS score," +
+            "student.`name`," +
             "course.course_name," +
             "student.class_num " +
             "FROM " +
