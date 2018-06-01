@@ -72,12 +72,8 @@ public class Connection {
             System.out.println(newMsg1);
             for (Channel c:classGroup.get(classId)){
                     c.writeAndFlush(new TextWebSocketFrame(newMsg1));
-
             }
-
         }
-
-
     }
 
     public static void warn(TextWebSocketFrame msg){

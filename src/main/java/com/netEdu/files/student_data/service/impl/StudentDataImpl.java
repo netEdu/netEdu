@@ -25,23 +25,29 @@ public class StudentDataImpl implements StudentDataService{
     }
 
     @Override
-    public void uploadOne(String data_title, int student_id, int course_id,String savepathAndType) {
+    public String uploadOne(String data_title, int student_id, int course_id,String savepathAndType) {
         StudentData studentData = new StudentData();
         studentData.setData_title(data_title);
         studentData.setStudent_id(student_id);
         studentData.setCourse_id(course_id);
         String[] str = savepathAndType.split(",");
-        studentData.setData_type(str[1].toString());
-        Date date=new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //当前时间 df.format(date)
-        studentData.setUpload_time(df.format(date));
-        studentData.setSavepath(str[0].toString());
-        studentDataMapper.insertSelective(studentData);
+        if ("false".equals(str[1].toString())){
+            return "上传文件类型错误";
+        }
+        else {
+            studentData.setData_type(str[1].toString());
+            Date date=new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //当前时间 df.format(date)
+            studentData.setUpload_time(df.format(date));
+            studentData.setSavepath(str[0].toString());
+            studentDataMapper.insertSelective(studentData);
+            return "SUCCESS";
+        }
     }
 
     @Override
-    public void uploadMany(String data_titles, int student_id, int course_id, String savepathsAndTypes) {
+    public String uploadMany(String data_titles, int student_id, int course_id, String savepathsAndTypes) {
         String[] title = data_titles.split(",");
         String[] str = savepathsAndTypes.split("[?]");
         String[] types = str[1].split(",");
@@ -55,10 +61,16 @@ public class StudentDataImpl implements StudentDataService{
             //当前时间 df.format(date)
             studentData.setUpload_time(df.format(date));
             studentData.setData_title(title[i].toString());
-            studentData.setData_type(types[i].toString());
-            studentData.setSavepath(paths[i].toString());
-            studentDataMapper.insertSelective(studentData);
+            if (types[i].toString().equals("false")) {
+                return "上传文件类型错误";
+            }
+            else {
+                studentData.setData_type(types[i].toString());
+                studentData.setSavepath(paths[i].toString());
+                studentDataMapper.insertSelective(studentData);
+            }
         }
+        return "SUCCESS";
     }
 
     @Override
@@ -87,7 +99,7 @@ public class StudentDataImpl implements StudentDataService{
 
     @Override
     public void markData(StudentData studentData) {
-        studentDataMapper.updateByPrimaryKeySelective(studentData);
+        studentDataMapper.dataScore(studentData);
     }
 
 }
