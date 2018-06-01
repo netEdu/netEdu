@@ -39,4 +39,9 @@ public class ScoreImpl implements ScoreService {
     public ScoreVO AVGStudentId(int student_id) {
         return scoreMapper.AVGStudentId(student_id);
     }
+
+    @Override
+    public List<ScoreVO> AvGAllStudent(ScorePage page) {
+        return scoreMapper.AVGAllStudentId(page);
+    }
 }

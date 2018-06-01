@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FileUtil {
 
-    private static String path = "F:/test";
+    private static String path = "D:/test";
 
     public static String uploadOne(MultipartFile file){
         if(file.isEmpty()){

@@ -19,4 +19,6 @@ public interface ScoreService {
     List<ScoreVO> selectScoreByStudentId(ScorePage page);
 
     ScoreVO AVGStudentId(int student_id);
+
+    List<ScoreVO> AvGAllStudent(ScorePage page);
 }
