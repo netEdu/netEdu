@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class PaperPage extends BasePage {
 
-    private Integer pageSize = 2;
+    private Integer pageSize = 10;
 
     private int paper_id;
 
