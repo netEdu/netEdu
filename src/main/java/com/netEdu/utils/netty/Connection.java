@@ -36,7 +36,7 @@ public class Connection {
         if(class_teacher.containsKey(class_id)){
             if(AllConnections.containsKey(class_teacher.get(class_id))){
                 channel=AllConnections.get(class_teacher.get(class_id));
-                channel.writeAndFlush(new TextWebSocketFrame(message.split(",")[2]));
+                channel.writeAndFlush(new TextWebSocketFrame("7,"+message.split(",")[2]));
             }
         }
     }
@@ -232,6 +232,7 @@ public class Connection {
                 }
 
 
+
             }
         }
 
@@ -256,13 +257,18 @@ public class Connection {
             }
         }
 
+        if(ch==null || id == null || ip == null){
+            System.out.println("连接意外终端。。。。shut down");
+        }else{
+            if(AllConnections.containsKey(id)){
+                AllConnections.remove(id);
+            }
+            if (ip_idMap.containsKey(ip)){
+                ip_idMap.remove(ip);
+            }
+        }
 
-         if(AllConnections.containsKey(id)){
-             AllConnections.remove(id);
-         }
-         if (ip_idMap.containsKey(ip)){
-             ip_idMap.remove(ip);
-         }
+
 
     }
     @PostConstruct
