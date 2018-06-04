@@ -53,7 +53,7 @@ public interface PaperMapper extends BaseMapper<Paper> {
     @Select("select questions from paper where paper_id = #{0}")
     String selectQuestionForPaper(int id);
 
-    @Select("select * from question where FIND_IN_SET(question_id,#{0})")
+    @Select("select * from question left join teacher on question.teacher_id = teacher.teacher_id where FIND_IN_SET(question_id,#{0})")
     @ResultMap("BaseResultMap")
     List<Question> showPaper(String questions);
 
