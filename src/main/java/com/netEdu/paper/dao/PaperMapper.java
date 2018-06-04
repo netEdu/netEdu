@@ -18,11 +18,18 @@ public interface PaperMapper extends BaseMapper<Paper> {
      * @param paperPage
      * @return
      */
-    @Select("<script>select count(1) from paper " +
-            "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher_name like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
+    @Select("<script>select count(1) " +
+            "from paper " +
+            "left join teacher " +
+            "on paper.teacher_id = teacher.teacher_id " +
+            "where 1=1" +
+            "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher.`name` like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
             "<if test=\"paper_name !=null and paper_name != '' \">and paper_name like CONCAT(CONCAT('%',#{paper_name},'%')) </if> " +
             "<if test=\"remarks !=null and remarks != '' \">and remarks like CONCAT(CONCAT('%',#{remarks},'%')) </if> " +
-            "<if test=\"startDate !=null and startDate != '' and endDate !=null and endDate !='' \">and create_date between #{startDate} and #{endDate} </if> </script>" )
+            "<if test=\"startDate !=null and startDate != '' and endDate !=null and endDate !='' \">and create_date between #{startDate} and #{endDate} </if> " +
+            "and paper.del_flag = 0" +
+            "</script>"
+    )
     Integer queryByCount(PaperPage paperPage);
 
     @Select("<script>select paper_id," +
@@ -34,7 +41,7 @@ public interface PaperMapper extends BaseMapper<Paper> {
             "remarks," +
             "create_date " +
             "from paper left join teacher on paper.teacher_id = teacher.teacher_id where 1=1" +
-            "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher_name like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
+            "<if test=\"teacher_name !=null and teacher_name != '' \">and teacher.`name` like CONCAT(CONCAT('%',#{teacher_name},'%')) </if> " +
             "<if test=\"paper_name !=null and paper_name != '' \">and paper_name like CONCAT(CONCAT('%',#{paper_name},'%')) </if> " +
             "<if test=\"remarks !=null and remarks != '' \">and remarks like CONCAT(CONCAT('%',#{remarks},'%')) </if> " +
             "<if test=\"startDate !=null and startDate != '' and endDate !=null and endDate !='' \">and create_date between #{startDate} and #{endDate} </if> " +
@@ -46,7 +53,7 @@ public interface PaperMapper extends BaseMapper<Paper> {
     @Select("select questions from paper where paper_id = #{0}")
     String selectQuestionForPaper(int id);
 
-    @Select("select * from question where FIND_IN_SET(question_id,#{0})")
+    @Select("select * from question left join teacher on question.teacher_id = teacher.teacher_id where FIND_IN_SET(question_id,#{0})")
     @ResultMap("BaseResultMap")
     List<Question> showPaper(String questions);
 
