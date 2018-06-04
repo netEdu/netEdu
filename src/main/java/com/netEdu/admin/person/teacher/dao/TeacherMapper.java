@@ -17,13 +17,13 @@ public interface TeacherMapper extends BaseMapper<Teacher>{
      * @return
      */
     @Select("<script>select count(1) from teacher " +
-            "<if test=\"'name' !=null and 'name' != '' \">and 'name' like CONCAT(CONCAT('%',#{name},'%')) </if> " +
+            "<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> " +
             "<if test=\"sex !=null and sex != '' \">and sex = #{sex} </if> " +
             "<if test=\"position !=null and position != '' \">and position = #{position} </if> </script>")
     Integer queryByCount(TeacherPage teacherPage);
 
     @Select("<script>select * from teacher where 1=1 " +
-            "<if test=\"'name' !=null and 'name' != '' \">and 'name' like CONCAT(CONCAT('%',#{name},'%')) </if> " +
+            "<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> " +
             "<if test=\"sex !=null and sex != '' \">and sex = #{sex} </if> " +
             "<if test=\"position !=null and position != '' \">and position = #{position} </if> " +
             "and del_flag = 0 limit #{page},#{pageSize}" +
