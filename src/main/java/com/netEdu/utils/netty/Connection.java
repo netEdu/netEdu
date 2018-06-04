@@ -257,13 +257,18 @@ public class Connection {
             }
         }
 
+        if(ch==null || id == null || ip == null){
+            System.out.println("连接意外终端。。。。shut down");
+        }else{
+            if(AllConnections.containsKey(id)){
+                AllConnections.remove(id);
+            }
+            if (ip_idMap.containsKey(ip)){
+                ip_idMap.remove(ip);
+            }
+        }
 
-         if(AllConnections.containsKey(id)){
-             AllConnections.remove(id);
-         }
-         if (ip_idMap.containsKey(ip)){
-             ip_idMap.remove(ip);
-         }
+
 
     }
     @PostConstruct
