@@ -31,7 +31,7 @@ public interface QuestionMapper extends BaseMapper<Question> {
     @Select("<script>select count(1) from question where 1=1"
             +"<if test=\"question_type !=null and question_type != '' \">and question_type = #{question_type} </if> "
             +"<if test=\"question_content !=null and question_content != '' \">and question_content like CONCAT(CONCAT('%',#{question_content},'%')) </if> "
-            +"<if test=\"name !=null and name != '' \">and name like CONCAT(CONCAT('%',#{name},'%')) </if> "
+            +"<if test=\"'name' !=null and 'name' != '' \">and 'name' like CONCAT(CONCAT('%',#{name},'%')) </if> "
             +"<if test=\"difficulty !=null and difficulty != '' \">and difficulty = #{difficulty} </if> "
             +"<if test=\"frequency !=null and frequency != '' \">and frequency = #{frequency} </if> "
             +"<if test=\"error_times !=null and error_times != '' \">and error_times = #{error_times} </if> "
