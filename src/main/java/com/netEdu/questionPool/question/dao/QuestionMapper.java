@@ -72,7 +72,7 @@ public interface QuestionMapper extends BaseMapper<Question> {
     void upError_times(String flashAnswer);
 
     @Select("<script>" +
-            "select * from question where question.question_id NOT IN (" +
+            "select * from question left join teacher on question.teacher_id = teacher.teacher_id where question.question_id NOT IN (" +
             "<foreach collection=\"existQuestionIdList\" item=\"item\" separator=\",\">" +
             "#{item}" +
             "</foreach>" +

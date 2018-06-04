@@ -23,7 +23,9 @@
         WHERE  student.del_flag=0
         AND s_evaluate.del_flag=0
         AND s_evaluate.student_id=student.student_id
-        AND s_evaluate.student_id=#{student_id}
+        <if test="student_id != 0">
+            AND   s_evaluate.student_id=#{student_id}
+        </if>
         LIMIT ${pager.startIndex-1},#{pageSize}
 
     </select>

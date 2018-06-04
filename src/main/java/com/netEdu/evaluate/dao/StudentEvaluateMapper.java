@@ -19,7 +19,10 @@ import java.util.List;
  */
 @Mapper
 public interface StudentEvaluateMapper extends BaseMapper<StudentEvaluate>{
-    @Select("SELECT COUNT(1) FROM s_evaluate WHERE student_id=#{student_id} AND del_flag=0")
+    @Select("<script>SELECT COUNT(1) FROM s_evaluate WHERE 1=1" +
+            "<if test=\"student_id !=0 and student_id != '' \">and student_id=#{student_id}  </if> " +
+            "AND del_flag=0" +
+            "</script>")
     Integer queryByCount(StudentEvaluatePage page);
 
     List<StudentEvaluateVO> queryByPage(StudentEvaluatePage page);
