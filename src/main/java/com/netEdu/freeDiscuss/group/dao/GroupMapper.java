@@ -67,4 +67,6 @@ public interface GroupMapper {
     @Select("select * from student where class_num = #{0} and del_flag = 0")
     List<Student> selectStudentsByClass(String id);
 
+    @Select("select * from `group`")
+    List<Group> getAllChatGroup();
 }
