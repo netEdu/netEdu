@@ -34,4 +34,6 @@ public interface StudentMapper extends BaseMapper<Student>{
     @Select("select * from student where username = #{0}")
     List<Student> checkStudent(String username);
 
+    @Select("select * from student where NOT student_id=#{myId} AND del_flag=0")
+    List<Student> withoutMyself(String myId);
 }

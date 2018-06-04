@@ -7,10 +7,13 @@ import com.adc.da.util.http.Result;
 import com.netEdu.admin.person.student.service.StudentService;
 import com.netEdu.admin.person.student.vo.StudentPage;
 import com.netEdu.entity.Student;
+import com.sun.org.glassfish.external.probe.provider.annotations.ProbeParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Person")
@@ -48,6 +51,13 @@ public class StudentController extends BaseController<Student>{
     @GetMapping(value = "/checkStudent")
     public String checkUsername(@RequestParam String username){
         return studentService.check(username);
+    }
+
+
+    @ApiOperation(value = "|Student|查询不包括自己的所有学生")
+    @PostMapping(value = "/withoutMyself")
+    public List<Student> withoutMyself(@RequestParam String myId){
+        return studentService.withoutMyself(myId);
     }
 
 }

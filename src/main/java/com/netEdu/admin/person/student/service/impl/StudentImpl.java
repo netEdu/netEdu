@@ -42,4 +42,9 @@ public class StudentImpl implements StudentService{
         return "COULD BE OK";
     }
 
+    @Override
+    public List<Student> withoutMyself(String myId) {
+        return studentMapper.withoutMyself(myId);
+    }
+
 }
