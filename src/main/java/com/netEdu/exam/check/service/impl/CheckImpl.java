@@ -30,11 +30,15 @@ public class CheckImpl implements CheckService{
                         //往数据库记录学生答案
         this.addAnswer(answer);
                         //得到此卷子正确答案
+        String answerForPaper= paperMapper.selectAnswerForPaper(answer.getPaper_id());
        /* .................................................................................................*/
                         //查询此卷子由那些问题组成
-        String answerForPaper= paperMapper.selectAnswerForPaper(answer.getPaper_id());
+        String selectQuestionsForPaper= paperMapper.selectQuestionsForPaper(answer.getPaper_id());
+        String[] QuestionIds=selectQuestionsForPaper.split(",");
+
+
                         //问题初次次数+1
-        questionMapper.upFrequency(answerForPaper);
+      //  questionMapper.upFrequency(selectQuestionsForPaper);
 
         String[] answerForPaperList = answerForPaper.split(",");
 
@@ -49,14 +53,23 @@ public class CheckImpl implements CheckService{
         List flashAnswer =new ArrayList();
                         //判断那个题错了，得到学生的错误答案
         List flashNumber = new ArrayList();
+
+        //声明错误问题id组；
+        String flashQuestionIds="";
+
         for (int i=0;i<StudentAnswer.length;i++){
             if (!StudentAnswer[i].equals(RightAnswer[i])){// i:第几题
                 flashAnswer.add(answerForPaperList[i]);
+                System.out.println(QuestionIds[i]);
+                flashQuestionIds=QuestionIds[i]+","+flashQuestionIds;
                 flashNumber.add(i+1);
             }
         }
+        String lastflashQuestionIds=flashQuestionIds.substring(0,flashQuestionIds.length()-1);
+        System.out.println(lastflashQuestionIds);
                         //添加错误次数
-        questionMapper.upError_times(String.join(",", flashAnswer));
+        questionMapper.upError_times(lastflashQuestionIds);
+        //questionMapper.upError_times(String.join(",", flashAnswer));
 
                         //计算分数
         Score score=new Score();

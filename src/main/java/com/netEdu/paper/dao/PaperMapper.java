@@ -63,6 +63,9 @@ public interface PaperMapper extends BaseMapper<Paper> {
     @Select("select correct_answers from paper where paper_id = #{0}")
     String selectAnswerForPaper(int id);
 
+    @Select("select questions from paper where paper_id = #{0}")
+    String selectQuestionsForPaper(int id);
+
     @Update("UPDATE paper SET questions = NULL,correct_answers = NULL WHERE paper_id = #{paper_id}")
     void upQuestionsnull(Paper paper);
 
