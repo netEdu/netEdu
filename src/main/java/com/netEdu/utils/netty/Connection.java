@@ -78,9 +78,15 @@ public class Connection {
 
     public static void warn(TextWebSocketFrame msg){
         String message=msg.text();
-        String student_id=message.split(",")[1];
-        Channel ch=AllConnections.get(student_id);
-        ch.writeAndFlush(new TextWebSocketFrame("5"));
+        String class_id = message.split(",")[2];
+        String ids = message.split(",")[1];
+        //Channel ch=AllConnections.get(student_id);
+        if(classGroup.containsKey(class_id)){
+            ChannelGroup group = classGroup.get(class_id);
+            for(Channel ch:group){
+                ch.writeAndFlush(new TextWebSocketFrame("5,"+ids));
+            }
+        }
     }
 
     public static void studentRate(TextWebSocketFrame msg){
