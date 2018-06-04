@@ -22,13 +22,15 @@ public interface TeacherClientMapper extends BaseMapper<Teacher>{
             "where teacher.teacher_id = #{0} and course.audit_status = 1 and course.del_flag = 0")
     List<Course> selectCourseById(int teacher_id);
 
-    @Select("select * " +
-            "from student " +
-            "left join course " +
-            "on student.class_num = course.class_num " +
-            "left join teacher " +
-            "on course.teacher_id = teacher.teacher_id " +
-            "where teacher.teacher_id = #{0}")
+    @Select("SELECT\n" +
+            "\tstudent.*,course.class_num\n" +
+            "FROM\n" +
+            "\tstudent\n" +
+            "LEFT JOIN course ON student.class_num = course.class_num\n" +
+            "LEFT JOIN teacher ON course.teacher_id = teacher.teacher_id\n" +
+            "where teacher.teacher_id = #{0}\n" +
+            "GROUP BY student.student_id\n" +
+            "ORDER BY student.student_id")
     List<Student> selectMyStudent(int teacher_id);
 
     @Select("select paper.*," +
