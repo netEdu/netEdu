@@ -155,8 +155,25 @@ public class GroupImpl implements GroupService{
     }
 
     @Override
-    public List<Group> getAllChatGroup() {
-        return groupMapper.getAllChatGroup();
+    public List<Group> getAllChatGroup(String id) {
+        List<Group> raw = groupMapper.getAllChatGroup();
+        List<Group> result = new ArrayList<Group>();
+        String ids;
+        boolean ifInGroup=false;
+        for (Group group: raw){
+            ids=group.getPerson_id();
+            ids=ids.replaceFirst(",","");
+            for(String single:ids.split(",")){
+                if (single.equals(id)){
+                    ifInGroup=true;
+                }
+            }
+            if (!ifInGroup){
+                result.add(group);
+            }
+            ifInGroup=false;
+        }
+        return result;
     }
 
     @Override
