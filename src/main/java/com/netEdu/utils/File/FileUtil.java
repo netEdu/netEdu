@@ -29,10 +29,10 @@ public class FileUtil {
         try {
             file.transferTo(dest);
             String fileType = "";
-            if (suffix.equals("txt") || suffix.equals("doc") || suffix.equals("docx") || suffix.equals("xls")){
+            if (suffix.equals("txt") || suffix.equals("doc") || suffix.equals("docx") || suffix.equals("xls") || suffix.equals("xlsx")){
                 fileType = "0";
             }
-            else if (suffix.equals("ppt")){
+            else if (suffix.equals("ppt") || suffix.equals("pptx")){
                 fileType = "1";
             }
             else if (suffix.equals("swf")){
@@ -73,10 +73,10 @@ public class FileUtil {
                 //所有的文件路径
                 str += dest.toString() + ",";
                 String fileType = "";
-                if (suffix[1].equals("txt") || suffix[1].equals("doc") || suffix[1].equals("docx") || suffix[1].equals("xls")){
+                if (suffix[1].equals("txt") || suffix[1].equals("doc") || suffix[1].equals("docx") || suffix[1].equals("xls") || suffix.equals("xlsx")){
                     fileType = "0";
                 }
-                else if (suffix[1].equals("ppt")){
+                else if (suffix[1].equals("ppt") || suffix.equals("pptx")){
                     fileType = "1";
                 }
                 else if (suffix[1].equals("swf")){
@@ -116,7 +116,7 @@ public class FileUtil {
         if (file.exists()) {
             response.setContentType("application/force-download");
             response.setHeader("Content-Disposition", "attachment;filename="
-                    + new String(filename.getBytes(), "ISO-8859-1"));
+                    + new String(savepath.getBytes(), "ISO-8859-1"));
             byte[] buffer = new byte[1024];
             FileInputStream fis = null;
             BufferedInputStream bis = null;
