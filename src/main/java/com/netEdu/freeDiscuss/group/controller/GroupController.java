@@ -67,4 +67,9 @@ public class GroupController {
     }
 
 
+    @ApiOperation(value = "|freeDiscuss|查询所有自由讨论组",notes ="啥也不用发，返回一个list，里面都是Group")
+    @PostMapping("/selectAllChatGroup")
+    public List<Group> selectAllChatGroup(){
+        return groupImpl.getAllChatGroup();
+    }
 }

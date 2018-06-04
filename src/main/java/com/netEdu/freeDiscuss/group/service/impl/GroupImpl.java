@@ -155,6 +155,11 @@ public class GroupImpl implements GroupService{
     }
 
     @Override
+    public List<Group> getAllChatGroup() {
+        return groupMapper.getAllChatGroup();
+    }
+
+    @Override
     public List<Student> findStudents(String id) {
         return groupMapper.selectStudentsByClass(id);
     }

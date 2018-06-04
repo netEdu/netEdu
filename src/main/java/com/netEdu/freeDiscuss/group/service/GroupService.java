@@ -21,4 +21,7 @@ List<Group> getGroupById(Group group);
 GroupVO getPersonInfo(String personIds);
 
 List<Student> findStudents(String id);
+
+List<Group> getAllChatGroup();
+
 }
