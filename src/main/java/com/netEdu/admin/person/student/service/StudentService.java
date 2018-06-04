@@ -13,4 +13,5 @@ public interface StudentService {
 
     String check(String username);
 
+    List<Student> withoutMyself(String myId);
 }
