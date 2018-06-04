@@ -38,7 +38,7 @@ public class CheckImpl implements CheckService{
 
 
                         //问题初次次数+1
-      //  questionMapper.upFrequency(selectQuestionsForPaper);
+        questionMapper.upFrequency(selectQuestionsForPaper);
 
         String[] answerForPaperList = answerForPaper.split(",");
 
