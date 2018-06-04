@@ -36,7 +36,7 @@ public class Connection {
         if(class_teacher.containsKey(class_id)){
             if(AllConnections.containsKey(class_teacher.get(class_id))){
                 channel=AllConnections.get(class_teacher.get(class_id));
-                channel.writeAndFlush(new TextWebSocketFrame(message.split(",")[2]));
+                channel.writeAndFlush(new TextWebSocketFrame("7,"+message.split(",")[2]));
             }
         }
     }
@@ -230,6 +230,7 @@ public class Connection {
                     Channel channel=AllConnections.get(id);
                     chatGroup.get(gid).remove(channel);
                 }
+
 
 
             }
